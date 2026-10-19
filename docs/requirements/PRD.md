@@ -8,17 +8,17 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Mã tài liệu | PRD-CWD-001 |
-| Phiên bản | 0.1 |
+| Phiên bản | 0.2 (cập nhật theo BRD v0.3 và 14 quyết định ngày 2026-10-19) |
 | Trạng thái | Draft |
 | Tiêu chuẩn áp dụng | IEEE 29148-2018 |
-| Tài liệu nguồn | [BRD.md](BRD.md) – BRD-CWD-001 v0.2 (In review) |
+| Tài liệu nguồn | [BRD.md](BRD.md) – BRD-CWD-001 v0.3 (In review) |
 | Kết quả review BRD | [BRD_IEEE_29148_Checklist.xlsx](BRD_IEEE_29148_Checklist.xlsx) – 8 Pass / 9 Partial / 3 Fail |
 | Người soạn | Product Manager |
 | Người review | Trưởng đội kỹ thuật, Designer, QA lead, Trưởng đội BD, Bảo mật thông tin |
 | Ngày | 2026-10-19 |
 
 **Quy ước:**
-- `[Đề xuất]` = giá trị kế thừa từ BRD hoặc do PM đề xuất, chưa được bên liên quan xác nhận.
+- `[Đề xuất]` = giá trị kế thừa từ BRD hoặc do PM đề xuất, chưa được bên liên quan xác nhận. Các giá trị đã được xác nhận ngày 2026-10-19 theo [BRD Mục 12.1](BRD.md) (DEC-001 – DEC-011) coi là đã xác nhận, kể cả khi nhãn `[Đề xuất]` còn sót lại.
 - Ưu tiên **P0** = bắt buộc để ra mắt (tương ứng *Must* trong BRD), **P1** = nên có (*Should*), **P2** = có thì tốt (*Could*).
 - Mỗi user story truy vết tới một hoặc nhiều yêu cầu nghiệp vụ `BR-xxx` trong BRD.
 
@@ -53,7 +53,7 @@
 
 Về dài hạn (sau MVP, tùy quyết định go/no-go ngày 2027-01-22), sản phẩm có thể mở rộng thành điểm tra cứu tri thức chung của tổ chức: nhiều định dạng tài liệu, phân quyền theo dự án, tích hợp kho tài liệu sẵn có. MVP chỉ chứng minh giả thuyết cốt lõi: *hỏi đáp có trích dẫn trên PDF giúp đội BD tra cứu nhanh hơn mà không giảm độ chính xác.*
 
-> Ghi chú: BRD chưa có tuyên bố tầm nhìn (checklist dòng 5 – Fail). Tầm nhìn trên là đề xuất của PM; cần nhà tài trợ xác nhận và bổ sung ngược vào BRD.
+> **Đã duyệt nguyên văn bởi sonnt ngày 2026-10-19 (DEC-014)** và đã đưa vào BRD v0.4, Mục 2.
 
 ### 1.2 OKR
 
@@ -65,7 +65,7 @@ Thời hạn đánh giá: cuối thí điểm, 2027-01-15.
 |---|---|---|---|
 | KR1.1 | Thời gian trung bình để tìm một thông tin (bài đo 10 tác vụ chuẩn) | ≤ 10 phút, giảm ≥ 50% so với baseline đo ngày 2026-12-11 `[Đề xuất]` | MET-001, BR-013 |
 | KR1.2 | Thời gian phản hồi p90, tính từ lúc gửi câu hỏi đến khi hiển thị đầy đủ câu trả lời | ≤ 15 giây với kho ≥ 200 tài liệu `[Đề xuất]` | BR-013 |
-| KR1.3 | Thời gian p90 để một PDF 100 trang chuyển sang trạng thái "Sẵn sàng" | ≤ 3 phút `[Đề xuất]` | PQ-007 |
+| KR1.3 | Thời gian p90 để một PDF 100 trang chuyển sang trạng thái "Sẵn sàng" | ≤ 3 phút với PDF có lớp văn bản; ≤ 15 phút với PDF ảnh quét (OCR) `[Đề xuất]` | PQ-007, OQ-017 |
 
 **O2 – Câu trả lời đủ tin cậy để dùng trong công việc**
 
@@ -88,7 +88,7 @@ Thời hạn đánh giá: cuối thí điểm, 2027-01-15.
 
 ### 2.1 Persona mục tiêu
 
-> Các persona dưới đây được xây dựng từ BRD và là **giả thuyết**; cần xác nhận qua buổi phỏng vấn OQ-016 (checklist dòng 7 – Fail).
+> Các persona dưới đây được xây dựng từ BRD. **sonnt đã chấp nhận làm cơ sở thiết kế (DEC-015, 2026-10-19)**, nhưng vẫn là giả thuyết cho tới khi xác minh qua buổi phỏng vấn ≥ 3 người BD (OQ-016).
 
 #### Persona chính – P1: "Lan, Chuyên viên BD"
 
@@ -124,7 +124,7 @@ Thời hạn đánh giá: cuối thí điểm, 2027-01-15.
 #### Anti-persona (không phục vụ trong MVP)
 
 - Khách hàng/đối tác bên ngoài (BRD Mục 5.2).
-- Người dùng cần tra cứu tài liệu dạng ảnh quét, Word hoặc Excel (BRU-006, BR-025).
+- Người dùng cần tra cứu tài liệu Word hoặc Excel (BR-025). PDF ảnh quét **được** hỗ trợ bằng OCR (DEC-010).
 
 ### 2.2 Hành trình người dùng cấp cao
 
@@ -170,7 +170,7 @@ journey
 | E1 | Truy cập và xác thực | Chỉ người được cấp quyền mới vào được | BR-016 | 2 / 0 / 0 |
 | E2 | Quản lý kho tài liệu | Đưa PDF vào kho và giữ kho đúng | BR-001 – BR-007, BR-027 | 5 / 3 / 0 |
 | E3 | Hỏi đáp có trích dẫn | Năng lực cốt lõi | BR-008 – BR-015, BR-026 | 5 / 3 / 0 |
-| E4 | Định hướng người dùng mới | Kích hoạt người dùng nhanh (KR3.2) | — (hỗ trợ BO-003) | 0 / 1 / 0 |
+| E4 | Định hướng người dùng mới | Kích hoạt người dùng nhanh (KR3.2) | BR-020 | 0 / 2 / 0 |
 | E5 | Tóm tắt, lịch sử, sao chép | Tăng giá trị sử dụng lại | BR-019, BR-021, BR-022 | 0 / 3 / 0 |
 | E6 | Phản hồi và đo lường | Đo OKR | BR-023, BR-024 | 1 / 1 / 0 |
 | E7 | Quản trị và tuân thủ | Điều kiện để ra mắt | BR-017, BR-018, BR-028, BR-029 | 2 / 3 / 0 |
@@ -192,12 +192,14 @@ journey
 
 ### 3.3 E2 – Quản lý kho tài liệu
 
+> **Phân quyền (DEC-001, BRU-007):** chỉ **Trưởng nhóm BD** được tải tài liệu lên. Người dùng BD thường và quản trị viên không thấy vùng tải lên; quản trị viên vẫn được xóa mọi tài liệu. Các story US-010 – US-014 và US-017 vì vậy chỉ áp dụng cho Trưởng nhóm BD (Minh).
+
 | ID | User story | Ưu tiên | BR |
 |---|---|---|---|
 | US-010 | Là **Minh**, tôi muốn tải một tệp PDF lên kho chung, để cả đội hỏi được về nội dung của nó. | P0 | BR-001 |
 | US-011 | Là **Minh**, tôi muốn được báo ngay khi tệp không phải PDF hoặc lớn hơn 50 MB, để tôi biết cần xử lý tệp đó thế nào. | P0 | BR-003, BR-004 |
 | US-012 | Là **Minh**, tôi muốn thấy trạng thái xử lý của từng tệp (Đang xử lý / Sẵn sàng / Thất bại kèm lý do), để tôi biết khi nào đội có thể hỏi. | P0 | BR-005 |
-| US-013 | Là **Minh**, tôi muốn được báo rõ khi PDF là ảnh quét, để tôi đi tìm bản PDF có văn bản. | P0 | BR-027 |
+| US-013 | Là **Minh**, tôi muốn tải lên được cả PDF dạng ảnh quét và hỏi đáp về nội dung của nó, để không phải tìm bản có sẵn văn bản; nếu hệ thống không đọc được thì tôi được báo rõ. | P0 | BR-027, BR-030 |
 | US-014 | Là **Minh**, tôi muốn kéo thả tối đa 10 tệp PDF trong một lần, để không phải tải từng tệp. | P1 | BR-002 |
 | US-015 | Là **Lan**, tôi muốn xem danh sách tài liệu trong kho (tên, người tải lên, thời điểm, số trang), để biết câu trả lời đang dựa trên những tài liệu nào. | P0 | BR-006 |
 | US-016 | Là **Minh**, tôi muốn xóa tài liệu do tôi tải lên, để đội không nhận câu trả lời từ tài liệu lỗi thời. | P1 | BR-007 |
@@ -219,7 +221,9 @@ journey
 - **Given** một PDF bị hỏng hoặc có mật khẩu, **When** xử lý thất bại, **Then** trạng thái là "Thất bại" kèm lý do cụ thể ("Tệp bị hỏng" / "Tệp có mật khẩu").
 
 **AC – US-013**
-- **Given** một PDF không có lớp văn bản, **When** xử lý xong, **Then** trạng thái là "Thất bại – không hỗ trợ PDF dạng ảnh quét", và tệp không bao giờ xuất hiện trong trích dẫn (AC-027).
+- **Given** một PDF không có lớp văn bản, **When** hệ thống bắt đầu xử lý, **Then** trạng thái là "Đang nhận dạng ký tự (OCR)", kèm thông báo "Tài liệu dạng ảnh quét cần thêm thời gian xử lý".
+- **Given** OCR đạt ngưỡng chất lượng, **When** xử lý xong, **Then** trạng thái là "Sẵn sàng" và độ chính xác ký tự ≥ 95% trên bộ mẫu `[Đề xuất]` (AC-027).
+- **Given** bản quét mờ, nghiêng hoặc không đạt ngưỡng, **When** xử lý xong, **Then** trạng thái là "Thất bại – Không đọc được nội dung", tệp không bao giờ xuất hiện trong trích dẫn và có nút [Xóa] (AC-030).
 
 **AC – US-015**
 - **Given** kho có 3 tài liệu, **When** Lan mở danh sách, **Then** thấy đủ 3 dòng với tên tệp, người tải lên, thời điểm tải lên, số trang và trạng thái.
@@ -270,9 +274,15 @@ journey
 
 | ID | User story | Ưu tiên | BR |
 |---|---|---|---|
-| US-030 | Là **Lan** lần đầu dùng, tôi muốn thấy kho đang có bao nhiêu tài liệu và 3 ví dụ cách đặt câu hỏi tốt, để bắt đầu hỏi ngay. | P1 | — (hỗ trợ BO-003, KR3.2) |
+| US-030 | Là **Lan** lần đầu dùng, tôi muốn thấy kho đang có bao nhiêu tài liệu và cách đặt câu hỏi tốt, để bắt đầu hỏi ngay. | P1 | — (hỗ trợ BO-003, KR3.2) |
+| US-031 | Là **Lan**, tôi muốn thấy ≥ 3 câu hỏi mẫu do hệ thống gợi ý từ nội dung tài liệu trong kho và bấm một lần để hỏi, để biết có thể hỏi gì mà không phải nghĩ câu hỏi. | P1 | BR-020 |
 
-> US-030 dùng **ví dụ tĩnh** do đội BD soạn, không phải câu hỏi do hệ thống tự sinh. Gợi ý câu hỏi tự động (BR-020) vẫn là Won't.
+**AC – US-031** (P1, ghi để tham khảo)
+- **Given** kho có ≥ 1 tài liệu "Sẵn sàng", **When** Lan mở màn hình hỏi đáp trống, **Then** thấy ≥ 3 gợi ý; bấm vào một gợi ý thì câu hỏi được gửi ngay.
+- **Given** một gợi ý được hỏi, **When** nhận câu trả lời, **Then** đó là câu trả lời có trích dẫn, không phải "không tìm thấy" (≥ 3/3 gợi ý đạt, AC-020).
+- **Given** kho không có tài liệu sẵn sàng, **When** Lan mở màn hình, **Then** không hiển thị gợi ý (EC-01, EC-02).
+
+> **Thay đổi so với v0.1:** BRD v0.3 đưa BR-020 vào MVP (DEC-007), nên US-031 thay cho 3 ví dụ tĩnh. Gợi ý do hệ thống tạo từ nội dung tài liệu; cần thêm một lần gọi AI hoặc tạo trước khi tài liệu "Sẵn sàng" (PQ-008).
 
 ### 3.6 E5 – Tóm tắt, lịch sử, sao chép
 
@@ -321,12 +331,13 @@ Ghi chú hành vi:
 | ID | Hạng mục | Yêu cầu | Ưu tiên | Nguồn |
 |---|---|---|---|---|
 | NFR-001 | Hiệu năng – hỏi đáp | p90 ≤ 15 giây cho câu trả lời đầy đủ; phản hồi đầu tiên (trạng thái) ≤ 1 giây | P0 | BR-013 |
-| NFR-002 | Hiệu năng – xử lý tài liệu | PDF 100 trang chuyển "Sẵn sàng" trong ≤ 3 phút (p90) `[Đề xuất]` | P1 | PQ-007 |
+| NFR-002 | Hiệu năng – xử lý tài liệu | PDF 100 trang có lớp văn bản chuyển "Sẵn sàng" trong ≤ 3 phút (p90); PDF ảnh quét 100 trang (OCR) trong ≤ 15 phút (p90) `[Đề xuất]` | P1 | PQ-007, OQ-017 |
+| NFR-011 | Chất lượng OCR | Độ chính xác ký tự ≥ 95% trên bộ mẫu bản quét (tiếng Việt có dấu và tiếng Anh) `[Đề xuất]`; không đạt thì từ chối với "Không đọc được nội dung" | P0 | BR-027, BR-030, OQ-017 |
 | NFR-003 | Tải đồng thời | Đạt NFR-001 khi có 20 người dùng đồng thời, mỗi người 1 câu hỏi/phút `[Đề xuất]` | P0 | ASM-002 |
 | NFR-004 | Dung lượng | 500 tài liệu, ≤ 300 trang/tài liệu, ≤ 50 MB/tệp | P0 | ASM-006 |
-| NFR-005 | Tính sẵn sàng | ≥ 95% trong giờ làm việc (8:00–18:00, thứ Hai – thứ Sáu) trong thí điểm `[Đề xuất]` | P1 | Checklist dòng 17 – PQ-004 |
-| NFR-006 | Sao lưu | Mất tối đa 24 giờ dữ liệu kho tài liệu (RPO ≤ 24 giờ); khôi phục trong ≤ 1 ngày làm việc (RTO) `[Đề xuất]` | P1 | Checklist dòng 17 – PQ-004 |
-| NFR-007 | Trình duyệt | Chrome và Edge (2 phiên bản mới nhất); độ rộng màn hình ≥ 1280 px | P0 | PQ-002 |
+| NFR-005 | Tính sẵn sàng | ≥ 95% trong giờ làm việc (8:00–18:00, thứ Hai – thứ Sáu) trong thí điểm `[Đề xuất]` | P1 | BR-031 · đã xác nhận (DEC-016) |
+| NFR-006 | Sao lưu | Mất tối đa 24 giờ dữ liệu kho tài liệu (RPO ≤ 24 giờ); khôi phục trong ≤ 1 ngày làm việc (RTO) | P1 | BR-032 · đã xác nhận (DEC-016) |
+| NFR-007 | Trình duyệt | Chrome và Edge (2 phiên bản mới nhất); độ rộng màn hình ≥ 1280 px; điện thoại chỉ đảm bảo đọc | P0 | BR-033, BR-034 · đã xác nhận (DEC-017) |
 | NFR-008 | Bảo mật | Mã hóa khi truyền (TLS 1.2+) và khi lưu; không có lỗ hổng mức High/Critical trong lần quét bảo mật trước khi ra mắt | P0 | BR-017 |
 | NFR-009 | Chi phí | Chi phí dịch vụ AI ≤ 300 USD/tháng ở mức sử dụng của thí điểm | P0 | CON-006 |
 | NFR-010 | Ngôn ngữ giao diện | Tiếng Việt | P0 | OQ-007 |
@@ -394,7 +405,8 @@ Ghi chú hành vi:
 | EC-06 | Phản hồi > 15 giây | Sau 15 giây hiện "Câu hỏi đang mất nhiều thời gian hơn bình thường…"; sau 60 giây dừng và báo "Không thể trả lời lúc này. [Thử lại]" | US-020, US-027 |
 | EC-07 | Dịch vụ AI lỗi hoặc vượt hạn mức chi phí | Báo "Dịch vụ hỏi đáp tạm thời gián đoạn. Vui lòng thử lại sau ít phút."; không hiển thị mã lỗi kỹ thuật; ghi sự kiện `question_failed` | US-020 |
 | EC-08 | Tệp không phải PDF / > 50 MB / > 10 tệp mỗi lần | Từ chối ngay ở trình duyệt, nêu lý do cụ thể cho từng tệp; tệp hợp lệ trong cùng lô vẫn được tải lên | US-011, US-014 |
-| EC-09 | PDF ảnh quét, bị hỏng, có mật khẩu | Trạng thái "Thất bại" kèm lý do tương ứng; có nút [Xóa] để dọn kho | US-012, US-013 |
+| EC-09 | PDF bị hỏng, có mật khẩu, hoặc ảnh quét mà OCR không đọc được | Trạng thái "Thất bại" kèm lý do tương ứng ("Tệp bị hỏng" / "Tệp có mật khẩu" / "Không đọc được nội dung"); có nút [Xóa] để dọn kho | US-012, US-013 |
+| EC-20 | PDF ảnh quét đang được nhận dạng ký tự (OCR) | Trạng thái "Đang nhận dạng ký tự" kèm "Tài liệu dạng ảnh quét cần thêm thời gian xử lý"; không chặn việc hỏi các tài liệu khác; nếu quá 15 phút báo "Xử lý lâu bất thường" | US-013 |
 | EC-10 | Tệp trùng (cùng tên và cùng kích thước) | Hộp thoại: "Tài liệu này có thể đã có trong kho. [Vẫn tải lên] [Hủy]" | US-017 |
 | EC-11 | Câu hỏi trống, chỉ có khoảng trắng, hoặc > 2.000 ký tự | Nút Gửi bị vô hiệu; bộ đếm ký tự chuyển đỏ khi vượt giới hạn | US-020 |
 | EC-12 | Câu hỏi bằng ngôn ngữ khác Việt/Anh | Vẫn xử lý; nếu chất lượng không đảm bảo, trả lời bằng tiếng Việt kèm ghi chú "Hiện chỉ hỗ trợ tốt tiếng Việt và tiếng Anh" | US-024 |
@@ -419,6 +431,7 @@ Ghi chú hành vi:
 | G1 | Chức năng | 100% AC của các story P0 đạt | Báo cáo kiểm thử QA | QA lead |
 | G2 | Chức năng | ≥ 80% AC của các story P1 đạt; story P1 chưa đạt được nhà tài trợ chấp nhận hoãn | Báo cáo kiểm thử QA | PM |
 | G3 | Chất lượng câu trả lời | KR2.1 ≥ 80%, KR2.2 ≥ 90%, AC-009 ≥ 7/10 trên bộ câu hỏi chuẩn (DEP-003) | Chấm độc lập bởi 2 người đội BD | Trưởng đội BD |
+| G3b | Chất lượng OCR | NFR-011 đạt trên ≥ 5 bản quét trong bộ mẫu; ≥ 80% câu hỏi chuẩn về các bản quét được trả lời đúng (AC-027); 3/3 bản quét kém bị từ chối đúng (AC-030) | Chấm độc lập bởi 2 người đội BD | Trưởng đội BD |
 | G4 | Hiệu năng | NFR-001 và NFR-003 đạt với kho ≥ 200 tài liệu mẫu và 20 người dùng đồng thời giả lập | Kiểm thử tải | Trưởng đội kỹ thuật |
 | G5 | Bảo mật | Văn bản phê duyệt của Bảo mật thông tin/Pháp chế (DEP-001, AC-017, AC-028) | Văn bản ký | Bảo mật thông tin |
 | G6 | Bảo mật | Quét bảo mật (OWASP Top 10) không còn lỗ hổng High/Critical; kiểm thử phân quyền US-002, US-061 đạt | Báo cáo quét | Trưởng đội kỹ thuật |
@@ -445,7 +458,8 @@ Ghi chú hành vi:
 | `document_upload_started` | Bắt đầu tải lên | `file_count`, `total_size_mb` | Phễu nạp | P0 |
 | `document_upload_rejected` | Bị từ chối ở trình duyệt hoặc máy chủ | `reason` (`not_pdf`/`too_large`/`too_many`/`invalid_pdf`) | Phễu nạp, EC-08 | P0 |
 | `document_processing_completed` | Chuyển sang "Sẵn sàng" | `doc_id`, `page_count`, `processing_seconds` | KR1.3 | P0 |
-| `document_processing_failed` | Chuyển sang "Thất bại" | `doc_id`, `reason` (`scanned`/`corrupted`/`encrypted`/`other`) | RSK-003, ASM-001 | P0 |
+| `document_processing_failed` | Chuyển sang "Thất bại" | `doc_id`, `reason` (`ocr_unreadable`/`corrupted`/`encrypted`/`other`), `used_ocr` | RSK-003, ASM-001 | P0 |
+| `suggestion_clicked` | Bấm một câu hỏi mẫu gợi ý | `suggestion_index` (không ghi nội dung gợi ý) | KR3.2, US-031 | P1 |
 | `document_deleted` | Xóa tài liệu | `doc_id`, `actor_role` | BR-018 | P1 |
 | `question_submitted` | Gửi câu hỏi | `question_id`, `length_chars`, `language`, `is_followup`, `scope_doc_count` (0 = tất cả) | KR3.1, US-025, US-026 | P0 |
 | `answer_first_token` | Hiển thị phần trả lời đầu tiên | `question_id`, `latency_ms` | NFR-001 | P0 |
@@ -474,7 +488,7 @@ Ghi chú hành vi:
 | Tỷ lệ lỗi | `question_failed` ÷ `question_submitted` | > 2% |
 | Tỷ lệ kiểm chứng | Số câu trả lời có ≥ 1 `citation_clicked` ÷ `answer_completed` | Theo dõi xu hướng, chưa đặt ngưỡng |
 | Tỷ lệ 👍 | `rating=up` ÷ `answer_rated` | < 70% (KR2.3) |
-| Tỷ lệ tài liệu ảnh quét | `reason=scanned` ÷ tổng số tài liệu đã xử lý | > 10% → xem lại BRU-006 |
+| Tỷ lệ tài liệu dùng OCR và tỷ lệ OCR thất bại | `used_ocr=true` ÷ tổng tài liệu; `reason=ocr_unreadable` ÷ tài liệu dùng OCR | OCR thất bại > 20% → xem lại chất lượng OCR (DEP-005) |
 | Chi phí AI/tuần | Từ bảng chi phí của nhà cung cấp | > 70 USD/tuần (≈ 300 USD/tháng) |
 
 ---
@@ -502,7 +516,12 @@ Ghi chú hành vi:
 | BR-017 | Must | US-060, NFR-008 | P0 | |
 | BR-018 | Should | US-063 | P1 | |
 | BR-019 | Should | US-040 | P1 | |
-| BR-020 | Won't | — | — | US-030 dùng ví dụ tĩnh, không thay thế BR-020 |
+| BR-020 | Should | US-031 | P1 | Đưa vào MVP theo DEC-007 (BRD v0.3) |
+| BR-030 | Must | US-013 | P0 | Thêm ở BRD v0.3 (OCR không đạt → từ chối) |
+| BR-031 | Should | NFR-005 | P1 | Thêm ở BRD v0.4 |
+| BR-032 | Should | NFR-006 | P1 | Thêm ở BRD v0.4 |
+| BR-033 | Must | NFR-007 | P0 | Thêm ở BRD v0.4 |
+| BR-034 | Should | NFR-007 (phần điện thoại), EC-19 | P1 | Thêm ở BRD v0.4 |
 | BR-021 | Should | US-041 | P1 | |
 | BR-022 | Should | US-042 | P1 | |
 | BR-023 | Should | US-050 | P1 | |
@@ -514,9 +533,9 @@ Ghi chú hành vi:
 | BR-029 | Should | US-064 | P1 | |
 
 **Độ bao phủ:**
-- Tất cả BR trong phạm vi (trừ BR-020, BR-025 là Won't) đều có ≥ 1 story hoặc NFR.
+- Tất cả BR trong phạm vi (trừ BR-025 là Won't) đều có ≥ 1 story hoặc NFR.
 - Mọi story P0 đều có AC dạng Given-When-Then.
-- Các story và NFR không có BR trực tiếp — US-030, NFR-002, NFR-005, NFR-006, NFR-007 — đều được ghi nguồn (OKR hoặc kết quả checklist). Cần bổ sung BR tương ứng vào BRD v0.3.
+- Các story và NFR không có BR trực tiếp — US-030, NFR-002, NFR-011 — đều được ghi nguồn (OKR, PQ hoặc OQ). NFR-005, NFR-006, NFR-007 đã có BR-031 – BR-034 ở BRD v0.4; US-030, NFR-002 chưa có BR riêng, cần bổ sung ở v0.5.
 
 ---
 
@@ -526,14 +545,24 @@ Ghi chú hành vi:
 |---|---|---|---|---|---|
 | PQ-001 | Xử lý tệp trùng thế nào? | US-017, EC-10 | Trưởng đội BD | 2026-10-30 | Cảnh báo khi trùng tên và kích thước; người dùng chọn "Vẫn tải lên" hoặc "Hủy" |
 | PQ-002 | Danh sách trình duyệt và thiết bị cần hỗ trợ? | NFR-007 | Trưởng đội BD | 2026-10-30 | Chrome và Edge trên desktop; di động chỉ đảm bảo đọc |
-| PQ-003 | Có được lưu văn bản câu hỏi/câu trả lời để đánh giá chất lượng không? Lưu bao lâu, ai được xem? | Mục 5.2, BR-021 | Bảo mật thông tin | 2026-11-13 | Lưu cùng lịch sử 90 ngày; chỉ PM và QA được xem bản ẩn danh khi điều tra lỗi |
+| PQ-003 | ~~Có được lưu văn bản câu hỏi/câu trả lời không?~~ **Đã xác nhận 2026-10-19 (DEC-002): có lưu.** Còn mở: lưu bao lâu, ai được xem? | Mục 5.2, BR-021, BRU-008 | Bảo mật thông tin | 2026-11-13 | Lưu 90 ngày cùng lịch sử; mỗi người chỉ xem lịch sử của mình; PM và QA chỉ xem bản ẩn danh khi điều tra lỗi; **vẫn không đưa nội dung vào hệ thống phân tích** (Mục 5.2) |
 | PQ-004 | Xác nhận mục tiêu tính sẵn sàng và sao lưu | NFR-005, NFR-006 | Nhà tài trợ | 2026-10-30 | Sẵn sàng ≥ 95% trong giờ làm việc; RPO ≤ 24 giờ; RTO ≤ 1 ngày làm việc |
 | PQ-005 | Độ dài tối đa của câu hỏi? | EC-11 | Trưởng đội kỹ thuật | 2026-11-06 | 2.000 ký tự |
 | PQ-006 | Có cần tô sáng đoạn văn được trích dẫn trong khung xem PDF không, hay chỉ cần mở đúng trang? | US-022 | Designer + Trưởng đội kỹ thuật | 2026-11-06 | MVP: mở đúng trang (P0); tô sáng là P2 |
-| PQ-007 | Thời gian chờ chấp nhận được để một tài liệu "Sẵn sàng"? | NFR-002, KR1.3 | Trưởng đội BD | 2026-10-30 | ≤ 3 phút cho PDF 100 trang |
-| PQ-008 | Ai soạn 3 câu hỏi ví dụ cho màn hình chào? | US-030 | Trưởng đội BD | 2026-12-04 | Đội BD soạn từ bộ câu hỏi chuẩn (DEP-003) |
+| PQ-007 | Thời gian chờ chấp nhận được để một tài liệu "Sẵn sàng"? | NFR-002, KR1.3 | Trưởng đội BD | 2026-10-30 | ≤ 3 phút cho PDF 100 trang có văn bản; ≤ 15 phút cho PDF quét (OQ-017) |
+| PQ-008 | Gợi ý câu hỏi mẫu tự động (US-031) được tạo khi nào và có cần Trưởng nhóm BD duyệt không? | US-031, BR-020, chi phí AI | Trưởng đội kỹ thuật + Trưởng đội BD | 2026-11-13 | Tạo một lần khi tài liệu "Sẵn sàng", lưu lại; không cần duyệt; hiển thị ngẫu nhiên 3 gợi ý mỗi lần mở màn hình trống |
 
-Kế thừa từ BRD (chưa được xác nhận): toàn bộ giá trị `[Đề xuất]` từ OQ-001 – OQ-016, đặc biệt OQ-003 (ngưỡng độ chính xác), OQ-006 (chính sách dữ liệu), OQ-011 (thời gian phản hồi).
+**Đã chốt ngày 2026-10-19 (sonnt):**
+- PQ-001 tệp trùng: cảnh báo và cho chọn (DEC-017).
+- PQ-002 trình duyệt: Chrome + Edge desktop, điện thoại chỉ đọc (DEC-017).
+- PQ-004 sẵn sàng và sao lưu: ≥ 95% giờ làm việc, RPO ≤ 24 giờ, RTO ≤ 1 ngày làm việc (DEC-016).
+- PQ-006 khung xem nguồn: chỉ mở đúng trang, không tô sáng đoạn (DEC-017).
+- PQ-008 gợi ý câu hỏi: tạo 1 lần khi tài liệu "Sẵn sàng", không duyệt (DEC-018).
+- PQ-003: có lưu nội dung câu hỏi (DEC-002); thời hạn, quyền xem theo đề xuất (DEC-013).
+
+**Còn lại theo đề xuất, chưa có quyết định riêng:** PQ-005 (câu hỏi tối đa 2.000 ký tự), PQ-007 (thời gian xử lý tài liệu theo OQ-017). Đây là giá trị mặc định, đội kỹ thuật có thể điều chỉnh ở SAD.
+
+Kế thừa từ BRD: các giá trị `[Đề xuất]` còn lại đã được sonnt chấp nhận (DEC-013) trừ OQ-018 (ước lượng tiến độ), vẫn mở.
 
 ---
 
@@ -543,9 +572,10 @@ Kế thừa từ BRD (chưa được xác nhận): toàn bộ giá trị `[Đề
 |---|---|---|---|
 | DEP-001 (BRD) | Phê duyệt bảo mật trước 2026-11-13 | Chặn cổng G5 | PM đặt lịch review kiến trúc với Bảo mật thông tin trong tuần 1 |
 | DEP-003 (BRD) | Bộ tài liệu mẫu và bộ câu hỏi chuẩn trước 2026-11-27 | Chặn G3, G4 | PM theo dõi hàng tuần; QA hỗ trợ đội BD định dạng bộ câu hỏi |
-| PD-001 | Dịch vụ xác thực tài khoản công ty (đăng nhập một lần) sẵn sàng tích hợp | Chặn US-001 | Nếu không kịp: dùng đăng nhập bằng email + mã một lần, cần Bảo mật thông tin chấp thuận |
+| PD-001 | Dịch vụ xác thực tài khoản công ty (đăng nhập một lần) sẵn sàng tích hợp | Chặn US-001 | SSO là phương án **duy nhất đã xác nhận** (DEC-011); không có dự phòng được duyệt. Nếu SSO trễ, báo nhà tài trợ để quyết định lại |
 | PR-001 | Người dùng bỏ qua trích dẫn và tin câu trả lời sai | Mất niềm tin khi phát hiện sai (RSK-001) | Dòng nhắc kiểm tra trích dẫn; theo dõi tỷ lệ kiểm chứng; buổi hướng dẫn đầu thí điểm |
-| PR-002 | Phạm vi P1 không kịp trong 7 tuần | Trễ ngày thí điểm | Thứ tự cắt giảm nếu trễ: US-040 → US-041 → US-026 → US-017; không cắt P0 |
+| PR-002 | Phạm vi P1 không kịp trong 7 tuần | Trễ ngày thí điểm | Thứ tự cắt giảm nếu trễ: US-031 → US-040 → US-041 → US-026 → US-017; không cắt P0 (kể cả OCR – US-013) |
+| PR-003 | OCR (US-013) và gợi ý câu hỏi (US-031) được thêm vào MVP trong khi tiến độ 7 tuần giữ nguyên (DEC-006, DEC-007, DEC-010) | Trễ ngày thí điểm hoặc giảm chất lượng kiểm thử; OCR tiếng Việt có dấu có thể kém | Thử nghiệm kỹ thuật OCR ngay tuần 1–2 (DEP-005); đội kỹ thuật ước lượng lại trước 2026-11-06 (OQ-018); nếu OCR không đạt ngưỡng, báo nhà tài trợ trước khi tiếp tục |
 
 ---
 
@@ -553,7 +583,7 @@ Kế thừa từ BRD (chưa được xác nhận): toàn bộ giá trị `[Đề
 
 | Tuần | Thời gian | Trọng tâm | Cổng |
 |---|---|---|---|
-| 1 | 2026-11-02 → 11-06 | Thiết kế UX (wireframe Mục 4.1), kiến trúc, review bảo mật | Wireframe được duyệt |
+| 1 | 2026-11-02 → 11-06 | Thiết kế UX (wireframe Mục 4.1), kiến trúc, review bảo mật, **thử nghiệm kỹ thuật OCR trên bộ mẫu (DEP-005)** | Wireframe được duyệt; kết quả thử OCR |
 | 2–3 | 2026-11-09 → 11-20 | E1, E2 (P0), xử lý tài liệu | Tải lên → Sẵn sàng chạy từ đầu đến cuối |
 | 4–5 | 2026-11-23 → 12-04 | E3 (P0), E6 (US-051), tracking | Hỏi đáp có trích dẫn chạy được; đánh giá lần đầu trên bộ câu hỏi chuẩn |
 | 6 | 2026-12-07 → 12-11 | P1 (E3, E5, E7), đo baseline MET-001 | Hoàn tất tính năng |
