@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nhật ký – Chat với tài liệu</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body data-page="audit">
+  <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+  <header id="app-header"></header>
+  <main id="main" class="page">
+    <nav class="nav" aria-label="Quản trị" style="margin-bottom:16px">
+      <a href="users.html">Người dùng</a>
+      <a href="audit.html" aria-current="page">Nhật ký</a>
+    </nav>
+    <div class="page-head"><h1>Nhật ký tải lên và xóa tài liệu</h1></div>
+
+    <section data-show="loading" aria-label="Đang tải" aria-busy="true" hidden>
+      <div class="skeleton skeleton-row"></div><div class="skeleton skeleton-row"></div><div class="skeleton skeleton-row"></div>
+    </section>
+    <section data-show="empty" hidden><div class="state-box"><strong>Chưa có hoạt động nào</strong></div></section>
+    <section data-show="error" hidden>
+      <div class="state-box is-error" role="alert"><strong>Không tải được nhật ký.</strong><button class="btn" id="retry">Thử lại</button></div>
+    </section>
+    <section data-show="data" aria-label="Nhật ký">
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Nhật ký tải lên và xóa tài liệu</caption>
+          <thead><tr><th scope="col">Người thực hiện</th><th scope="col">Thao tác</th><th scope="col">Tài liệu</th><th scope="col">Thời điểm</th></tr></thead>
+          <tbody id="audit-rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="assets/app.js"></script>
+  <script src="assets/page-admin.js"></script>
+</body>
+</html>

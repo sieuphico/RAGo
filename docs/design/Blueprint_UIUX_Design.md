@@ -11,8 +11,8 @@
 | Phiên bản | 0.2 |
 | Trạng thái | Draft |
 | Tiêu chuẩn | IEEE 1016-2009 (Software Design Descriptions) |
-| Nguồn đầu vào | [PRD.md](../requirements/PRD.md) (PRD-CWD-001 v0.2), [BRD.md](../requirements/BRD.md) (BRD-CWD-001 v0.3), [UseCaseDiagram.drawio](../UseCaseDiagram.drawio) |
-| Phạm vi tài liệu | **Lớp giao diện người dùng (UI/UX)**: cấu trúc, màn hình, tương tác, trạng thái, hệ thống thiết kế, hợp đồng giao tiếp giữa giao diện và máy chủ. Kiến trúc máy chủ, mô hình AI, kho dữ liệu thuộc tài liệu SAD riêng (chưa có). |
+| Nguồn đầu vào | [PRD.md](../requirements/PRD.md) (PRD-CWD-001 v0.2), [BRD.md](../requirements/BRD.md) (BRD-CWD-001 v0.5), [UseCaseDiagram.drawio](../UseCaseDiagram.drawio), [SAD](SAD_Software_Architecture.md) (SAD-CWD-001 v0.1) |
+| Phạm vi tài liệu | **Lớp giao diện người dùng (UI/UX)**: cấu trúc, màn hình, tương tác, trạng thái, hệ thống thiết kế, hợp đồng giao tiếp giữa giao diện và máy chủ. Kiến trúc máy chủ, mô hình AI, kho dữ liệu thuộc tài liệu [SAD](SAD_Software_Architecture.md) (SAD-CWD-001 v0.1, Draft). |
 | Ngày | 2026-10-19 |
 
 **Quy ước:**
@@ -36,7 +36,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Tên hệ thống | Chat với tài liệu (MVP) |
-| Phiên bản SDD | v0.1 |
+| Phiên bản SDD | v0.2 |
 | Chủ sở hữu tài liệu | Designer / Trưởng đội kỹ thuật [TBD: tên cụ thể] |
 | Mô tả | Ứng dụng web giúp đội Phát triển kinh doanh (BD) tải PDF lên kho chung và hỏi đáp bằng tiếng Việt hoặc tiếng Anh. Mỗi câu trả lời do AI tổng hợp **kèm trích dẫn tên tài liệu và số trang**; khi tài liệu không có thông tin, hệ thống nói rõ là không tìm thấy thay vì đoán. |
 | Trụ cột UX (PRD 0.2) | (1) Đáng tin trước, nhanh sau · (2) Không cần cấu hình · (3) Desktop-web-first · (4) Song ngữ Việt–Anh · (5) Riêng tư theo thiết kế |
@@ -52,7 +52,7 @@
 | **Loại người dùng** | Người dùng BD (Lan), Trưởng nhóm BD (Minh), Quản trị viên, Nhà tài trợ (chỉ xem số liệu). Chi tiết Mục 2.1. |
 | **Giao diện bên ngoài** | HTTPS/JSON API; luồng sự kiện một chiều (server-sent events) cho câu trả lời đang được tạo; chuyển hướng đăng nhập; tải tệp multipart. |
 | **Ranh giới tin cậy** | Trình duyệt người dùng (không tin cậy) ↔ máy chủ ứng dụng (tin cậy) ↔ dịch vụ AI bên ngoài (bên thứ ba, theo CON-005). Mọi kiểm tra quyền thực hiện ở máy chủ; kiểm tra ở giao diện chỉ để phản hồi nhanh. |
-| **Môi trường triển khai** | [TBD: SAD] – phụ thuộc OQ-006 và DEP-001. Thiết kế giao diện không giả định nhà cung cấp hạ tầng. |
+| **Môi trường triển khai** | Tại chỗ (on-premise), chốt 2026-10-21 (SAD Mục 3.4); dịch vụ AI bên ngoài phụ thuộc DEP-001. Thiết kế giao diện không giả định nhà cung cấp hạ tầng. |
 
 ### 1.3 Giả định và ràng buộc
 
@@ -290,7 +290,7 @@ Mọi màn hình chính đều tới được từ thanh điều hướng trên 
 | S-08 | Nhật ký | `/admin/audit` | QT | US-063 | Người thực hiện, thao tác, tài liệu, thời điểm |
 | S-09 | Số liệu | `/metrics` | QT, Nhà tài trợ | US-051 | WAU %, số câu hỏi, p50/p90, tỷ lệ 👍, theo tuần; **không có nội dung hỏi/đáp** |
 
-> **Đã chốt (DEC-002, BRU-008):** nội dung câu hỏi được lưu, nên tiêu đề phiên lấy 60 ký tự đầu của câu hỏi đầu tiên. Thời hạn 90 ngày và quyền xem (mỗi người chỉ xem lịch sử của mình) vẫn là đề xuất chờ OQ-013. Nội dung này **không** đi vào hệ thống phân tích.
+> **Đã chốt (DEC-002, BRU-008):** nội dung câu hỏi được lưu, nên tiêu đề phiên lấy 60 ký tự đầu của câu hỏi đầu tiên. Thời hạn 90 ngày và quyền xem (mỗi người chỉ xem lịch sử của mình) đã chốt (OQ-013, 2026-10-21). Nội dung này **không** đi vào hệ thống phân tích.
 
 #### 3.2.4 Năm trạng thái bắt buộc cho mỗi màn hình
 
@@ -410,7 +410,7 @@ sequenceDiagram
     participant API as Máy chủ
     M->>UI: Kéo thả 10 tệp
     UI->>UI: Kiểm tra từng tệp (đuôi .pdf, ≤ 50 MB, ≤ 10 tệp)
-    UI-->>M: Tệp hợp lệ vào bảng "Đang tải"; tệp lỗi hiện lý do ngay
+    UI-->>M: Tệp hợp lệ vào bảng "Đang tải", tệp lỗi hiện lý do ngay
     UI->>API: POST documents (các tệp hợp lệ)
     API-->>UI: 202 (docId + trạng thái từng tệp)
     API-->>UI: SSE: Processing → Ready / Failed (lý do)
@@ -750,7 +750,7 @@ Biến thể EC-01 (kho trống):   Kho chưa có tài liệu.   [ Tải PDF lê
 │ Tên tệp              Trang  Người tải  Thời điểm         Trạng thái                  Thao tác │
 │ ────────────────────────────────────────────────────────────────────────────────────────── │
 │ HD_ABC_2026.pdf        48   Minh       19/10/2026 09:12  ✔ Sẵn sàng                  ⋯      │
-│ BaoCao_Q3.pdf         120   Lan        18/10/2026 16:40  ◌ Đang xử lý                ⋯      │
+│ BaoCao_Q3.pdf         120   Minh       18/10/2026 16:40  ◌ Đang xử lý                ⋯      │
 │ Scan_0042.pdf           —   Minh       18/10/2026 15:02  ◌ Đang nhận dạng ký tự (OCR)  ⋯      │
 │ Scan_0043.pdf           —   Minh       18/10/2026 15:05  ✖ Thất bại – Không đọc được  🗑      │
 │                                                           nội dung                              │
@@ -806,6 +806,72 @@ S-09 Số liệu (Quản trị viên, Nhà tài trợ)
 ```
 
 > Các số trong wireframe (72%, 241, 6,2 s…) là **dữ liệu minh họa** để hình dung bố cục, không phải số liệu thật hay mục tiêu mới.
+
+---
+
+### 4.7 S-01 Đăng nhập (chuyển hướng SSO)
+
+```
+┌──────────────────────────────────────────────┐
+│                ◆ Chat với tài liệu            │
+│                                              │
+│     [ Đăng nhập bằng tài khoản công ty ]     │
+│                                              │
+│  (khi hết phiên) "Phiên đã hết hạn.          │
+│   Đăng nhập lại để tiếp tục."                │
+└──────────────────────────────────────────────┘
+```
+
+**Ghi chú:** không có ô mật khẩu (DEC-011, SSO duy nhất). Bản nháp câu hỏi được giữ trong bộ nhớ phiên và khôi phục sau đăng nhập (EC-16).
+
+### 4.8 S-05 Khung xem nguồn (mở khi bấm trích dẫn, ngăn trong S-03)
+
+```
+┌──────────── Khung xem nguồn (480 px) ────────────┐
+│ HD_ABC_2026.pdf                             ✕    │
+│ ◀ Trang 12 / 48 ▶                                │
+│ ┌──────────────────────────────────────────────┐ │
+│ │                                              │ │
+│ │           (trang PDF số 12)                  │ │
+│ │                                              │ │
+│ └──────────────────────────────────────────────┘ │
+│ Lỗi:  "Không mở được trang. [Thử lại]"           │
+│ Đã xóa: "Tài liệu đã bị xóa" (EC-14)             │
+└──────────────────────────────────────────────────┘
+```
+
+**Ghi chú:** URL chỉ có mã tài liệu và số trang, không có nội dung câu hỏi (Blueprint 2.5). Dưới 1280 px khung này thành lớp phủ (EC-19).
+
+### 4.9 S-06 Lịch sử (phần sidebar của S-03)
+
+```
+┌───────────── Sidebar 240 px ─────────────┐
+│ [+ Phiên mới]                            │
+│ Lịch sử                                  │
+│   Hôm nay                                │
+│   • Thời hạn hợp đồng với công ty X…     │
+│   7 ngày qua                             │
+│   • Giá trị hợp đồng của X và Y…         │
+│   Cũ hơn                                 │
+│   • Điều khoản thanh toán…               │
+└──────────────────────────────────────────┘
+```
+
+**Ghi chú:** tiêu đề phiên = 60 ký tự đầu của câu hỏi đầu tiên (DEC-002). Lịch sử giữ 90 ngày và chỉ người dùng đó xem được (OQ-013). Trạng thái: khung xương 3 dòng; "Chưa có phiên nào"; "Không tải được lịch sử. [Thử lại]".
+
+### 4.10 S-08 Nhật ký (Quản trị viên)
+
+```
+┌──────────────────────── S-08 Nhật ký ────────────────────────┐
+│ Nhật ký tải lên và xóa tài liệu                              │
+│ Người thực hiện        Thao tác    Tài liệu        Thời điểm │
+│ ──────────────────────────────────────────────────────────── │
+│ minh@congty.vn         Tải lên     HD_XYZ.pdf      19/10 09:20 │
+│ quantri@congty.vn      Xóa         DieuKhoan.pdf   19/10 10:02 │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Ghi chú:** mỗi dòng có đủ 4 trường bắt buộc (US-063). Trạng thái: "Chưa có hoạt động nào"; "Không tải được nhật ký. [Thử lại]". Chỉ Quản trị viên xem được (3.2.2).
 
 ---
 
@@ -875,7 +941,7 @@ S-09 Số liệu (Quản trị viên, Nhà tài trợ)
 | DD-01 | Một trang hỏi đáp 3 vùng (sidebar – hội thoại – viewer), viewer mở khi cần | Người dùng phải kiểm chứng ngay cạnh câu trả lời mà không rời ngữ cảnh (C-01) | Mở PDF ở tab mới (mất ngữ cảnh, khó đo `citation_clicked`) | CMP-09 |
 | DD-02 | Trích dẫn là thẻ bấm được ngay trong câu, không gom cuối bài | Gắn nguồn với đúng ý; kiểm chứng từng ý | Danh sách nguồn ở cuối (khó biết nguồn nào cho ý nào) | CMP-08 |
 | DD-03 | "Không tìm thấy" dùng giao diện trung tính, không màu đỏ | Đây là kết quả hợp lệ, không phải lỗi; tránh người dùng nghĩ hệ thống hỏng (UX-10) | Dùng lỗi đỏ | Mẫu 3.6.3 |
-| DD-04 | Câu trả lời dùng **SSE** để hiện dần | Một chiều, đơn giản, tương thích proxy văn phòng; đạt "phản hồi đầu ≤ 1 giây" | WebSocket (phức tạp hơn mà không cần hai chiều); chờ toàn bộ rồi mới hiện (cảm giác chậm) | API-08, `[Đề xuất]` chờ SAD |
+| DD-04 | Câu trả lời dùng **SSE** để hiện dần | Một chiều, đơn giản, tương thích proxy văn phòng; đạt "phản hồi đầu ≤ 1 giây" | WebSocket (phức tạp hơn mà không cần hai chiều); chờ toàn bộ rồi mới hiện (cảm giác chậm) | API-08, Đã xác nhận (SAD AD-02, 2026-10-21) |
 | DD-05 | Giao diện kiểm tra tệp ở trình duyệt **và** máy chủ kiểm tra lại | Phản hồi tức thì, nhưng không tin trình duyệt (ranh giới tin cậy) | Chỉ kiểm tra một phía | CMP-14 |
 | DD-06 | Thông báo lỗi do giao diện giữ trong một bảng ánh xạ mã lỗi → tiếng Việt | Nhất quán nội dung, dễ sửa, không lộ chuỗi kỹ thuật (QA-04) | Máy chủ trả sẵn chuỗi | CMP-22 |
 | DD-07 | Bản nháp câu hỏi lưu bộ nhớ phiên của trình duyệt, không gửi máy chủ | Không mất khi hết phiên (C-12) mà không vi phạm riêng tư | Lưu máy chủ | CMP-02 |
@@ -892,15 +958,15 @@ S-09 Số liệu (Quản trị viên, Nhà tài trợ)
 | ID | Câu hỏi | Ảnh hưởng | Chủ sở hữu | Hạn | Đề xuất |
 |---|---|---|---|---|---|
 | UQ-01 | ~~Trích dẫn có cần tô sáng đoạn văn không?~~ **Đã chốt 2026-10-19 (DEC-017): chỉ mở đúng trang; tô sáng là P2.** | CMP-09 | sonnt | — | Đóng |
-| UQ-02 | Dùng thư viện hiển thị PDF nào, hay mở bằng trình xem PDF của trình duyệt? | CMP-09, hiệu năng | Trưởng đội kỹ thuật (SAD) | 2026-11-06 | Quyết định ở SAD; phương án tối thiểu: trình xem của trình duyệt mở ở trang N |
+| UQ-02 | ~~Dùng thư viện hiển thị PDF nào, hay mở bằng trình xem PDF của trình duyệt?~~ **Đã chốt 2026-10-21 (SAD AD-07): trình xem PDF của trình duyệt, mở đúng trang.** | CMP-09, hiệu năng | Trưởng đội kỹ thuật (SAD) | 2026-11-06 | Đóng (xem SAD AD-07) |
 | UQ-03 | ~~Ai được tải lên?~~ **Đã chốt 2026-10-19 (DEC-001): chỉ Trưởng nhóm BD.** | Mục 3.2.2, CMP-14 | Nhà tài trợ | — | Đóng |
 | UQ-04 | ~~Có lưu nội dung câu hỏi không?~~ **Đã chốt 2026-10-19 (DEC-002): có.** Còn mở: thời hạn và quyền xem (OQ-013) | S-06, tiêu đề phiên | Bảo mật thông tin | 2026-11-13 | Lưu 90 ngày, mỗi người chỉ xem lịch sử của mình |
 | UQ-05 | ~~Có bộ nhận diện thương hiệu không?~~ **Đã chốt 2026-10-19 (DEC-003): không.** | Token màu 3.6.1 | Nhà tài trợ | — | Đóng; dùng bộ màu ở 3.6.1 làm chính thức cho MVP |
 | UQ-06 | ~~Định dạng câu trả lời?~~ **Đã chốt 2026-10-19 (DEC-017): đoạn, danh sách, in đậm, bảng đơn giản.** | CMP-07 | sonnt | — | Đóng |
-| UQ-07 | "Dừng" có tính là câu hỏi đã dùng (chi phí AI, số liệu) không? | API-09, số liệu | Trưởng đội kỹ thuật | 2026-11-13 | Tính vào số câu hỏi, đánh dấu `stopped` |
+| UQ-07 | ~~"Dừng" có tính là câu hỏi đã dùng (chi phí AI, số liệu) không?~~ **Đã chốt 2026-10-21: có tính.** | API-09, số liệu | Trưởng đội kỹ thuật | 2026-11-13 | Tính vào số câu hỏi, đánh dấu `stopped` |
 | UQ-08 | ~~Cần phương án dự phòng email + mã một lần nếu SSO chưa sẵn sàng?~~ **Đã chốt 2026-10-19 (DEC-011): chỉ SSO, không có dự phòng.** | S-01 | Nhà tài trợ | — | Đóng; nếu SSO trễ phải quyết định lại |
 | UQ-09 | ~~Gợi ý câu hỏi (US-031) được tạo khi nào?~~ **Đã chốt 2026-10-19 (DEC-018): tạo một lần khi tài liệu "Sẵn sàng", không cần duyệt; hiển thị 3 gợi ý ngẫu nhiên.** | CMP-23, API-17 | sonnt | — | Đóng |
-| UQ-10 | Bản quét đang OCR có cần thanh tiến độ phần trăm hay chỉ nhãn trạng thái? | CMP-16, EC-20 | Designer + Trưởng đội kỹ thuật | 2026-11-13 | Chỉ nhãn + vòng quay (MVP), vì thời gian OCR khó ước lượng |
+| UQ-10 | ~~Bản quét đang OCR có cần thanh tiến độ phần trăm hay chỉ nhãn trạng thái?~~ **Đã chốt 2026-10-21: chỉ nhãn và vòng quay (MVP).** | CMP-16, EC-20 | Designer + Trưởng đội kỹ thuật | 2026-11-13 | Chỉ nhãn + vòng quay (MVP), vì thời gian OCR khó ước lượng |
 
 ---
 
@@ -916,17 +982,17 @@ S-09 Số liệu (Quản trị viên, Nhà tài trợ)
 | Mọi EC-01 – EC-19 có hành vi giao diện | Đạt | Mục 3.8.4 |
 | Mỗi màn hình đủ 5 trạng thái | Đạt | Mục 3.2.4 |
 | Tương phản màu đạt AA | Đạt | Đã tính bằng công thức WCAG, Mục 3.6.1 |
-| Có wireframe cho các màn hình chính | Đạt | Mục 4; S-01, S-05, S-06, S-08 chỉ có mô tả, chưa có wireframe riêng |
+| Có wireframe cho các màn hình chính | Đạt | Mục 4.1–4.10 (đã bổ sung S-01, S-05, S-06, S-08 ngày 2026-10-21) |
 | Giao diện tuân thủ ràng buộc riêng tư | Đạt trên giấy | Cần kiểm chứng bằng kiểm thử gói tin (QA-06, G8) |
 | **Đã kiểm thử với người dùng thật** | **Chưa** | Persona vẫn là giả thuyết (OQ-016); UX-01, UX-02, UX-10 chỉ kiểm chứng được ở UAT |
-| **Có prototype tương tác** | **Chưa** | Wireframe chữ; cần Designer dựng bản có thể bấm trước 2026-11-13 |
-| Hợp đồng API đã được back-end xác nhận | Chưa | Mục 3.3 là đề xuất, chờ SAD |
+| **Có prototype tương tác** | **Có (HTML)** | Bản bấm được ở [04-design/UI_UX_design](../04-design/UI_UX_design/README.md); chưa phải thiết kế hình ảnh cuối cùng của Designer, chưa kiểm thử với người dùng thật |
+| Hợp đồng API đã được back-end xác nhận | Chưa | Mục 3.3: SSE đã được SAD xác nhận (AD-02); back-end cần ký xác nhận hợp đồng |
 
 ### 9.2 Tuyên bố mức độ sẵn sàng
 
 **Sẵn sàng để review với Designer, front-end, back-end và QA.** Chưa sẵn sàng để bắt đầu xây dựng cho tới khi:
 
 1. Designer chuyển wireframe thành thiết kế hình ảnh và prototype (S-03, S-04 trước tiên).
-2. SAD xác nhận hoặc điều chỉnh hợp đồng API (Mục 3.3), đặc biệt SSE (DD-04) và cách hiển thị PDF (UQ-02).
-3. Các câu hỏi còn mở đều mang tính kỹ thuật và để đội kỹ thuật quyết định ở SAD: UQ-02 (thư viện hiển thị PDF), UQ-07 (tính lượt "Dừng"), UQ-10 (thanh tiến độ OCR). Các UQ-01, 03, 04, 05, 06, 08, 09 đã chốt ngày 2026-10-19.
+2. Hợp đồng API (Mục 3.3) đã được SAD xác nhận về SSE (DD-04) và trình xem PDF (UQ-02) ngày 2026-10-21; back-end cần ký xác nhận.
+3. Tất cả câu hỏi UQ-01 – UQ-10 đã chốt (UQ-02, UQ-07, UQ-10 chốt ngày 2026-10-21; các UQ còn lại chốt ngày 2026-10-19).
 4. Mọi giá trị `[Đề xuất]` được xác nhận cùng PRD/BRD.

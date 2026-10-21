@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kho tài liệu – Chat với tài liệu</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+  <header id="app-header"></header>
+  <div id="offline" class="banner" role="alert" hidden>⚠ Mất kết nối. Đang thử kết nối lại…</div>
+
+  <main id="main" class="page">
+    <div class="page-head">
+      <h1>Kho tài liệu <span id="doc-count" class="muted" style="font-weight:400"></span></h1>
+      <div class="field" style="min-width:280px">
+        <label for="search" class="sr-only">Tìm theo tên</label>
+        <input id="search" class="input" type="search" placeholder="Tìm theo tên…" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Vùng kéo thả chỉ hiện với Trưởng nhóm BD (BRU-007, DEC-001) -->
+    <section data-roles="tn" aria-label="Tải tài liệu lên">
+      <div id="dropzone" class="dropzone">
+        <p><strong>Kéo thả tệp PDF vào đây</strong> hoặc</p>
+        <button id="pick" class="btn btn-primary">Chọn tệp</button>
+        <input id="file" type="file" accept=".pdf,application/pdf" multiple hidden>
+        <p class="caption muted">Tối đa 10 tệp mỗi lần, mỗi tệp ≤ 50 MB.</p>
+      </div>
+    </section>
+    <p class="note-line" data-not-roles="tn">Chỉ Trưởng nhóm BD tải được tài liệu lên.</p>
+    <div id="rejections" role="alert" class="caption"></div>
+
+    <!-- Đang tải: khung xương 5 dòng (≤ 300 ms) -->
+    <section data-show="loading" aria-label="Đang tải danh sách" aria-busy="true" hidden>
+      <div class="skeleton skeleton-row"></div><div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div><div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+    </section>
+
+    <!-- Trống -->
+    <section data-show="empty" hidden>
+      <div class="state-box">
+        <span aria-hidden="true" style="font-size:32px">📄</span>
+        <strong>Chưa có tài liệu.</strong>
+        <span data-roles="tn">Kéo thả PDF vào đây.</span>
+        <span data-not-roles="tn">Trưởng nhóm BD sẽ tải tài liệu lên.</span>
+      </div>
+    </section>
+
+    <!-- Lỗi -->
+    <section data-show="error" hidden>
+      <div class="state-box is-error" role="alert">
+        <strong>Không tải được danh sách.</strong>
+        <button class="btn" id="retry-list">Thử lại</button>
+      </div>
+    </section>
+
+    <!-- Có dữ liệu -->
+    <section data-show="data" aria-label="Danh sách tài liệu">
+      <div class="table-wrap">
+        <table class="table" id="doc-table">
+          <caption class="sr-only">Danh sách tài liệu trong kho</caption>
+          <thead>
+            <tr>
+              <th scope="col" aria-sort="none"><button class="btn btn-ghost btn-sm" data-sort="name">Tên tệp <span aria-hidden="true">↕</span></button></th>
+              <th scope="col" class="num">Trang</th>
+              <th scope="col">Người tải</th>
+              <th scope="col" aria-sort="descending"><button class="btn btn-ghost btn-sm" data-sort="at">Thời điểm <span aria-hidden="true">↓</span></button></th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col"><span class="sr-only">Thao tác</span></th>
+            </tr>
+          </thead>
+          <tbody id="doc-rows"></tbody>
+        </table>
+      </div>
+      <p id="no-match" class="muted" style="padding:16px" hidden>Không có tài liệu nào khớp với tìm kiếm.</p>
+    </section>
+    <div id="sr-live" class="sr-only" aria-live="polite"></div>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/page-library.js"></script>
+</body>
+</html>

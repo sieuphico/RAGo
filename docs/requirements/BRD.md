@@ -9,7 +9,7 @@
 |---|---|
 | Tiêu đề | Tài liệu Yêu cầu Nghiệp vụ – Công cụ "Chat với tài liệu" (MVP) |
 | Mã tài liệu | BRD-CWD-001 |
-| Phiên bản | 0.4 |
+| Phiên bản | 0.5 |
 | Trạng thái | **In review** |
 | Tiêu chuẩn áp dụng | IEEE 29148-2018 |
 | Tác giả | Business Analyst (soạn thảo) |
@@ -26,6 +26,7 @@
 | 0.2 | 2026-10-19 | Business Analyst | Điền giá trị đề xuất cho toàn bộ mục `[TBD]` (SRC-003); chuyển OQ-001 – OQ-016 sang trạng thái "Đề xuất – chờ xác nhận"; thêm BR-026 – BR-029, BRU-006; chuyển BR-020 sang Won't |
 | 0.3 | 2026-10-19 | Business Analyst | Ghi nhận 14 quyết định của người yêu cầu ngày 2026-10-19 (SRC-004): chỉ Trưởng nhóm BD được tải lên (BRU-007); có lưu nội dung câu hỏi (BRU-008); xác nhận OQ-003, 005, 006, 010, 011; **mở rộng phạm vi: OCR cho PDF ảnh quét (BR-027 viết lại, thêm BR-030, DEP-005) và đưa gợi ý câu hỏi mẫu tự động vào MVP (BR-020 từ Won't lên Should)**; thêm RSK-008, OQ-017, OQ-018 |
 | 0.4 | 2026-10-19 | Business Analyst | OQ-001: sonnt là nhà tài trợ và người phê duyệt (DEC-012). Chấp nhận toàn bộ giá trị đề xuất còn lại tại OQ-002, 004, 007, 009, 013 – 017 (DEC-013). Còn mở: OQ-018 (ước lượng tiến độ của đội kỹ thuật). Thêm tuyên bố tầm nhìn (Mục 2), nhóm yêu cầu F về vận hành và tương thích (BR-031 – BR-034), DEC-014 – DEC-018 |
+| 0.5 | 2026-10-21 | Business Analyst | Ghi nhận 6 lựa chọn của người yêu cầu ngày 2026-10-21: thêm BR-035 (US-030) và BR-036 (NFR-002) cùng AC-035, AC-036; OQ-018 chốt "giữ đủ" (OCR và BR-019 – BR-022 vào MVP, RSK-008 vẫn ở mức cao); ngoại lệ sao lưu của BR-029 (OQ-013) được ghi nhận, chờ Bảo mật thông tin duyệt; điền ID PRD cho ma trận truy vết (Mục 11.1) |
 
 ### 1.2 Danh sách phân phối
 
@@ -299,6 +300,8 @@ Các yêu cầu sau là đề xuất của BA theo SRC-001 ("có thể có thêm
 | BR-032 | Giải pháp **nên** cho phép khôi phục kho tài liệu với mất dữ liệu tối đa 24 giờ và hoàn tất trong vòng 1 ngày làm việc. | Tránh mất kho tài liệu do Trưởng nhóm BD đã nạp | SN-011 / SN-012 | Should | AC-032 | Test | Draft |
 | BR-033 | Giải pháp **phải** hoạt động đầy đủ trên trình duyệt Chrome và Edge (2 phiên bản mới nhất) với màn hình rộng từ 1280 px. | Xác định phạm vi kiểm thử và thiết kế (CON-001) | SN-011 | Must | AC-033 | Test | Draft |
 | BR-034 | Giải pháp **nên** hiển thị đọc được câu trả lời và trích dẫn trên màn hình điện thoại; không cam kết tải tài liệu lên từ điện thoại. | Người dùng có thể xem lại kết quả khi di chuyển | SN-001 | Should | AC-034 | Demonstration | Draft |
+| BR-035 | Giải pháp **nên** hiển thị ngay sau đăng nhập lần đầu số tài liệu đang sẵn sàng trong kho và ít nhất 3 câu hỏi mẫu để người dùng bắt đầu hỏi ngay. | Giảm thời gian để người dùng mới đặt được câu hỏi đầu tiên (UX-01) | SN-001 / BO-003 (KR3.2) | Should | AC-035 | Demonstration | Draft |
+| BR-036 | Giải pháp **nên** đưa PDF có lớp văn bản 100 trang sang trạng thái "Sẵn sàng" trong ≤ 3 phút và PDF ảnh quét 100 trang trong ≤ 15 phút (p90) `[Đề xuất]`. | Thời gian chờ tài liệu ảnh hưởng tới lúc đội bắt đầu hỏi (PQ-007, OQ-017) | SN-002 / BO-001 | Should | AC-036 | Test | Draft |
 
 ### 7.7 Tiêu chí nghiệm thu
 
@@ -334,6 +337,8 @@ Các yêu cầu sau là đề xuất của BA theo SRC-001 ("có thể có thêm
 | AC-032 | BR-032 | Thực hiện một lần khôi phục thử từ bản sao lưu: dữ liệu khôi phục cũ nhất không quá 24 giờ so với thời điểm sự cố giả lập, và hoàn tất trong ≤ 1 ngày làm việc. |
 | AC-033 | BR-033 | 100% kịch bản kiểm thử luồng chính (tải lên, hỏi đáp, trích dẫn, xóa) đạt trên Chrome và Edge ở độ rộng 1280, 1440, 1920 px. |
 | AC-034 | BR-034 | Trên 2 điện thoại thử nghiệm, người dùng đọc được câu trả lời và trích dẫn, không cuộn ngang, vùng bấm ≥ 44 × 44 px. |
+| AC-035 | BR-035 | Trong thử nghiệm UAT, người dùng mới thấy số tài liệu sẵn sàng và ít nhất 3 câu hỏi mẫu ngay sau đăng nhập lần đầu. |
+| AC-036 | BR-036 | Trên bộ mẫu gồm ≥ 1 PDF 100 trang có văn bản và ≥ 1 PDF ảnh quét 100 trang, thời gian đến "Sẵn sàng" đạt p90 ≤ 3 phút và ≤ 15 phút tương ứng. |
 | AC-030 | BR-030 | Với 3 tệp quét chất lượng kém cố ý (mờ, nghiêng, sai độ phân giải), cả 3 có trạng thái "Thất bại – Không đọc được nội dung"; không câu trả lời nào trích dẫn các tệp này. |
 | AC-028 | BR-028 | Pháp chế xác nhận bằng văn bản rằng điều khoản của mọi dịch vụ bên ngoài xử lý nội dung tài liệu cam kết không dùng dữ liệu để huấn luyện mô hình. |
 | AC-029 | BR-029 | 24 giờ sau khi xóa tài liệu X, kiểm tra kho dữ liệu không còn dữ liệu đã xử lý nào gắn với X (đội kỹ thuật cung cấp bằng chứng kiểm tra). |
@@ -402,23 +407,23 @@ Các yêu cầu sau là đề xuất của BA theo SRC-001 ("có thể có thêm
 
 | Mục tiêu nghiệp vụ | Nhu cầu | Yêu cầu nghiệp vụ | Tiêu chí nghiệm thu | ID PRD/SRS |
 |---|---|---|---|---|
-| BO-001 | SN-002 | BR-001, BR-002, BR-003, BR-004, BR-005, BR-027, BR-030 | AC-001 – AC-005, AC-027, AC-030 | [TBD – giai đoạn PRD] |
-| BO-001 | SN-007 | BR-006, BR-007 | AC-006, AC-007 | [TBD – giai đoạn PRD] |
-| BO-001 | SN-001 | BR-008, BR-026 | AC-008, AC-026 | [TBD – giai đoạn PRD] |
-| BO-001 | SN-011 | BR-013 | AC-013 | [TBD – giai đoạn PRD] |
-| BO-001 | SN-006 | BR-014 | AC-014 | [TBD – giai đoạn PRD] |
-| BO-001 | SN-010 | BR-021, BR-022 | AC-021, AC-022 | [TBD – giai đoạn PRD] |
-| BO-002 | SN-003 | BR-009 | AC-009 | [TBD – giai đoạn PRD] |
-| BO-002 | SN-004 | BR-010 | AC-010 | [TBD – giai đoạn PRD] |
-| BO-002 | SN-005 | BR-011 | AC-011 | [TBD – giai đoạn PRD] |
-| BO-002 | SN-011 | BR-012 | AC-012 | [TBD – giai đoạn PRD] |
-| BO-002 | SN-008 | BR-015 | AC-015 | [TBD – giai đoạn PRD] |
-| BO-002 | SN-010 | BR-019 | AC-019 | [TBD – giai đoạn PRD] |
-| BO-002 | SN-009 | BR-023 | AC-023 | [TBD – giai đoạn PRD] |
-| BO-003 | SN-009 | BR-024 | AC-024 | [TBD – giai đoạn PRD] |
-| BO-003 | SN-010 | BR-020 | AC-020 | [TBD – giai đoạn PRD] |
-| BO-003 | SN-011 | BR-031 – BR-034 | AC-031 – AC-034 | [TBD – giai đoạn PRD] |
-| — (điều kiện triển khai) | SN-012 | BR-016, BR-017, BR-018, BR-028, BR-029 | AC-016 – AC-018, AC-028, AC-029 | [TBD – giai đoạn PRD] |
+| BO-001 | SN-002 | BR-001, BR-002, BR-003, BR-004, BR-005, BR-027, BR-030 | AC-001 – AC-005, AC-027, AC-030 | US-010 – US-014, US-017; NFR-004, NFR-011 |
+| BO-001 | SN-007 | BR-006, BR-007 | AC-006, AC-007 | US-015, US-016, US-062 |
+| BO-001 | SN-001 | BR-008, BR-026 | AC-008, AC-026 | US-020, US-024 |
+| BO-001 | SN-011 | BR-013 | AC-013 | US-020, US-027; NFR-001, NFR-003 |
+| BO-001 | SN-006 | BR-014 | AC-014 | US-025 |
+| BO-001 | SN-010 | BR-021, BR-022 | AC-021, AC-022 | US-041, US-042 |
+| BO-002 | SN-003 | BR-009 | AC-009 | US-021 |
+| BO-002 | SN-004 | BR-010 | AC-010 | US-022 |
+| BO-002 | SN-005 | BR-011 | AC-011 | US-023 |
+| BO-002 | SN-011 | BR-012 | AC-012 | US-020 – US-023 (G3) |
+| BO-002 | SN-008 | BR-015 | AC-015 | US-026 |
+| BO-002 | SN-010 | BR-019 | AC-019 | US-040 |
+| BO-002 | SN-009 | BR-023 | AC-023 | US-050 |
+| BO-003 | SN-009 | BR-024 | AC-024 | US-051 |
+| BO-003 | SN-010 | BR-020 | AC-020 | US-031 |
+| BO-003 | SN-011 | BR-031 – BR-034 | AC-031 – AC-034 | NFR-005 – NFR-007; BR-035, BR-036 (US-030, NFR-002) |
+| — (điều kiện triển khai) | SN-012 | BR-016, BR-017, BR-018, BR-028, BR-029 | AC-016 – AC-018, AC-028, AC-029 | US-001, US-002, US-060, US-061, US-063, US-064 |
 
 ### 11.2 Báo cáo độ bao phủ
 
@@ -447,12 +452,12 @@ Tất cả câu hỏi đã có **giải pháp đề xuất** của BA (SRC-003).
 | OQ-010 | Ngân sách, mốc thời gian, lý do "vì sao bây giờ"? | CON-006, CON-007, Mục 3.6 | Nhà tài trợ | 2026-10-30 | **Đã xác nhận 2026-10-19** (SRC-004), xem OQ-018 | 1 BA + 2 kỹ sư + 1 PO bán thời gian, 7 tuần; AI ≤ 300 USD/tháng; MVP 2026-12-18; thí điểm đến 2027-01-15; go/no-go 2027-01-22 để kịp kế hoạch 2027. |
 | OQ-011 | Thời gian phản hồi tối đa? | BR-013 | Trưởng đội BD | 2026-10-30 | **Đã xác nhận 2026-10-19** (SRC-004) | ≤ 15 giây cho ≥ 90% câu hỏi. |
 | OQ-012 | Tính năng đề xuất nào của BA vào MVP? | Phạm vi, RSK-005 | Nhà tài trợ | 2026-10-30 | **Đã xác nhận 2026-10-19** (SRC-004) | Đưa cả 4 vào MVP ở mức Should: tóm tắt (BR-019), gợi ý câu hỏi mẫu (BR-020), lịch sử (BR-021), sao chép (BR-022). Thay đổi so với đề xuất v0.2 (hoãn BR-020). |
-| OQ-013 | Thời gian lưu giữ tài liệu và lịch sử? Xóa có xóa hoàn toàn? | BRU-003, BR-021, BR-029 | Bảo mật thông tin | 2026-11-13 | **Chấp nhận giá trị đề xuất 2026-10-19** (DEC-002, DEC-013) | Tài liệu lưu đến khi bị xóa; lịch sử 90 ngày; dữ liệu xử lý bị xóa trong 24 giờ sau khi xóa tài liệu. |
+| OQ-013 | Thời gian lưu giữ tài liệu và lịch sử? Xóa có xóa hoàn toàn? | BRU-003, BR-021, BR-029 | Bảo mật thông tin | 2026-11-13 | **Chấp nhận giá trị đề xuất 2026-10-19** (DEC-002, DEC-013) | Tài liệu lưu đến khi bị xóa; lịch sử 90 ngày; dữ liệu xử lý bị xóa trong 24 giờ sau khi xóa tài liệu. **Ngoại lệ sao lưu (2026-10-21):** bản sao lưu theo chu kỳ có thể chứa dữ liệu đã xóa; ngoại lệ này chờ Bảo mật thông tin duyệt (SAD Q-A3). |
 | OQ-014 | Tiêu chí go/no-go sau MVP? | BO-003 | Nhà tài trợ | 2026-10-30 | **Chấp nhận giá trị đề xuất 2026-10-19** (DEC-013) | Xem Mục 4.2. |
 | OQ-015 | Ai được cấp quyền truy cập? | BR-016 | Nhà tài trợ | 2026-10-30 | **Chấp nhận giá trị đề xuất 2026-10-19** (DEC-013) | Thành viên đội BD và đội BA theo danh sách do Trưởng đội BD cung cấp; quản trị viên do đội kỹ thuật chỉ định. |
 | OQ-016 | Xác nhận quy trình hiện tại, SN-004 – SN-008, BRU-002, BRU-004 qua phỏng vấn đội BD. | Các nhu cầu/quy tắc dựa trên đề xuất của BA | BA | 2026-10-30 | **Chấp nhận giá trị đề xuất 2026-10-19** (DEC-013); chưa phỏng vấn thực tế, khuyến nghị vẫn làm | Giữ nguyên như tài liệu; tổ chức 1 buổi phỏng vấn nhóm 60 phút với ≥ 3 thành viên BD để xác nhận. |
 | OQ-017 | Ngưỡng chất lượng OCR (độ chính xác ký tự 95%), loại bản quét và ngôn ngữ cần hỗ trợ, thời gian xử lý chấp nhận được cho PDF quét 100 trang? | BR-027, BR-030, AC-027, NFR-002 của PRD | Trưởng đội BD + Trưởng đội kỹ thuật | 2026-11-13 | **Chấp nhận giá trị đề xuất 2026-10-19** (DEC-013); kết quả thử OCR tuần 1–2 có thể điều chỉnh | ≥ 95% ký tự trên bộ mẫu; tiếng Việt có dấu và tiếng Anh; ≤ 15 phút cho PDF quét 100 trang (p90). |
-| OQ-018 | Với OCR và 4 tính năng Should đều vào MVP, đội kỹ thuật có cam kết được mốc 2026-12-18 không? Nếu không, cắt gì trước? | CON-007, RSK-005, RSK-008 | Trưởng đội kỹ thuật + Nhà tài trợ | 2026-11-06 | Open | Thử nghiệm OCR tuần 1–2; ước lượng lại; thứ tự cắt: BR-020 → BR-019 → BR-021 → BR-022 (không cắt BR-027). |
+| OQ-018 | Với OCR và 4 tính năng Should đều vào MVP, đội kỹ thuật có cam kết được mốc 2026-12-18 không? Nếu không, cắt gì trước? | CON-007, RSK-005, RSK-008 | Trưởng đội kỹ thuật + Nhà tài trợ | 2026-11-06 | **Đã chốt 2026-10-21**: giữ đủ OCR và BR-019 – BR-022 trong MVP (lựa chọn của người yêu cầu). Thử nghiệm OCR tuần 1–2; ước lượng lại; thứ tự cắt: BR-020 → BR-019 → BR-021 → BR-022 (không cắt BR-027). |
 
 ### 12.1 Nhật ký quyết định
 
@@ -576,7 +581,7 @@ Các quyết định dưới đây do người yêu cầu đưa ra trong phiên 
 | Phát biểu vấn đề có bằng chứng | Một phần | Định tính từ SRC-001; định lượng là giả định (ASM-007) |
 | Baseline và mục tiêu có nguồn và đo được | Một phần | Có phương pháp đo; baseline MET-001 là giả định cho đến DEP-004 |
 | Lợi ích và chi phí nêu bằng thuật ngữ nghiệp vụ | Đạt | Mục 2, 3.4, CON-006 |
-| Nhà tài trợ xác nhận vấn đề và kết quả mong muốn | Một phần | 11 quyết định đã xác nhận ngày 2026-10-19 (Mục 12.1); còn OQ-001, 002, 004, 007, 009 (phần xóa), 013 – 016 chờ xác nhận |
+| Nhà tài trợ xác nhận vấn đề và kết quả mong muốn | Một phần | 11 quyết định đã xác nhận ngày 2026-10-19 (Mục 12.1); OQ-001 – 017 đã được chấp nhận hoặc xác nhận ngày 2026-10-19 (DEC-012, DEC-013); OQ-016 vẫn cần phỏng vấn thực tế; OQ-018 đã chốt ngày 2026-10-21 |
 | Người đọc nghiệp vụ hiểu được không cần diễn giải kỹ thuật | Đạt | |
 
 ---

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Không có quyền – Chat với tài liệu</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+  <main id="main" class="center-page">
+    <div class="card">
+      <span style="font-size:32px" aria-hidden="true">⛔</span>
+      <h1 id="denied-title">Bạn chưa được cấp quyền</h1>
+      <p id="denied-text" class="muted">Liên hệ quản trị viên để được thêm vào danh sách.</p>
+      <a class="btn btn-primary" href="login.html">Đăng xuất</a>
+      <p class="caption muted">Trang này không hiển thị tên tài liệu hay nội dung nào của kho.</p>
+    </div>
+  </main>
+  <script src="assets/app.js"></script>
+  <script>
+    // EC-17: quyền bị thu hồi
+    if (new URLSearchParams(location.search).get("reason") === "revoked") {
+      document.getElementById("denied-title").textContent = "Quyền truy cập của bạn đã bị thu hồi";
+    }
+    CWD.init({
+      page: "denied",
+      onRole: function (r) { location.href = CWD.home(r); }
+    });
+  </script>
+</body>
+</html>

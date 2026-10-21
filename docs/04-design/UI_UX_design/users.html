@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản lý người dùng – Chat với tài liệu</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body data-page="users">
+  <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+  <header id="app-header"></header>
+  <main id="main" class="page">
+    <nav class="nav" aria-label="Quản trị" style="margin-bottom:16px">
+      <a href="users.html" aria-current="page">Người dùng</a>
+      <a href="audit.html">Nhật ký</a>
+    </nav>
+    <div class="page-head">
+      <h1>Người dùng được cấp quyền <span id="user-count" class="muted" style="font-weight:400"></span></h1>
+      <button class="btn btn-primary" id="add-user">＋ Thêm người dùng</button>
+    </div>
+    <p class="caption muted" style="margin-bottom:16px">Thay đổi có hiệu lực trong vòng 1 phút.</p>
+
+    <section data-show="loading" aria-label="Đang tải" aria-busy="true" hidden>
+      <div class="skeleton skeleton-row"></div><div class="skeleton skeleton-row"></div><div class="skeleton skeleton-row"></div>
+    </section>
+    <section data-show="empty" hidden>
+      <div class="state-box"><strong>Chưa có người dùng nào được cấp quyền</strong>
+        <button class="btn btn-primary" data-open-add>＋ Thêm người dùng</button></div>
+    </section>
+    <section data-show="error" hidden>
+      <div class="state-box is-error" role="alert"><strong>Không tải được danh sách người dùng.</strong>
+        <button class="btn" id="retry">Thử lại</button></div>
+    </section>
+    <section data-show="data" aria-label="Danh sách người dùng">
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Danh sách email được cấp quyền</caption>
+          <thead><tr><th scope="col">Email</th><th scope="col">Vai trò</th><th scope="col">Thêm lúc</th><th scope="col"><span class="sr-only">Thao tác</span></th></tr></thead>
+          <tbody id="user-rows"></tbody>
+        </table>
+      </div>
+    </section>
+    <div id="sr-live" class="sr-only" aria-live="polite"></div>
+  </main>
+  <script src="assets/app.js"></script>
+  <script src="assets/page-admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hỏi đáp – Chat với tài liệu</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#composer-input">Bỏ qua tới ô nhập câu hỏi</a>
+  <header id="app-header"></header>
+  <div id="offline" class="banner" role="alert" hidden>⚠ Mất kết nối. Đang thử kết nối lại…</div>
+
+  <div class="chat-shell" id="shell">
+    <!-- Sidebar (CMP-13 lịch sử S-06) -->
+    <aside class="sidebar" aria-label="Phiên và kho tài liệu">
+      <button class="btn btn-primary" id="new-session" aria-label="Phiên mới"><span aria-hidden="true">＋</span><span class="side-text">Phiên mới</span></button>
+      <div>
+        <h2 class="side-text">Lịch sử</h2>
+        <div id="history" class="side-text"></div>
+      </div>
+      <div class="lib-link side-text">
+        <a href="library.html" id="lib-link">Kho tài liệu</a>
+        <p class="caption muted" id="lib-count"></p>
+      </div>
+    </aside>
+
+    <!-- Hội thoại (CMP-04) -->
+    <main class="chat-main" id="main">
+      <div class="chat-scroll" id="scroll">
+        <div class="chat-inner">
+          <!-- Đang tải: khung xương ≤ 300 ms -->
+          <div data-show="loading" aria-busy="true" aria-label="Đang tải hội thoại" hidden>
+            <div class="skeleton" style="height:44px;width:60%;margin-left:auto;margin-bottom:16px"></div>
+            <div class="skeleton" style="height:20px;width:90%;margin-bottom:8px"></div>
+            <div class="skeleton" style="height:20px;width:80%;margin-bottom:8px"></div>
+            <div class="skeleton" style="height:20px;width:55%"></div>
+          </div>
+
+          <!-- Chưa có hội thoại: màn hình chào lần đầu (CMP-10, CMP-23) -->
+          <section class="welcome" data-show="welcome" hidden aria-labelledby="welcome-title">
+            <h1 id="welcome-title">Xin chào!</h1>
+            <p class="muted" id="welcome-sub"></p>
+            <p class="suggest-title">Gợi ý câu hỏi</p>
+            <div class="suggest-list" id="suggest-list"></div>
+          </section>
+
+          <!-- Kho trống (EC-01) -->
+          <section class="welcome" data-show="emptylib" hidden>
+            <div class="state-box">
+              <span aria-hidden="true" style="font-size:32px">📄</span>
+              <strong>Kho chưa có tài liệu.</strong>
+              <a class="btn btn-primary" href="library.html" data-roles="tn">Tải PDF lên</a>
+              <span class="caption" data-not-roles="tn">Trưởng nhóm BD sẽ tải tài liệu lên.</span>
+            </div>
+          </section>
+
+          <!-- Hội thoại (role=log; nội dung đang tạo không được đọc từng chữ) -->
+          <div id="log" role="log" aria-live="off" aria-label="Hội thoại" data-show="data error" hidden style="display:flex;flex-direction:column;gap:24px"></div>
+        </div>
+      </div>
+
+      <div class="composer-wrap">
+        <div class="composer">
+          <div id="processing-note" class="note-line" hidden></div>
+          <div class="composer-box">
+            <label for="composer-input" class="sr-only">Câu hỏi</label>
+            <textarea id="composer-input" rows="2" placeholder="Hỏi về nội dung tài liệu…" aria-describedby="ai-note counter"></textarea>
+            <div class="composer-bar">
+              <div class="scope-wrap">
+                <button class="btn btn-sm" id="scope-btn" aria-haspopup="true" aria-expanded="false">Phạm vi: Tất cả tài liệu <span aria-hidden="true">▾</span></button>
+                <div class="scope-list" id="scope-list" hidden></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <span class="counter" id="counter">0/2.000</span>
+                <button class="btn btn-primary" id="send">Gửi</button>
+              </div>
+            </div>
+          </div>
+          <p class="ai-note" id="ai-note">Câu trả lời do AI tạo – hãy kiểm tra trích dẫn với thông tin quan trọng.</p>
+        </div>
+      </div>
+      <div id="sr-status" class="sr-only" role="status" aria-live="polite"></div>
+    </main>
+
+    <!-- Khung xem nguồn (S-05, CMP-09): mở khi bấm thẻ trích dẫn -->
+    <section class="viewer" id="viewer" aria-label="Khung xem nguồn">
+      <div class="viewer-head">
+        <span class="doc-title" id="viewer-title"></span>
+        <button class="btn btn-ghost btn-icon" id="viewer-close" aria-label="Đóng khung xem nguồn (Esc)">✕</button>
+      </div>
+      <div class="viewer-nav">
+        <button class="btn btn-sm btn-icon" id="pg-prev" aria-label="Trang trước">◀</button>
+        <span id="pg-label" aria-live="polite"></span>
+        <button class="btn btn-sm btn-icon" id="pg-next" aria-label="Trang sau">▶</button>
+      </div>
+      <div class="viewer-body" id="viewer-body"></div>
+    </section>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/page-chat.js"></script>
+</body>
+</html>

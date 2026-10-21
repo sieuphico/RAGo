@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prototype UI/UX – Chat với tài liệu (MVP)</title>
+  <link rel="stylesheet" href="assets/app.css">
+  <style>
+    .intro { max-width: 880px; margin: 0 auto; padding: var(--space-6) var(--space-5); display: flex; flex-direction: column; gap: var(--space-5); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); list-style: none; padding: 0; margin: 0; }
+    .tile { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-4); border: 1px solid var(--color-divider); border-radius: var(--radius-card); text-decoration: none; color: var(--color-text); height: 100%; }
+    .tile:hover { border-color: var(--color-border-control); background: var(--color-surface); }
+    .tile .tid { font-size: var(--font-caption); font-weight: 600; color: var(--color-info-text); }
+    .tile .tname { font-weight: 600; }
+    .tile .tmeta { font-size: var(--font-caption); color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+  <main class="intro" id="main">
+    <header>
+      <p class="caption muted">SDD-UIUX-CWD-001 v0.2 · Blueprint → prototype HTML</p>
+      <h1>Prototype UI/UX – Chat với tài liệu (MVP)</h1>
+      <p class="muted" style="margin-top:8px">Bản có thể bấm của 9 màn hình trong Blueprint. Tất cả dữ liệu và câu trả lời là <strong>dữ liệu minh họa</strong>, không có máy chủ hay AI thật phía sau.</p>
+    </header>
+
+    <section aria-labelledby="how">
+      <h2 id="how">Cách xem</h2>
+      <ul style="margin:8px 0 0;padding-left:20px">
+        <li>Chọn <strong>vai trò</strong> bên dưới (hoặc ở thanh “Demo” góc dưới trái của mỗi trang): điều hướng và quyền thay đổi theo Blueprint 3.2.2.</li>
+        <li>Thanh <strong>Demo</strong> chuyển nhanh giữa 5 trạng thái bắt buộc của mỗi màn hình (đang tải, trống, có dữ liệu, lỗi, hạn chế quyền) và các tình huống lỗi EC-xx. Thanh này không thuộc sản phẩm.</li>
+        <li>Phím tắt: <kbd>Enter</kbd> gửi, <kbd>Shift</kbd>+<kbd>Enter</kbd> xuống dòng, <kbd>Esc</kbd> đóng khung xem nguồn hoặc hộp thoại, <kbd>/</kbd> đưa con trỏ vào ô nhập.</li>
+      </ul>
+      <div class="field" style="flex-direction:row;align-items:center;gap:12px;margin-top:16px">
+        <label for="role">Vai trò</label>
+        <select id="role" class="select" style="width:auto">
+          <option value="bd">Người dùng BD (Lan)</option>
+          <option value="tn">Trưởng nhóm BD (Minh)</option>
+          <option value="qt">Quản trị viên</option>
+          <option value="ntt">Nhà tài trợ</option>
+        </select>
+      </div>
+    </section>
+
+    <section aria-labelledby="screens">
+      <h2 id="screens" style="margin-bottom:12px">Màn hình</h2>
+      <ul class="grid">
+        <li><a class="tile" href="login.html"><span class="tid">S-01</span><span class="tname">Đăng nhập</span><span class="tmeta">Chuyển hướng SSO · mọi người · US-001</span></a></li>
+        <li><a class="tile" href="denied.html"><span class="tid">S-02</span><span class="tname">Không có quyền</span><span class="tmeta">Đã xác thực, ngoài danh sách · US-002</span></a></li>
+        <li><a class="tile" href="chat.html"><span class="tid">S-03 · S-05 · S-06</span><span class="tname">Hỏi đáp, khung xem nguồn, lịch sử</span><span class="tmeta">BD, Trưởng nhóm, Quản trị · US-020 – US-027, US-041</span></a></li>
+        <li><a class="tile" href="library.html"><span class="tid">S-04</span><span class="tname">Kho tài liệu</span><span class="tmeta">Tải lên chỉ Trưởng nhóm BD · US-010 – US-017</span></a></li>
+        <li><a class="tile" href="users.html"><span class="tid">S-07</span><span class="tname">Quản lý người dùng</span><span class="tmeta">Quản trị viên · US-061</span></a></li>
+        <li><a class="tile" href="audit.html"><span class="tid">S-08</span><span class="tname">Nhật ký</span><span class="tmeta">Quản trị viên · US-063</span></a></li>
+        <li><a class="tile" href="metrics.html"><span class="tid">S-09</span><span class="tname">Số liệu</span><span class="tmeta">Quản trị viên, Nhà tài trợ · US-051</span></a></li>
+      </ul>
+    </section>
+
+    <p class="caption muted">Thiết kế và truy vết: xem <a href="README.md">README.md</a>. Nguồn: <a href="../../design/Blueprint_UIUX_Design.md">Blueprint_UIUX_Design.md</a>.</p>
+  </main>
+  <script>
+    (function () {
+      var sel = document.getElementById("role");
+      var saved = null;
+      try { saved = sessionStorage.getItem("cwd.role"); } catch (e) {}
+      if (saved) { sel.value = saved; }
+      function apply() {
+        try { sessionStorage.setItem("cwd.role", sel.value); } catch (e) {}
+        Array.prototype.forEach.call(document.querySelectorAll("a.tile"), function (a) {
+          var base = a.getAttribute("href").split("?")[0];
+          a.setAttribute("href", base + "?role=" + sel.value);
+        });
+      }
+      sel.onchange = apply;
+      apply();
+    })();
+  </script>
+</body>
+</html>

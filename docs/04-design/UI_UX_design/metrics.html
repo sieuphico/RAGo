@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Số liệu – Chat với tài liệu</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+  <header id="app-header"></header>
+  <main id="main" class="page">
+    <div class="page-head">
+      <h1>Số liệu thí điểm</h1>
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <div class="field" style="flex-direction:row;align-items:center;gap:8px">
+          <label for="week">Tuần</label>
+          <select id="week" class="select" style="width:auto"></select>
+        </div>
+        <span class="caption muted" id="updated"></span>
+      </div>
+    </div>
+    <p class="note-line">Số liệu trong màn hình này là <strong>dữ liệu minh họa</strong> để hình dung bố cục, không phải số liệu thật hay mục tiêu mới. Không hiển thị nội dung câu hỏi hay câu trả lời.</p>
+
+    <section data-show="loading" aria-label="Đang tải số liệu" aria-busy="true" hidden>
+      <div class="kpi-grid">
+        <div class="skeleton" style="height:96px"></div><div class="skeleton" style="height:96px"></div>
+        <div class="skeleton" style="height:96px"></div><div class="skeleton" style="height:96px"></div><div class="skeleton" style="height:96px"></div>
+      </div>
+      <div class="skeleton" style="height:260px"></div>
+    </section>
+    <section data-show="empty" hidden>
+      <div class="state-box"><strong>Chưa có dữ liệu.</strong>Số liệu xuất hiện sau tuần sử dụng đầu tiên.</div>
+    </section>
+    <section data-show="error" hidden>
+      <div class="state-box is-error" role="alert"><strong>Không tải được số liệu.</strong><button class="btn" id="retry">Thử lại</button></div>
+    </section>
+
+    <section data-show="data" aria-label="Số liệu theo tuần">
+      <div class="kpi-grid" id="kpis"></div>
+      <div class="chart-card">
+        <h2 style="margin-bottom:8px">Theo tuần</h2>
+        <div class="chart-legend">
+          <span><span class="legend-swatch" style="background:var(--color-primary)"></span>Cột: số câu hỏi</span>
+          <span><span class="legend-swatch" style="background:var(--color-warning-text);border-radius:50%"></span>Đường: WAU (%)</span>
+        </div>
+        <div id="chart"></div>
+        <details style="margin-top:12px">
+          <summary class="caption" style="cursor:pointer">Xem dạng bảng</summary>
+          <div class="table-wrap">
+            <table class="table" style="margin-top:8px">
+              <caption class="sr-only">Số liệu theo tuần</caption>
+              <thead><tr><th scope="col">Tuần</th><th scope="col" class="num">WAU (%)</th><th scope="col" class="num">Câu hỏi</th><th scope="col" class="num">p50 (s)</th><th scope="col" class="num">p90 (s)</th><th scope="col" class="num">👍 (%)</th><th scope="col" class="num">Không tìm thấy (%)</th></tr></thead>
+              <tbody id="metric-rows"></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <script src="assets/app.js"></script>
+  <script src="assets/page-metrics.js"></script>
+</body>
+</html>

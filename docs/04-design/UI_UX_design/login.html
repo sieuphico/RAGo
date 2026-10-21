@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập – Chat với tài liệu</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+  <div id="expired" class="banner" role="alert" data-show="expired" hidden>Phiên đã hết hạn. Đang chuyển tới trang đăng nhập…</div>
+  <main id="main" class="center-page">
+    <div class="card">
+      <span class="brand-mark" style="font-size:32px" aria-hidden="true">◆</span>
+      <h1>Chat với tài liệu</h1>
+      <p class="muted">Hỏi đáp trên tài liệu PDF của đội Phát triển kinh doanh, kèm trích dẫn tên tài liệu và số trang.</p>
+      <button id="sso" class="btn btn-primary" style="width:100%">Đăng nhập bằng tài khoản công ty</button>
+      <p id="sso-status" class="caption muted" role="status"></p>
+    </div>
+  </main>
+  <script src="assets/app.js"></script>
+  <script>
+    CWD.init({
+      page: "login",
+      defaultState: new URLSearchParams(location.search).get("expired") ? "expired" : "data",
+      states: [{ id: "data", label: "Bình thường" }, { id: "expired", label: "Hết phiên (EC-16)" }],
+      onRole: function () {}
+    });
+    document.getElementById("sso").onclick = function () {
+      var b = this;
+      b.disabled = true;
+      document.getElementById("sso-status").textContent = "Đang chuyển tới trang đăng nhập của công ty…";
+      setTimeout(function () { location.href = CWD.home(); }, 900);
+    };
+  </script>
+</body>
+</html>

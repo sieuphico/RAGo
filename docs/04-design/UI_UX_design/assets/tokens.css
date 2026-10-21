@@ -1,0 +1,78 @@
+/*
+ * Design tokens – nguồn: Blueprint_UIUX_Design.md mục 3.6.1 (màu, đã kiểm tra tương phản WCAG 2.1 AA)
+ * và 3.6.2 (kiểu chữ, khoảng cách, hình khối). Không có thương hiệu (DEC-003).
+ * Giá trị [Đề xuất] được đánh dấu trong chú thích.
+ */
+:root {
+  /* Màu – 3.6.1 */
+  --color-text: #1F2937;            /* 14,68:1 trên #FFFFFF */
+  --color-text-muted: #4B5563;      /* 7,56:1 trên #FFFFFF; 6,87:1 trên #F3F4F6 */
+  --color-primary: #1D4ED8;         /* 6,70:1 trên #FFFFFF */
+  --color-on-primary: #FFFFFF;
+  --color-user-bubble-bg: #1E3A8A;  /* chữ #FFFFFF: 10,36:1 */
+  --color-user-bubble-text: #FFFFFF;
+  --color-citation-bg: #E0E7FF;
+  --color-citation-text: #3730A3;   /* 8,06:1 */
+  --color-success-bg: #DCFCE7;
+  --color-success-text: #166534;    /* 6,49:1 */
+  --color-warning-bg: #FEF3C7;
+  --color-warning-text: #92400E;    /* 6,37:1 */
+  --color-danger-bg: #FEE2E2;
+  --color-danger-text: #B91C1C;     /* 5,30:1 */
+  --color-info-bg: #DBEAFE;
+  --color-info-text: #1E40AF;       /* 7,15:1 */
+  --color-neutral-bg: #E5E7EB;
+  --color-neutral-text: #374151;    /* 8,33:1 */
+  --color-not-found-bg: #F3F4F6;
+  --color-not-found-text: #374151;  /* 9,37:1 */
+  --color-border-control: #6B7280;  /* 4,83:1 (≥ 3:1) viền ô nhập, nút */
+  --color-surface: #F3F4F6;
+  --color-white: #FFFFFF;
+  /* Đường kẻ trang trí, không mang thông tin [Đề xuất]; không dùng làm viền điều khiển */
+  --color-divider: #D1D5DB;
+
+  /* Kiểu chữ – 3.6.2 */
+  --font-family: "Segoe UI", "Be Vietnam Pro", Roboto, system-ui, sans-serif;
+  --font-body: 16px;
+  --line-body: 24px;
+  --font-caption: 14px;
+  --line-caption: 20px;
+  --font-page-title: 24px;
+  --font-section-title: 18px;
+
+  /* Khoảng cách – bước cơ sở 4 px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Bo góc */
+  --radius-control: 6px;
+  --radius-card: 12px;
+  --radius-pill: 999px;
+
+  /* Bố cục */
+  --sidebar-width: 240px;
+  --viewer-width: 480px;
+  --reading-width: 720px;
+  --header-height: 56px;
+
+  /* Chuyển động: 150–200 ms ease-out, tắt khi prefers-reduced-motion */
+  --motion: 160ms ease-out;
+
+  /* Vòng focus: 2 px color.primary, cách 2 px */
+  --focus-ring: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion: 0ms; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

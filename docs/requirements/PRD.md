@@ -8,10 +8,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Mã tài liệu | PRD-CWD-001 |
-| Phiên bản | 0.2 (cập nhật theo BRD v0.3 và 14 quyết định ngày 2026-10-19) |
+| Phiên bản | 0.2 (cập nhật theo BRD v0.5, 14 quyết định ngày 2026-10-19 và 6 lựa chọn ngày 2026-10-21) |
 | Trạng thái | Draft |
 | Tiêu chuẩn áp dụng | IEEE 29148-2018 |
-| Tài liệu nguồn | [BRD.md](BRD.md) – BRD-CWD-001 v0.3 (In review) |
+| Tài liệu nguồn | [BRD.md](BRD.md) – BRD-CWD-001 v0.5 |
 | Kết quả review BRD | [BRD_IEEE_29148_Checklist.xlsx](BRD_IEEE_29148_Checklist.xlsx) – 8 Pass / 9 Partial / 3 Fail |
 | Người soạn | Product Manager |
 | Người review | Trưởng đội kỹ thuật, Designer, QA lead, Trưởng đội BD, Bảo mật thông tin |
@@ -274,7 +274,7 @@ journey
 
 | ID | User story | Ưu tiên | BR |
 |---|---|---|---|
-| US-030 | Là **Lan** lần đầu dùng, tôi muốn thấy kho đang có bao nhiêu tài liệu và cách đặt câu hỏi tốt, để bắt đầu hỏi ngay. | P1 | — (hỗ trợ BO-003, KR3.2) |
+| US-030 | Là **Lan** lần đầu dùng, tôi muốn thấy kho đang có bao nhiêu tài liệu và cách đặt câu hỏi tốt, để bắt đầu hỏi ngay. | P1 | BR-035 (hỗ trợ BO-003, KR3.2) |
 | US-031 | Là **Lan**, tôi muốn thấy ≥ 3 câu hỏi mẫu do hệ thống gợi ý từ nội dung tài liệu trong kho và bấm một lần để hỏi, để biết có thể hỏi gì mà không phải nghĩ câu hỏi. | P1 | BR-020 |
 
 **AC – US-031** (P1, ghi để tham khảo)
@@ -331,7 +331,7 @@ Ghi chú hành vi:
 | ID | Hạng mục | Yêu cầu | Ưu tiên | Nguồn |
 |---|---|---|---|---|
 | NFR-001 | Hiệu năng – hỏi đáp | p90 ≤ 15 giây cho câu trả lời đầy đủ; phản hồi đầu tiên (trạng thái) ≤ 1 giây | P0 | BR-013 |
-| NFR-002 | Hiệu năng – xử lý tài liệu | PDF 100 trang có lớp văn bản chuyển "Sẵn sàng" trong ≤ 3 phút (p90); PDF ảnh quét 100 trang (OCR) trong ≤ 15 phút (p90) `[Đề xuất]` | P1 | PQ-007, OQ-017 |
+| NFR-002 | Hiệu năng – xử lý tài liệu | PDF 100 trang có lớp văn bản chuyển "Sẵn sàng" trong ≤ 3 phút (p90); PDF ảnh quét 100 trang (OCR) trong ≤ 15 phút (p90) `[Đề xuất]` | P1 | BR-036, PQ-007, OQ-017 |
 | NFR-011 | Chất lượng OCR | Độ chính xác ký tự ≥ 95% trên bộ mẫu bản quét (tiếng Việt có dấu và tiếng Anh) `[Đề xuất]`; không đạt thì từ chối với "Không đọc được nội dung" | P0 | BR-027, BR-030, OQ-017 |
 | NFR-003 | Tải đồng thời | Đạt NFR-001 khi có 20 người dùng đồng thời, mỗi người 1 câu hỏi/phút `[Đề xuất]` | P0 | ASM-002 |
 | NFR-004 | Dung lượng | 500 tài liệu, ≤ 300 trang/tài liệu, ≤ 50 MB/tệp | P0 | ASM-006 |
@@ -522,6 +522,8 @@ Ghi chú hành vi:
 | BR-032 | Should | NFR-006 | P1 | Thêm ở BRD v0.4 |
 | BR-033 | Must | NFR-007 | P0 | Thêm ở BRD v0.4 |
 | BR-034 | Should | NFR-007 (phần điện thoại), EC-19 | P1 | Thêm ở BRD v0.4 |
+| BR-035 | Should | US-030 | P1 | Thêm ở BRD v0.5 |
+| BR-036 | Should | NFR-002 | P1 | Thêm ở BRD v0.5 |
 | BR-021 | Should | US-041 | P1 | |
 | BR-022 | Should | US-042 | P1 | |
 | BR-023 | Should | US-050 | P1 | |
@@ -535,7 +537,7 @@ Ghi chú hành vi:
 **Độ bao phủ:**
 - Tất cả BR trong phạm vi (trừ BR-025 là Won't) đều có ≥ 1 story hoặc NFR.
 - Mọi story P0 đều có AC dạng Given-When-Then.
-- Các story và NFR không có BR trực tiếp — US-030, NFR-002, NFR-011 — đều được ghi nguồn (OKR, PQ hoặc OQ). NFR-005, NFR-006, NFR-007 đã có BR-031 – BR-034 ở BRD v0.4; US-030, NFR-002 chưa có BR riêng, cần bổ sung ở v0.5.
+- Các NFR không có BR trực tiếp — NFR-011 — đều được ghi nguồn (OKR, PQ hoặc OQ). NFR-005, NFR-006, NFR-007 đã có BR-031 – BR-034 ở BRD v0.4; US-030 và NFR-002 đã có BR-035 và BR-036 ở BRD v0.5.
 
 ---
 
@@ -545,11 +547,11 @@ Ghi chú hành vi:
 |---|---|---|---|---|---|
 | PQ-001 | Xử lý tệp trùng thế nào? | US-017, EC-10 | Trưởng đội BD | 2026-10-30 | Cảnh báo khi trùng tên và kích thước; người dùng chọn "Vẫn tải lên" hoặc "Hủy" |
 | PQ-002 | Danh sách trình duyệt và thiết bị cần hỗ trợ? | NFR-007 | Trưởng đội BD | 2026-10-30 | Chrome và Edge trên desktop; di động chỉ đảm bảo đọc |
-| PQ-003 | ~~Có được lưu văn bản câu hỏi/câu trả lời không?~~ **Đã xác nhận 2026-10-19 (DEC-002): có lưu.** Còn mở: lưu bao lâu, ai được xem? | Mục 5.2, BR-021, BRU-008 | Bảo mật thông tin | 2026-11-13 | Lưu 90 ngày cùng lịch sử; mỗi người chỉ xem lịch sử của mình; PM và QA chỉ xem bản ẩn danh khi điều tra lỗi; **vẫn không đưa nội dung vào hệ thống phân tích** (Mục 5.2) |
+| PQ-003 | ~~Có được lưu văn bản câu hỏi/câu trả lời không?~~ **Đã xác nhận 2026-10-19 (DEC-002): có lưu.** Đã chốt 2026-10-21: lưu 90 ngày, mỗi người chỉ xem lịch sử của mình. | Mục 5.2, BR-021, BRU-008 | Bảo mật thông tin | 2026-11-13 | Lưu 90 ngày cùng lịch sử; mỗi người chỉ xem lịch sử của mình; PM và QA chỉ xem bản ẩn danh khi điều tra lỗi; **vẫn không đưa nội dung vào hệ thống phân tích** (Mục 5.2) |
 | PQ-004 | Xác nhận mục tiêu tính sẵn sàng và sao lưu | NFR-005, NFR-006 | Nhà tài trợ | 2026-10-30 | Sẵn sàng ≥ 95% trong giờ làm việc; RPO ≤ 24 giờ; RTO ≤ 1 ngày làm việc |
-| PQ-005 | Độ dài tối đa của câu hỏi? | EC-11 | Trưởng đội kỹ thuật | 2026-11-06 | 2.000 ký tự |
+| PQ-005 | Độ dài tối đa của câu hỏi? | EC-11 | Trưởng đội kỹ thuật | 2026-11-06 | 2.000 ký tự **Đã chốt 2026-10-21.** |
 | PQ-006 | Có cần tô sáng đoạn văn được trích dẫn trong khung xem PDF không, hay chỉ cần mở đúng trang? | US-022 | Designer + Trưởng đội kỹ thuật | 2026-11-06 | MVP: mở đúng trang (P0); tô sáng là P2 |
-| PQ-007 | Thời gian chờ chấp nhận được để một tài liệu "Sẵn sàng"? | NFR-002, KR1.3 | Trưởng đội BD | 2026-10-30 | ≤ 3 phút cho PDF 100 trang có văn bản; ≤ 15 phút cho PDF quét (OQ-017) |
+| PQ-007 | Thời gian chờ chấp nhận được để một tài liệu "Sẵn sàng"? | NFR-002, KR1.3 | Trưởng đội BD | 2026-10-30 | ≤ 3 phút cho PDF 100 trang có văn bản; ≤ 15 phút cho PDF quét (OQ-017) **Đã chốt 2026-10-21.** |
 | PQ-008 | Gợi ý câu hỏi mẫu tự động (US-031) được tạo khi nào và có cần Trưởng nhóm BD duyệt không? | US-031, BR-020, chi phí AI | Trưởng đội kỹ thuật + Trưởng đội BD | 2026-11-13 | Tạo một lần khi tài liệu "Sẵn sàng", lưu lại; không cần duyệt; hiển thị ngẫu nhiên 3 gợi ý mỗi lần mở màn hình trống |
 
 **Đã chốt ngày 2026-10-19 (sonnt):**
@@ -560,7 +562,7 @@ Ghi chú hành vi:
 - PQ-008 gợi ý câu hỏi: tạo 1 lần khi tài liệu "Sẵn sàng", không duyệt (DEC-018).
 - PQ-003: có lưu nội dung câu hỏi (DEC-002); thời hạn, quyền xem theo đề xuất (DEC-013).
 
-**Còn lại theo đề xuất, chưa có quyết định riêng:** PQ-005 (câu hỏi tối đa 2.000 ký tự), PQ-007 (thời gian xử lý tài liệu theo OQ-017). Đây là giá trị mặc định, đội kỹ thuật có thể điều chỉnh ở SAD.
+**Đã chốt 2026-10-21 theo lựa chọn của người yêu cầu:** PQ-005 (câu hỏi tối đa 2.000 ký tự) và PQ-007 (≤ 3 phút cho PDF có văn bản, ≤ 15 phút cho PDF ảnh quét; đối chiếu NFR-002 và BR-036).
 
 Kế thừa từ BRD: các giá trị `[Đề xuất]` còn lại đã được sonnt chấp nhận (DEC-013) trừ OQ-018 (ước lượng tiến độ), vẫn mở.
 
