@@ -213,17 +213,17 @@ Theo SOP, mỗi góc nhìn có một sơ đồ chuẩn lưu dạng `.drawio` tro
 
 | View | File `.drawio` theo SOP | Tình trạng | Sơ đồ trong tài liệu này |
 |---|---|---|---|
-| Logical | `logical-view.drawio` (class) | **Chưa tạo** | Mermaid, mục 5.1 |
-| Process | `process-view.drawio` (activity, sequence) | **Chưa tạo** | Mermaid, mục 5.2 |
-| Development | `development-view.drawio` (component) | **Chưa tạo** | Mermaid, mục 5.3 |
-| Physical | `physical-view.drawio` (deployment) | **Chưa tạo** | Mermaid, mục 5.4 |
-| Scenarios | `scenarios-view.drawio` (use case) | Có: bản sao của [UseCaseDiagram.drawio](../UseCaseDiagram.drawio) | Mục 5.5 |
+| Logical | [logical-view.drawio](diagrams/logical-view.drawio) (sơ đồ lớp) | Đã tạo | Mermaid rút gọn, mục 5.1 |
+| Process | [process-view.drawio](diagrams/process-view.drawio) (2 trang: sơ đồ hoạt động xử lý tài liệu; sơ đồ tuần tự hỏi đáp) | Đã tạo | Mermaid, mục 5.2 và 3.2 |
+| Development | [development-view.drawio](diagrams/development-view.drawio) (sơ đồ thành phần) | Đã tạo | Mermaid, mục 5.3 |
+| Physical | [physical-view.drawio](diagrams/physical-view.drawio) (sơ đồ triển khai, 3 môi trường) | Đã tạo | Mermaid, mục 5.4 |
+| Scenarios | [scenarios-view.drawio](diagrams/scenarios-view.drawio) (use case, 4 kịch bản chính) | Đã tạo | Mục 5.5 |
 
-Sơ đồ Mermaid chỉ để đọc tạm; theo SOP, sơ đồ chưa có file `.drawio` thì chưa được coi là hoàn tất (bước 4).
+File `.drawio` là nguồn chính (SOP 5.4, bước 4); sơ đồ Mermaid giữ lại để xem nhanh trong Markdown, nếu hai bên lệch nhau thì theo `.drawio`. Sơ đồ use case đầy đủ 30 use case: [UseCaseDiagram.drawio](../UseCaseDiagram.drawio). Bố cục các sơ đồ đã được kiểm tra bằng cách dựng ảnh từ trình xem diagrams.net; chưa mở trong ứng dụng draw.io.
 
 ### 5.1 View logic (Logical)
 
-Đáp ứng yêu cầu chức năng: các khái niệm và quan hệ tĩnh.
+Đáp ứng yêu cầu chức năng: các khái niệm và quan hệ tĩnh. Sơ đồ nguồn (có thuộc tính, phương thức, cổng và bộ nối): [logical-view.drawio](diagrams/logical-view.drawio).
 
 ```mermaid
 classDiagram
@@ -299,7 +299,7 @@ Thực thể dữ liệu chi tiết, lưu giữ và quy tắc xóa: SAD-CWD-001 
 
 ### 5.2 View quá trình (Process)
 
-Đồng thời, hiệu năng và hành vi lúc chạy.
+Đồng thời, hiệu năng và hành vi lúc chạy. Sơ đồ nguồn: [process-view.drawio](diagrams/process-view.drawio).
 
 | Tiến trình | Vai trò | Đồng thời |
 |---|---|---|
@@ -343,7 +343,7 @@ Trạng thái câu trả lời (Searching, Streaming, Completed, NotFound, Stopp
 
 ### 5.3 View phát triển (Development)
 
-Tổ chức tĩnh trong môi trường phát triển.
+Tổ chức tĩnh trong môi trường phát triển. Sơ đồ nguồn: [development-view.drawio](diagrams/development-view.drawio).
 
 ```mermaid
 flowchart LR
@@ -384,7 +384,7 @@ Quy tắc phụ thuộc: giao diện → router → mô-đun → cổng → bộ
 
 ### 5.4 View vật lý (Physical)
 
-Ánh xạ thành phần lên hạ tầng tại chỗ. Cỡ máy `[TBD]`, chốt sau kiểm kê phần cứng và thử tải G4.
+Ánh xạ thành phần lên hạ tầng tại chỗ. Sơ đồ nguồn (có giao thức, tường lửa ra ngoài và 3 môi trường): [physical-view.drawio](diagrams/physical-view.drawio). Cỡ máy `[TBD]`, chốt sau kiểm kê phần cứng và thử tải G4.
 
 ```mermaid
 flowchart LR
@@ -422,7 +422,7 @@ Lưu lượng ra Internet từ nút ứng dụng chỉ tới SSO và dịch vụ
 
 ### 5.5 View kịch bản (Scenarios)
 
-Bốn kịch bản kiểm chứng bốn view còn lại. Sơ đồ use case: [scenarios-view.drawio](diagrams/scenarios-view.drawio), nguồn là bản sao của [UseCaseDiagram.drawio](../UseCaseDiagram.drawio).
+Bốn kịch bản kiểm chứng bốn view còn lại. Sơ đồ use case riêng cho bốn kịch bản: [scenarios-view.drawio](diagrams/scenarios-view.drawio).
 
 | Kịch bản | Use case | Logical | Process | Development | Physical |
 |---|---|---|---|---|---|
@@ -554,4 +554,4 @@ Số chiều vector phụ thuộc mô hình nhúng, chưa chọn (AD-06). Cỡ m
 | Phương án đã loại | Đạt | Mục 6 |
 | Truy vết | Đạt | Mục 7 |
 
-**Mức sẵn sàng:** sẵn sàng để review với Trưởng đội kỹ thuật; Bảo mật thông tin xem mục 4.1. Chưa sẵn sàng để chốt vì: (1) bốn sơ đồ `.drawio` của view logic, quá trình, phát triển và vật lý chưa tạo (SOP 5.4, bước 4); (2) AI, OCR, kho tệp, SSO và cỡ máy còn `[TBD]`; (3) DEP-001 và DEP-005 chưa có kết quả; (4) chưa có thử tải G4.
+**Mức sẵn sàng:** sẵn sàng để review với Trưởng đội kỹ thuật; Bảo mật thông tin xem mục 4.1. Chưa sẵn sàng để chốt vì: (1) AI, OCR, kho tệp, SSO và cỡ máy còn `[TBD]`; (2) DEP-001 và DEP-005 chưa có kết quả; (3) chưa có thử tải G4; (4) các sơ đồ `.drawio` chưa được tech lead review và chưa mở thử trong ứng dụng draw.io.
