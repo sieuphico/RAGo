@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { ApiError, request } from "@/api/client";
+import { request } from "@/api/client";
 import type { MeOut } from "@/api/types";
 import { getRouter } from "@/router/navigation";
 import { redirect } from "@/utils/navigate";
@@ -17,10 +17,10 @@ export const useAuthStore = defineStore("auth", () => {
       const data = await request<MeOut>("/api/v1/me");
       me.value = data;
       status.value = data.allowed ? "allowed" : "denied";
-    } catch (e) {
+    } catch {
+      // 401 và mọi lỗi khác (kể cả mạng) coi như chưa có phiên hợp lệ: trang đăng nhập không cần API.
       me.value = null;
-      // Mọi lỗi khác (kể cả mạng) coi như chưa có phiên hợp lệ: trang đăng nhập không cần API.
-      status.value = e instanceof ApiError || e instanceof Error ? "unauthenticated" : "unauthenticated";
+      status.value = "unauthenticated";
     }
   }
 
