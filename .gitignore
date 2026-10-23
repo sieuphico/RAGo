@@ -11,3 +11,5 @@ coverage.xml
 node_modules/
 var/
 tests/fixtures/generated/
+.claude/worktrees/
+.vscode/
