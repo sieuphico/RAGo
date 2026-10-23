@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(app/**)",
+      "Edit(tests/**)",
+      "Edit(migrations/**)",
+      "Edit(docs/adr/**)",
+      "Edit(docs/traceability.md)",
+      "Bash(make:*)",
+      "Bash(ruff:*)",
+      "Bash(mypy:*)",
+      "Bash(pytest:*)",
+      "Bash(alembic:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)"
+    ],
+    "deny": [
+      "Edit(docs/requirements/**)",
+      "Edit(docs/03-analysis/**)",
+      "Edit(docs/04-design/**)",
+      "Edit(docs/05-planning/**)",
+      "Edit(docs/design/**)",
+      "Edit(docs/archive/**)",
+      "Write(docs/requirements/**)",
+      "Write(docs/03-analysis/**)",
+      "Write(docs/04-design/**)",
+      "Write(docs/05-planning/**)",
+      "Write(docs/design/**)",
+      "Write(docs/archive/**)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git commit --no-verify:*)"
+    ]
+  }
+}
