@@ -11,11 +11,19 @@ Nguồn: [USER_STORIES.md](USER_STORIES.md), [PLAN.md](../05-planning/PLAN.md) m
 
 Cả hai đều P0. US-010 chạy với bộ nối giả (T-008) nên không bị chặn bởi AD-06, DEP-005.
 
-## Điểm chưa rõ — dừng, chờ PM/PO hoặc Trưởng đội kỹ thuật
+## Quyết định ngày 2026-10-23
 
-1. **Không có mã FR trong docs.** PRD/USER_STORIES chỉ dùng US, BR, NFR, EC. Commit gắn US và BR; nếu cần FR thì phải có bảng FR trước.
-2. **Vị trí thư mục.** Yêu cầu nói `app/`, `tests/` ở gốc; PLAN 3.1 đặt `app`, `tests`. Đang theo PLAN (docs là nguồn sự thật).
-3. **US-022 ghép hai kết quả** (có thẻ trích dẫn; bấm mở đúng trang) — USER_STORIES mục 10.2 đề nghị tách 022a/022b, chưa quyết. Chỉ làm phần trích dẫn trong câu trả lời (API-08) trước.
-4. **AC ngưỡng chưa kiểm chứng được:** US-022 "≥ 90% trích dẫn đúng trang" và US-020 "≥ 90% trong 15 giây" cần bộ mẫu DEP-003 (hạn 2026-11-27). Chưa viết test ngưỡng.
-5. **AC `[Đề xuất]` chưa được duyệt** (US-010 EC-03 thử lại; US-020 EC-04/07/11; US-022 tài liệu đã xóa). Chưa triển khai các AC này.
-6. **Ngưỡng "đủ bằng chứng"** mặc định 0,0 tới khi T-607 đo (CONTRACTS Q-C13).
+| # | Vấn đề | Quyết định |
+|---|---|---|
+| 1 | Mã FR | Không có trong docs; commit gắn task + US + BR |
+| 2 | Thư mục | `app/`, `tests/` ở gốc kho (PLAN 3.1 đã sửa) |
+| 3 | US-022 | Tách 022a (thẻ trích dẫn trong câu trả lời, làm trước) và 022b (bấm mở đúng trang) |
+| 4 | AC `[Đề xuất]` | Bỏ qua tới khi PM/PO duyệt; chỉ làm AC `[PRD]`, `[BRD]` |
+| 5 | AC ngưỡng % | Chưa viết test; chờ bộ mẫu DEP-003 (2026-11-27) |
+| 6 | Thư viện (RP-07) | Xác nhận danh sách đề xuất |
+| 7 | CI | GitHub Actions |
+
+## Còn mở
+
+- Ngưỡng "đủ bằng chứng" mặc định 0,0 tới khi T-607 đo (CONTRACTS Q-C13).
+- US-010, US-011, US-012 dùng AC `[PRD]`; mọi AC `[Đề xuất]` (EC-03 thử lại, EC-04/07/11, tài liệu đã xóa) chưa làm.
