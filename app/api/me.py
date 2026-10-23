@@ -1,17 +1,14 @@
 from fastapi import APIRouter
-from pydantic import BaseModel, ConfigDict
-from pydantic.alias_generators import to_camel
 
 from app.api.deps import SessionDataDep, SessionDep
+from app.core.schemas import ApiModel
 from app.domain import Role
 from app.modules.users import repository as users
 
 router = APIRouter(prefix="/api/v1")
 
 
-class MeOut(BaseModel):
-    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
-
+class MeOut(ApiModel):
     email: str
     role: Role | None
     allowed: bool
