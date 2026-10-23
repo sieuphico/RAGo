@@ -50,6 +50,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-213 | Tác vụ xóa dữ liệu ≤ 24 giờ và purge_sweep (US-064, US-016, BR-029) | `app/worker/purge.py` | `tests/integration/test_purge.py` | ✅ |
 | T-113 | Telemetry: 19 sự kiện, `emit`, API-16 (US-051, AD-10) | `app/modules/telemetry/{schema,service}.py`, `app/api/telemetry.py` | `tests/unit/test_telemetry_schema.py`, `tests/integration/test_telemetry_api.py` | ✅ |
 | T-301 | Cổng AI AiGateway: thời hạn, thử lại, ngắt mạch, hạn mức, ghi nhận (US-060, NFR-009) | `app/adapters/ai_gateway.py`, `app/core/wiring.py` | `tests/unit/test_ai_gateway.py` | ✅ |
+| T-302 / T-315 | Bộ nối AI nội bộ Ollama (Qwen3 1.7B sinh, qwen3-embedding:0.6b nhúng): embed theo lô, generate dạng luồng (US-060, US-020) | `app/adapters/ai_ollama.py`, `deploy/compose.dev.yml` | `tests/unit/test_ai_ollama.py`, `tests/integration/test_ai_ollama_live.py` (`-m ollama`) | 🔶 test thật chờ tải mô hình |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

@@ -26,6 +26,8 @@ include = ["app*"]
 asyncio_mode = "auto"
 testpaths = ["tests"]
 pythonpath = ["."]
+markers = ["ollama: cần Ollama đang chạy với mô hình đã tải (make ai-up ai-pull)"]
+addopts = "-m \"not ollama\""
 
 [tool.ruff]
 line-length = 100

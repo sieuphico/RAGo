@@ -18,11 +18,13 @@ from app.api import (
 from app.api.csrf import CsrfMiddleware
 from app.core.config import get_settings
 from app.core.errors import install_error_handlers
+from app.core.wiring import ai_startup_check
 from app.modules.documents.events import StatusHub
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    await ai_startup_check(get_settings())
     hub = StatusHub()
     await hub.start(get_settings().database_url)
     app.state.hub = hub

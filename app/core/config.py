@@ -21,6 +21,9 @@ class Settings(BaseSettings):
 
     ai_provider: str = "fake"
     ai_api_key: str | None = None
+    ollama_base_url: str = "http://localhost:11434"
+    ollama_chat_model: str = "qwen3:1.7b"
+    ollama_embed_model: str = "qwen3-embedding:0.6b"
     ocr_engine: str = "fake"
     idp: str = "fake"
     session_ttl_s: int = 28800

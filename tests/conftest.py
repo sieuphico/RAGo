@@ -25,6 +25,7 @@ for _key, _value in {
     "CWD_TELEMETRY_SECRET": "t" * 32,
     "CWD_STORAGE_ROOT": "./var/test-storage",
     "CWD_EMBEDDING_DIM": "384",
+    "CWD_AI_PROVIDER": "fake",  # test không gọi Ollama thật
 }.items():
     os.environ.setdefault(_key, _value)
 

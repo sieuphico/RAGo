@@ -6,6 +6,8 @@ import signal
 import socket
 import uuid
 
+from app.core.config import get_settings
+from app.core.wiring import ai_startup_check
 from app.worker.main import register_defaults, run_worker
 from app.worker.scheduler import run_scheduler
 
@@ -20,6 +22,7 @@ def _clock():  # type: ignore[no-untyped-def]
 
 async def main() -> None:
     logging.basicConfig(level=logging.INFO)
+    await ai_startup_check(get_settings())
     register_defaults()
     stop = asyncio.Event()
     loop = asyncio.get_running_loop()

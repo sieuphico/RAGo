@@ -2,6 +2,7 @@
 
 from app.adapters.ai_fake import AiFake
 from app.adapters.ai_gateway import AiGateway
+from app.adapters.ai_ollama import OllamaAi
 from app.adapters.idp_fake import IdpFake
 from app.adapters.ocr_fake import OcrFake
 from app.adapters.storage_fs import FsStorage
@@ -17,6 +18,8 @@ from app.worker.ocr_step import Render
 def build_ai(settings: Settings) -> AiPort:
     if settings.ai_provider == "fake":
         return AiFake(dim=settings.embedding_dim)
+    if settings.ai_provider == "ollama":
+        return OllamaAi(settings)
     raise NotImplementedError(settings.ai_provider)
 
 
@@ -52,3 +55,12 @@ def build_gateway(settings: Settings) -> AiGateway:
     if _gateway is None:
         _gateway = AiGateway(build_ai(settings), settings, db.get_session_factory())
     return _gateway
+
+
+async def ai_startup_check(settings: Settings) -> None:
+    """Dừng sớm khi nhà cung cấp AI cấu hình sai (ví dụ số chiều vector); bản giả bỏ qua."""
+    if settings.ai_provider == "fake":
+        return
+    check = getattr(build_gateway(settings).provider, "self_check", None)
+    if check is not None:
+        await check()

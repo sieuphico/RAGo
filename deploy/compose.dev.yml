@@ -16,5 +16,15 @@ services:
       timeout: 3s
       retries: 30
 
+  # AI chạy nội bộ (AD-06): `make ai-up`, rồi `make ai-pull` để tải mô hình. Dùng CPU nếu không có GPU.
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ai"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - cwd_ollama:/root/.ollama
+
 volumes:
   cwd_pgdata:
+  cwd_ollama:
