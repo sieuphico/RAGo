@@ -19,3 +19,4 @@ Bảng task → file → test → trạng thái, kèm US/BR. Sẽ được gộp
 | T-523 | US-010, US-014 | BR-001, BR-003, BR-004 | `src/composables/useUpload.ts`, `src/components/UploadQueue.vue`, `src/views/LibraryView.vue` | `src/__tests__/use_upload.spec.ts` | Xong (hàng đợi dùng chung cấp module; thêm `dismiss`) |
 | T-509 | US-012 | BR-005 | `src/composables/useDocumentEvents.ts`, `src/views/LibraryView.vue` | `src/__tests__/document_events.spec.ts` | Xong (composable trả thêm `announcement`) |
 | T-525 | US-023, US-027, US-020 | BR-011, BR-013 | `src/components/AnswerState.vue`, `src/stores/chat.ts` (retry), `src/components/MessageList.vue` | `src/__tests__/answer_state.spec.ts` | Xong |
+| T-513 | US-022 | BR-010 | `src/components/SourceViewer.vue`, `src/views/ChatView.vue` | `src/__tests__/source_viewer.spec.ts` | Xong |

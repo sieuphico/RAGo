@@ -5,6 +5,9 @@ import { useRoute, useRouter } from "vue-router";
 import ChatSidebar from "@/components/ChatSidebar.vue";
 import Composer from "@/components/Composer.vue";
 import MessageList from "@/components/MessageList.vue";
+import SourceViewer from "@/components/SourceViewer.vue";
+import { track } from "@/api/telemetry";
+import type { CitationOut } from "@/api/types";
 import { layoutFor, useViewport } from "@/composables/useViewport";
 import { t } from "@/content/messages";
 import { useChatStore } from "@/stores/chat";
@@ -19,6 +22,20 @@ const { width } = useViewport();
 const layout = computed(() => layoutFor(width.value));
 const viewerDoc = computed(() => (typeof route.query.doc === "string" ? route.query.doc : null));
 const menuOpen = ref(false);
+const lastCitationName = ref("");
+const viewerPage = computed(() => {
+  const n = Number(route.query.page);
+  return Number.isInteger(n) && n > 0 ? n : 1;
+});
+const viewerDocInfo = computed(() => docs.items.find((d) => d.docId === viewerDoc.value));
+const viewerName = computed(() => viewerDocInfo.value?.name ?? lastCitationName.value);
+
+/** Bấm thẻ trích dẫn: mở khung nguồn ở đúng trang và ghi `citation_clicked` (chỉ mã, không có nội dung). */
+function onOpenCitation(messageId: string, c: CitationOut) {
+  lastCitationName.value = c.docName;
+  track("citation_clicked", { question_id: messageId, doc_id: c.docId, page: c.page });
+  void router.push({ query: { ...route.query, doc: c.docId, page: String(c.page) } });
+}
 
 onMounted(() => {
   if (docs.items.length === 0 && !docs.loading) void docs.fetch({ silent: true });
@@ -65,13 +82,19 @@ function onNewSession() {
       <template #history><!-- Danh sách lịch sử (T-516) --></template>
     </ChatSidebar>
     <main id="main" class="chat-main" :aria-label="t('chat.conversationAria')" data-testid="conversation">
-      <MessageList :messages="chat.messages" @retry="chat.retry($event)" @stop="chat.stop()" />
+      <MessageList :messages="chat.messages" @open-citation="onOpenCitation" @retry="chat.retry($event)" @stop="chat.stop()" />
       <div class="composer-wrap">
         <Composer @submit="chat.send($event)" @stop="chat.stop()" />
       </div>
     </main>
     <section v-if="viewerDoc" class="viewer-slot" :class="{ overlay: layout !== 'wide' }" data-testid="viewer-slot">
-      <!-- Khung xem nguồn (T-513) -->
+      <SourceViewer
+        :key="viewerDoc"
+        :doc-id="viewerDoc"
+        :doc-name="viewerName"
+        :page="viewerPage"
+        :page-count="viewerDocInfo?.pageCount"
+      />
     </section>
   </div>
 </template>
