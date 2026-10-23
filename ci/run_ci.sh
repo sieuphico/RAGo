@@ -4,5 +4,5 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 python -m pip install -q -e ".[dev]"
 ruff check .
-mypy app tests
+mypy app tests scripts
 pytest --cov=app --cov-report=xml --cov-report=term -q

@@ -1,4 +1,4 @@
-.PHONY: gate install lint type test run db-up db-down migrate db-reset
+.PHONY: sample-data gate install lint type test run db-up db-down migrate db-reset
 
 install:
 	pip install -e ".[dev]"
@@ -7,7 +7,7 @@ lint:
 	ruff check .
 
 type:
-	mypy app tests
+	mypy app tests scripts
 
 test:
 	pytest -q
@@ -30,3 +30,6 @@ db-reset:
 	alembic upgrade head
 
 gate: lint type test
+
+sample-data:
+	python scripts/make_sample_data.py --out tests/fixtures/generated

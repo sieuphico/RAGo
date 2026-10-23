@@ -139,3 +139,13 @@ async def client(app: FastAPI) -> AsyncIterator[httpx.AsyncClient]:
     transport = httpx.ASGITransport(app=app, raise_app_exceptions=False)
     async with httpx.AsyncClient(transport=transport, base_url="https://test") as c:
         yield c
+
+
+@pytest.fixture(scope="session")
+def sample_pdfs(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """PDF mẫu sinh một lần mỗi phiên test (T-605)."""
+    from scripts.make_sample_data import generate
+
+    out = tmp_path_factory.mktemp("sample")
+    generate(out)
+    return out

@@ -10,3 +10,4 @@ coverage.xml
 *.egg-info/
 node_modules/
 var/
+tests/fixtures/generated/

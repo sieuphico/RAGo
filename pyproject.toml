@@ -13,10 +13,11 @@ dependencies = [
   "alembic",
   "psycopg[binary]",
   "python-multipart",
+  "pypdf",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "pytest-asyncio", "pytest-cov", "httpx", "ruff", "mypy"]
+dev = ["pytest", "pytest-asyncio", "pytest-cov", "httpx", "ruff", "mypy", "reportlab"]
 
 [tool.setuptools.packages.find]
 include = ["app*"]
@@ -24,6 +25,7 @@ include = ["app*"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 100
@@ -32,3 +34,7 @@ target-version = "py312"
 [tool.mypy]
 python_version = "3.12"
 strict = true
+
+[[tool.mypy.overrides]]
+module = ["reportlab.*", "PIL.*"]
+ignore_missing_imports = true
