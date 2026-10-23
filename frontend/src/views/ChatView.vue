@@ -3,6 +3,7 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import ChatSidebar from "@/components/ChatSidebar.vue";
+import Composer from "@/components/Composer.vue";
 import { layoutFor, useViewport } from "@/composables/useViewport";
 import { t } from "@/content/messages";
 import { useChatStore } from "@/stores/chat";
@@ -26,7 +27,7 @@ onMounted(() => {
 watch(
   () => route.params.sessionId,
   (id) => {
-    if (typeof id === "string" && id) void chat.open(id);
+    if (typeof id === "string" && id && id !== chat.sessionId) void chat.open(id);
   },
   { immediate: true },
 );
@@ -66,7 +67,9 @@ function onNewSession() {
       <div class="chat-scroll">
         <div class="chat-inner"><!-- Danh sách tin nhắn (T-512) --></div>
       </div>
-      <div class="composer-wrap"><!-- Ô nhập câu hỏi (T-524) --></div>
+      <div class="composer-wrap">
+        <Composer @submit="chat.send($event)" @stop="chat.stop()" />
+      </div>
     </main>
     <section v-if="viewerDoc" class="viewer-slot" :class="{ overlay: layout !== 'wide' }" data-testid="viewer-slot">
       <!-- Khung xem nguồn (T-513) -->

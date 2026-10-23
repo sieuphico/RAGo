@@ -193,6 +193,33 @@ export interface DocumentStatusData {
   pageCount: number | null;
 }
 
+/** Tin nhắn trong giao diện (CONTRACTS mục 10.5, Blueprint 3.5.2). */
+export type UiMessageState =
+  | "SUBMITTING"
+  | "SEARCHING"
+  | "STREAMING"
+  | "COMPLETED"
+  | "NOT_FOUND"
+  | "STOPPED"
+  | "INTERRUPTED"
+  | "FAILED";
+
+export interface UiMessage {
+  id: string;
+  role: "user" | "assistant";
+  text: string;
+  state: UiMessageState;
+  citations: CitationOut[];
+  messageId?: string;
+  docCount?: number;
+  errorCode?: string;
+  notFoundReason?: "NO_READY_DOCS" | "NO_EVIDENCE" | null;
+  notice?: "LANG_UNSUPPORTED" | null;
+  sentAt: number;
+  /** Đánh giá hiện tại (T-517). */
+  rating?: "UP" | "DOWN" | null;
+}
+
 /** Giá trị `sort` của API-03 (CONTRACTS mục 4.1). */
 export type DocumentSort = "uploadedAt_desc" | "uploadedAt_asc" | "name_asc" | "name_desc";
 

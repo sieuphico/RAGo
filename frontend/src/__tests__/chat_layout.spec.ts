@@ -7,7 +7,7 @@ import ChatView from "@/views/ChatView.vue";
 import { useChatStore } from "@/stores/chat";
 import { useDocumentsStore } from "@/stores/documents";
 import type { DocumentOut } from "@/api/types";
-import { installFetch } from "./helpers/api";
+import { installFetch, jsonRes } from "./helpers/api";
 
 const doc = (i: number): DocumentOut => ({
   docId: `d${i}`, name: `f${i}.pdf`, pageCount: 1, uploadedBy: "a@b.vn", uploadedAt: "2026-10-19T02:12:00Z",
@@ -15,9 +15,10 @@ const doc = (i: number): DocumentOut => ({
 });
 
 async function mountChat(width: number, path = "/") {
+  const detail = { sessionId: "abc", title: null, createdAt: "2026-10-19T02:12:00Z", scopeDocIds: [], messages: [] };
   window.innerWidth = width;
   setActivePinia(createPinia());
-  installFetch({});
+  installFetch({ "GET /api/v1/chat/sessions/abc": () => jsonRes(200, detail) });
   const router = createRouter({ history: createMemoryHistory(), routes });
   router.push(path);
   await router.isReady();
