@@ -52,6 +52,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-301 | Cổng AI AiGateway: thời hạn, thử lại, ngắt mạch, hạn mức, ghi nhận (US-060, NFR-009) | `app/adapters/ai_gateway.py`, `app/core/wiring.py` | `tests/unit/test_ai_gateway.py` | ✅ |
 | T-302 / T-315 | Bộ nối AI nội bộ Ollama (Qwen3 1.7B sinh, qwen3-embedding:0.6b nhúng): embed theo lô, generate dạng luồng (US-060, US-020) | `app/adapters/ai_ollama.py`, `deploy/compose.dev.yml` | `tests/unit/test_ai_ollama.py`, `tests/integration/test_ai_ollama_live.py` (`-m ollama`) | 🔶 test thật chờ tải mô hình |
 | T-303 | Truy xuất lai vector + từ khóa, RRF, theo phạm vi (US-020, US-021) | `app/modules/retrieval/{queries,service}.py` | `tests/integration/test_retrieval.py` | ✅ đo 25.000 chunk: 50 ms |
+| T-304 | Ngưỡng liên quan, quyết định "không tìm thấy" (US-023) | `app/modules/answer/relevance.py` | `tests/unit/test_relevance.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
