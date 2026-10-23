@@ -11,6 +11,7 @@ from app.core import db
 from app.modules.audit import service as audit
 from app.modules.jobs import service as jobs
 from app.worker import registry
+from app.worker.ingest import make_handler
 
 logger = logging.getLogger("app.worker")
 SessionFactory = Callable[[], AsyncSession]
@@ -72,5 +73,6 @@ def register_defaults() -> None:
             await audit.expire(session, _utcnow())
             await session.commit()
 
+    registry.register("ingest", make_handler())
     registry.every("release_stale_jobs", 60, release_stale)
     registry.daily("audit_expire", "02:00", audit_expire)

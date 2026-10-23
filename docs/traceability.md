@@ -42,6 +42,8 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-605 | Sinh PDF mẫu và fixture kiểm thử | `scripts/make_sample_data.py`, `tests/conftest.py` (`sample_pdfs`) | `tests/unit/test_sample_data.py` | ✅ |
 | T-206 | Ingest: trích văn bản theo trang bằng pypdf (US-012, US-013) | `app/worker/extract.py` | `tests/unit/test_extract.py` | ✅ |
 | T-211 | Sự kiện trạng thái tài liệu: NOTIFY/LISTEN và SSE API-04 (US-012) | `app/modules/documents/events.py`, `app/api/document_events.py`, `app/main.py` | `tests/integration/test_document_events.py` | ✅ |
+| T-209 | Ingest: bước OCR cho PDF ảnh quét (lõi, bộ dựng ảnh và Tesseract chưa có) | `app/worker/ocr_step.py`, `app/core/wiring.py` | `tests/unit/test_ocr_step.py` | 🔶 ⛔ bộ nối Tesseract và dựng ảnh chờ T-004/T-010 |
+| T-210 | Ingest: điều phối, chuyển trạng thái, phát sự kiện (US-010, US-012, US-013) | `app/worker/ingest.py`, `app/worker/main.py` | `tests/integration/test_ingest.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

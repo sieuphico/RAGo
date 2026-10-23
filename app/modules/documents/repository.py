@@ -44,10 +44,12 @@ async def add(
 async def get(
     session: AsyncSession, doc_id: UUID, *, include_deleted: bool = False
 ) -> Document | None:
-    doc = await session.get(Document, doc_id)
-    if doc is None or (not include_deleted and doc.deleted_at is not None):
-        return None
-    return doc
+    query = select(Document).where(Document.doc_id == doc_id)
+    if not include_deleted:
+        query = query.where(Document.deleted_at.is_(None))
+    # populate_existing: luôn đọc dữ liệu mới (tránh đối tượng cũ sau rollback)
+    result = await session.execute(query.execution_options(populate_existing=True))
+    return result.scalar_one_or_none()
 
 
 async def list_documents(
