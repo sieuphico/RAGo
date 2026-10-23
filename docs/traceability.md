@@ -28,6 +28,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-102 | Migration 002: phiên hội thoại, tin nhắn (US-020, US-041) | `migrations/versions/002_chat.py` | `tests/integration/test_migration_002.py` | ✅ |
 | T-103 | Migration 003: quản trị, nhật ký, telemetry, hàng đợi (US-061, US-063) | `migrations/versions/003_admin.py` | `tests/integration/test_migration_003.py` | ✅ |
 | T-107 | Mã lỗi và bộ xử lý ngoại lệ | `app/core/errors.py` | `tests/unit/test_errors.py` | ✅ |
+| T-104 | ORM và repository tài liệu (US-010, US-015) | `app/models/document.py`, `app/modules/documents/repository.py` | `tests/integration/test_document_repository.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
