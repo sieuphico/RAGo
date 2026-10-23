@@ -5,6 +5,8 @@ import LoginView from "@/views/LoginView.vue";
 import DeniedView from "@/views/DeniedView.vue";
 import LibraryView from "@/views/LibraryView.vue";
 import ChatView from "@/views/ChatView.vue";
+import AdminUsersView from "@/views/AdminUsersView.vue";
+import AdminAuditView from "@/views/AdminAuditView.vue";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -33,13 +35,13 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/admin/users",
     name: "admin-users",
-    component: PlaceholderView,
+    component: AdminUsersView,
     meta: { roles: ["ADMIN"], title: "Người dùng được cấp quyền" },
   },
   {
     path: "/admin/audit",
     name: "admin-audit",
-    component: PlaceholderView,
+    component: AdminAuditView,
     meta: { roles: ["ADMIN"], title: "Nhật ký" },
   },
   { path: "/metrics", name: "metrics", component: PlaceholderView, meta: { roles: ["ADMIN", "SPONSOR"], title: "Số liệu" } },
