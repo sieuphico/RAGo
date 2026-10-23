@@ -176,7 +176,7 @@ async def test_all_removed_falls_back(session: AsyncSession) -> None:
 
 
 async def test_flag_off_ignores_scope(session: AsyncSession) -> None:
-    a, b = await _doc(session, "A.pdf"), await _doc(session, "B.pdf")
+    a, _b = await _doc(session, "A.pdf"), await _doc(session, "B.pdf")
     provider = Recording()
     service = _service(session, provider, _settings(scope=False))
     _, events = await _ask(service, session, "noi dung chung", scope={a})
