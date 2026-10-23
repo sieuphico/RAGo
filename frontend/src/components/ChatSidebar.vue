@@ -21,7 +21,6 @@ const docs = useDocumentsStore();
       <span aria-hidden="true">＋</span><span class="side-text">{{ t("chat.newSession") }}</span>
     </button>
     <div class="side-text">
-      <h2>{{ t("chat.history") }}</h2>
       <slot name="history" />
     </div>
     <div class="lib-link side-text">

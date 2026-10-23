@@ -24,3 +24,4 @@ Bảng task → file → test → trạng thái, kèm US/BR. Sẽ được gộp
 | T-520 | US-051 | BR-024 | `src/views/MetricsView.vue`, `src/components/WeeklyChart.vue`, `src/utils/metrics.ts` | `src/__tests__/metrics.spec.ts` | Xong |
 | T-522 | — | BR-033 | `e2e/a11y.spec.ts` (khung, chưa chạy), `A11Y_REPORT.md`, h1 ẩn ở `ChatView.vue` | `src/__tests__/a11y_static.spec.ts` | Một phần: kiểm tĩnh xong; quét axe, cuộn ngang, 200% zoom, trình đọc màn hình chưa chạy (FQ-07, FQ-08) |
 | T-514 | US-026 | BR-015 | `src/components/ScopePicker.vue`, `src/views/ChatView.vue` | `src/__tests__/scope_picker.spec.ts` | Xong (P1, ẩn khi cờ `scope` tắt; xử lý `scopeRemoved` ở `stores/chat.ts`) |
+| T-516 | US-041 | BR-021 | `src/components/HistoryList.vue`, `src/utils/history.ts`, `src/stores/chat.ts` (open) | `src/__tests__/history.spec.ts` | Xong (P1, ẩn khi cờ `history` tắt; `groupSessions` đặt ở `utils/history.ts`) |

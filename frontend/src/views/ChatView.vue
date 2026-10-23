@@ -3,6 +3,7 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import ChatSidebar from "@/components/ChatSidebar.vue";
+import HistoryList from "@/components/HistoryList.vue";
 import Composer from "@/components/Composer.vue";
 import MessageList from "@/components/MessageList.vue";
 import ScopePicker from "@/components/ScopePicker.vue";
@@ -82,7 +83,7 @@ function onNewSession() {
       :class="{ drawer: layout === 'narrow' }"
       @new-session="onNewSession"
     >
-      <template #history><!-- Danh sách lịch sử (T-516) --></template>
+      <template #history><HistoryList /></template>
     </ChatSidebar>
     <main id="main" class="chat-main" :aria-label="t('chat.conversationAria')" data-testid="conversation">
       <h1 class="sr-only">{{ t("nav.chat") }}</h1>
