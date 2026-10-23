@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import type { Role } from "@/api/types";
 import PlaceholderView from "@/views/PlaceholderView.vue";
+import LoginView from "@/views/LoginView.vue";
+import DeniedView from "@/views/DeniedView.vue";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -16,8 +18,8 @@ const CHAT_ROLES: Role[] = ["BD_USER", "TEAM_LEAD", "ADMIN"];
 
 // CONTRACTS mục 10.2. Component tạm là trang rỗng có tiêu đề; task màn hình thay sau.
 export const routes: RouteRecordRaw[] = [
-  { path: "/login", name: "login", component: PlaceholderView, meta: { public: true, title: "Đăng nhập" } },
-  { path: "/denied", name: "denied", component: PlaceholderView, meta: { title: "Không có quyền" } },
+  { path: "/login", name: "login", component: LoginView, meta: { public: true, title: "Đăng nhập" } },
+  { path: "/denied", name: "denied", component: DeniedView, meta: { title: "Không có quyền" } },
   { path: "/", name: "chat", component: PlaceholderView, meta: { roles: CHAT_ROLES, title: "Hỏi đáp" } },
   {
     path: "/chat/:sessionId",

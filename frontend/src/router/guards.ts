@@ -1,6 +1,6 @@
 import type { Router } from "vue-router";
 import { setAuthExpiredHandler, setForbiddenHandler } from "@/api/client";
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore, type AuthStatus } from "@/stores/auth";
 import { useFeaturesStore } from "@/stores/features";
 import { setRouter } from "./navigation";
 import { KEY_RETURN_TO, storageRemove, storageSet } from "@/utils/storage";
@@ -34,7 +34,7 @@ export function installGuards(router: Router): void {
     const auth = useAuthStore();
     if (auth.status === "loading") {
       await auth.load();
-      if (auth.status === "allowed") {
+      if ((auth.status as AuthStatus) === "allowed") {
         storageRemove(KEY_RETURN_TO);
         await useFeaturesStore().load();
       }
