@@ -9,8 +9,14 @@ from app.modules.telemetry.service import emit
 from tests.integration.helpers import CSRF, login
 
 
-async def _count(session: AsyncSession) -> int:
-    return int((await session.execute(text("SELECT count(*) FROM telemetry_event"))).scalar_one())
+async def _count(session: AsyncSession, event: str | None = None) -> int:
+    """Đăng nhập cũng phát `auth_*` nên test lọc theo tên sự kiện khi cần."""
+    sql = "SELECT count(*) FROM telemetry_event"
+    params: dict[str, str] = {}
+    if event:
+        sql += " WHERE event = :e"
+        params = {"e": event}
+    return int((await session.execute(text(sql), params)).scalar_one())
 
 
 async def test_unknown_field_rejected_by_api(client: httpx.AsyncClient, session: AsyncSession) -> None:
@@ -19,7 +25,7 @@ async def test_unknown_field_rejected_by_api(client: httpx.AsyncClient, session:
         "question_id": str(uuid4()), "doc_id": str(uuid4()), "page": 3, "text": "abc"}}  # fmt: skip
     resp = await client.post("/api/v1/telemetry/events", json=body, headers=CSRF)
     assert resp.status_code == 422 and resp.json()["code"] == "VALIDATION_ERROR"
-    assert await _count(session) == 0
+    assert await _count(session, "citation_clicked") == 0
 
 
 async def test_server_event_from_client_rejected(
@@ -41,7 +47,12 @@ async def test_valid_client_event_stored_without_email(
     resp = await client.post("/api/v1/telemetry/events", json=body, headers=CSRF)
     assert resp.status_code == 204
     row = (
-        await session.execute(text("SELECT event, anon_user_id, session_id, props FROM telemetry_event"))
+        await session.execute(
+            text(
+                "SELECT event, anon_user_id, session_id, props FROM telemetry_event "
+                "WHERE event = 'suggestion_clicked'"
+            )
+        )
     ).one()
     assert row[0] == "suggestion_clicked" and row[3] == {"suggestion_index": 1}
     assert "lan" not in row[1] and len(row[1]) == 64 and row[2]

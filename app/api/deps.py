@@ -15,6 +15,8 @@ from app.core.wiring import build_gateway, build_idp, build_storage
 from app.domain import CurrentUser, Role
 from app.modules.answer.service import AnswerService
 from app.modules.auth.cookies import SESSION_COOKIE, SessionData, read_cookie
+from app.modules.telemetry.mapping import emit_once
+from app.modules.telemetry.service import emit
 from app.modules.users import repository as users
 from app.ports.idp import IdpPort
 from app.ports.storage import StoragePort
@@ -48,6 +50,12 @@ async def current_user(data: SessionDataDep, session: SessionDep) -> CurrentUser
     """Tra allow-list mỗi yêu cầu, không bộ nhớ đệm: thu hồi quyền có hiệu lực ngay (EC-17)."""
     entry = await users.get_by_email(session, data.email)
     if entry is None:
+        if emit_once(data.sid, "revoked"):
+            await emit(
+                session, CurrentUser(data.email, Role.BD_USER), data.sid,
+                "auth_access_denied", reason="revoked",
+            )
+            await session.commit()
         raise AppError(ErrorCode.AUTH_FORBIDDEN)
     return CurrentUser(email=entry.email, role=entry.role)
 
@@ -56,8 +64,13 @@ CurrentUserDep = Annotated[CurrentUser, Depends(current_user)]
 
 
 def require_roles(*roles: Role) -> Callable[..., Awaitable[CurrentUser]]:
-    async def dependency(user: CurrentUserDep) -> CurrentUser:
+    async def dependency(
+        user: CurrentUserDep, data: SessionDataDep, session: SessionDep
+    ) -> CurrentUser:
         if user.role not in roles:
+            if emit_once(data.sid, "wrong_role"):
+                await emit(session, user, data.sid, "auth_access_denied", reason="wrong_role")
+                await session.commit()
             raise AppError(ErrorCode.AUTH_FORBIDDEN)
         return user
 

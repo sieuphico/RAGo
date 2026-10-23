@@ -14,7 +14,7 @@ from app.modules.auth.cookies import (
     read_state_cookie,
     safe_next,
 )
-from app.modules.auth.service import complete_login
+from app.modules.auth.service import complete_login, record_login
 
 router = APIRouter(prefix="/auth")
 
@@ -51,7 +51,8 @@ async def callback(
     if saved is None or not secrets.compare_digest(saved[0], params.get("state", "")):
         raise AppError(ErrorCode.VALIDATION_ERROR, http_status=400)
     try:
-        cookie, _ = await complete_login(session, idp, params)
+        cookie, first = await complete_login(session, idp, params)
+        await record_login(session, cookie, first)
     except Exception as exc:  # lỗi từ IdP: không lộ chi tiết (DD-06)
         raise AppError(ErrorCode.VALIDATION_ERROR, http_status=400) from exc
     await session.commit()

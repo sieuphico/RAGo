@@ -9,6 +9,8 @@ from app.domain import CurrentUser, DocumentStatus, UploadResult
 from app.modules.audit import service as audit
 from app.modules.documents import repository as documents
 from app.modules.jobs import service as jobs
+from app.modules.telemetry.mapping import upload_reason
+from app.modules.telemetry.service import emit
 from app.ports.storage import StoragePort, new_file_key
 
 CHUNK = 1024 * 1024
@@ -37,8 +39,11 @@ async def upload_documents(
     files: list[UploadFile],
     actor: CurrentUser,
     settings: Settings,
+    sid: str = "unknown",
 ) -> list[UploadResult]:
     if not 1 <= len(files) <= settings.max_files:
+        await emit(session, actor, sid, "document_upload_rejected", reason="too_many")
+        await session.commit()
         raise AppError(ErrorCode.FILE_TOO_MANY)
     limit = settings.max_upload_mb * 1024 * 1024
     results: list[UploadResult] = []
@@ -46,15 +51,23 @@ async def upload_documents(
     try:
         for file in files:
             name = (file.filename or "")[:NAME_MAX]
-            if not name.lower().endswith(".pdf"):
-                results.append(_rejected(name, ErrorCode.FILE_NOT_PDF))
-                continue
-            data = await _read_limited(file, limit)
-            if data is None:
-                results.append(_rejected(name, ErrorCode.FILE_TOO_LARGE))
-                continue
-            if not data.startswith(b"%PDF-"):
-                results.append(_rejected(name, ErrorCode.FILE_NOT_PDF))
+            extension_ok = name.lower().endswith(".pdf")
+            rejection: ErrorCode | None = None
+            data = b""
+            if not extension_ok:
+                rejection = ErrorCode.FILE_NOT_PDF
+            else:
+                loaded = await _read_limited(file, limit)
+                if loaded is None:
+                    rejection = ErrorCode.FILE_TOO_LARGE
+                elif not loaded.startswith(b"%PDF-"):
+                    rejection = ErrorCode.FILE_NOT_PDF
+                else:
+                    data = loaded
+            if rejection is not None:
+                results.append(_rejected(name, rejection))
+                reason = upload_reason(rejection.value, extension_ok=extension_ok)
+                await emit(session, actor, sid, "document_upload_rejected", reason=reason)
                 continue
             key = new_file_key()
             storage.save(key, data)

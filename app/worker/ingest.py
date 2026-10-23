@@ -13,11 +13,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core import db
 from app.core.config import Settings, get_settings
 from app.core.wiring import build_gateway, build_ocr, build_renderer, build_storage
-from app.domain import DocumentStatus, FailureReason, Job
+from app.domain import CurrentUser, DocumentStatus, FailureReason, Job, Role
 from app.models.document import Document
 from app.modules.documents import repository as documents
 from app.modules.documents.events import publish_status
 from app.modules.jobs import service as jobs
+from app.modules.telemetry.mapping import failure_reason
+from app.modules.telemetry.service import emit
 from app.ports.ocr import OcrPort
 from app.ports.storage import StoragePort
 from app.worker.chunker import split
@@ -26,6 +28,7 @@ from app.worker.indexer import EmbedFn, index_document
 from app.worker.ocr_step import Render, ocr_pages
 
 logger = logging.getLogger("app.worker.ingest")
+WORKER_SID = "worker"
 SessionMaker = Callable[[], Any]  # async_sessionmaker hoặc đối tượng tương đương trong test
 
 
@@ -70,11 +73,12 @@ async def _transition(
     reason: FailureReason | None = None,
     page_count: int | None = None,
     used_ocr: bool | None = None,
-) -> None:
-    await documents.set_status(
+) -> Document:
+    doc = await documents.set_status(
         session, doc_id, status, reason=reason, page_count=page_count, used_ocr=used_ocr
     )
     await publish_status(session, doc_id, status, reason, page_count)
+    return doc
 
 
 async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
@@ -88,6 +92,10 @@ async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
             DocumentStatus.OCR_PROCESSING,
         ):
             return  # đã xóa hoặc đã xử lý xong (chạy lại an toàn)
+        # Sự kiện của worker dùng anon_user_id của người tải lên (session_id = "worker")
+        uploader = CurrentUser(doc.uploaded_by, Role.TEAM_LEAD)
+        uploaded_at = doc.uploaded_at
+        ocr_attempted = False
         try:
             data = await asyncio.to_thread(deps.storage.read, doc.file_key)
             pages = await asyncio.to_thread(extract_pages, data, max_pages=settings.max_pages)
@@ -96,6 +104,7 @@ async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
                 if doc.status == DocumentStatus.PROCESSING:
                     await _transition(session, doc_id, DocumentStatus.OCR_PROCESSING)
                     await session.commit()
+                ocr_attempted = True
                 pages, _ = await ocr_pages(
                     deps.ocr, data, pages, settings.ocr_min_confidence, render=deps.render
                 )
@@ -112,15 +121,24 @@ async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
                 batch_size=settings.embed_batch_size,
                 dim=settings.embedding_dim,
             )
-            await _transition(
+            done = await _transition(
                 session, doc_id, DocumentStatus.READY, page_count=len(pages), used_ocr=used_ocr
             )
+            seconds = (done.processed_at - uploaded_at).total_seconds() if done.processed_at else 0.0
+            await emit(
+                session, uploader, WORKER_SID, "document_processing_completed",
+                doc_id=str(doc_id), page_count=len(pages), processing_seconds=max(seconds, 0.0),
+            )  # fmt: skip
             if "suggestions" in settings.features:
                 await jobs.enqueue(session, "suggest", {"docId": str(doc_id)})
             await session.commit()
         except ExtractError as exc:  # lỗi do tệp: thử lại vô ích
             await session.rollback()
             await _transition(session, doc_id, DocumentStatus.FAILED, reason=exc.reason)
+            await emit(
+                session, uploader, WORKER_SID, "document_processing_failed",
+                doc_id=str(doc_id), reason=failure_reason(exc.reason), used_ocr=ocr_attempted,
+            )  # fmt: skip
             await session.commit()
         except Exception:
             await session.rollback()
@@ -128,6 +146,10 @@ async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
                 await _transition(
                     session, doc_id, DocumentStatus.FAILED, reason=FailureReason.PROCESSING_ERROR
                 )
+                await emit(
+                    session, uploader, WORKER_SID, "document_processing_failed",
+                    doc_id=str(doc_id), reason="other", used_ocr=ocr_attempted,
+                )  # fmt: skip
                 await session.commit()
             raise
 
