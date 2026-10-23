@@ -54,6 +54,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-303 | Truy xuất lai vector + từ khóa, RRF, theo phạm vi (US-020, US-021) | `app/modules/retrieval/{queries,service}.py` | `tests/integration/test_retrieval.py` | ✅ đo 25.000 chunk: 50 ms |
 | T-304 | Ngưỡng liên quan, quyết định "không tìm thấy" (US-023) | `app/modules/answer/relevance.py` | `tests/unit/test_relevance.py` | ✅ |
 | T-305 | Dựng prompt với nhãn chunk (US-020, US-022) | `app/modules/answer/prompt.py` | `tests/unit/test_prompt.py` | ✅ |
+| T-306 | Kiểm tra và ánh xạ trích dẫn [cN] → [[n]] (US-022) | `app/modules/answer/citations.py` | `tests/unit/test_citations.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
