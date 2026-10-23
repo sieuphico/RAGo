@@ -1,0 +1,20 @@
+# Chỉ cho máy phát triển; tài khoản dưới đây không dùng ở môi trường khác.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: cwd
+      POSTGRES_PASSWORD: cwd
+      POSTGRES_DB: cwd
+    ports:
+      - "5433:5432"  # 5432 thường bị PostgreSQL cài sẵn chiếm
+    volumes:
+      - cwd_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cwd -d cwd"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  cwd_pgdata:

@@ -19,3 +19,6 @@ Quy tắc phụ thuộc: router → mô-đun → ports → adapters; mô-đun kh
 - Không bí mật trong mã/log; không ghi nội dung câu hỏi, câu trả lời, tài liệu vào log hay telemetry.
 - Thư viện ngoài danh sách đã duyệt: hỏi trước.
 - Không tự chạy lại "test xanh" của trợ lý làm bằng chứng; chạy và đọc kết quả thật.
+
+## CSDL phát triển
+`make db-up` (PostgreSQL + pgvector, cổng **5433** vì 5432 hay bị PostgreSQL cài sẵn chiếm), rồi `make migrate`. Sao chép `.env.example` thành `.env` và điền giá trị (`CWD_DATABASE_URL=postgresql+asyncpg://cwd:cwd@localhost:5433/cwd`). Test tích hợp tự tạo CSDL `cwd_test` (đổi bằng `CWD_TEST_DATABASE_URL`).

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# T-601 (phần backend). Frontend (T-501) và PostgreSQL thử (T-003) thêm khi có.
+# T-601 (phần backend). PostgreSQL: dịch vụ CI, hoặc `make db-up` ở máy cục bộ (cổng 5433).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 python -m pip install -q -e ".[dev]"
 ruff check .
-mypy app
+mypy app tests
 pytest --cov=app --cov-report=xml --cov-report=term -q
