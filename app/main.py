@@ -13,6 +13,7 @@ from app.api import (
     documents,
     documents_delete,
     documents_upload,
+    features,
     health,
     me,
     telemetry,
@@ -43,6 +44,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(auth.router)
     app.include_router(me.router)
+    app.include_router(features.router)
     app.include_router(admin_audit.router)
     app.include_router(admin_users.router)
     app.include_router(chat.router)
