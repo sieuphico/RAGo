@@ -3,7 +3,16 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api import admin_audit, auth, document_events, documents_upload, health, me
+from app.api import (
+    admin_audit,
+    auth,
+    document_events,
+    documents,
+    documents_delete,
+    documents_upload,
+    health,
+    me,
+)
 from app.api.csrf import CsrfMiddleware
 from app.core.config import get_settings
 from app.core.errors import install_error_handlers
@@ -30,5 +39,7 @@ def create_app() -> FastAPI:
     app.include_router(me.router)
     app.include_router(admin_audit.router)
     app.include_router(document_events.router)  # trước các route /documents/{docId}
+    app.include_router(documents.router)
     app.include_router(documents_upload.router)
+    app.include_router(documents_delete.router)
     return app
