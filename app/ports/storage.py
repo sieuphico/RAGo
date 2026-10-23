@@ -1,0 +1,13 @@
+from typing import Protocol
+
+
+class StoragePort(Protocol):
+    def save(self, key: str, data: bytes) -> None: ...
+
+    def read(self, key: str, start: int | None = None, end: int | None = None) -> bytes:
+        """`end` không bao gồm."""
+        ...
+
+    def size(self, key: str) -> int: ...
+
+    def delete(self, key: str) -> None: ...
