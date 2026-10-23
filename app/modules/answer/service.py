@@ -10,7 +10,6 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from app.adapters.ai_gateway import AiGateway
 from app.core.config import Settings
 from app.domain import (
     AnswerEvent,
@@ -30,6 +29,7 @@ from app.modules.chat import repository as chat
 from app.modules.documents import repository as documents
 from app.modules.retrieval.service import retrieve
 from app.modules.telemetry.service import emit as telemetry_emit
+from app.ports.ai import AiPort
 
 EmitFn = Callable[[CurrentUser, str, str, dict[str, Any]], Awaitable[None]]
 NOT_FOUND_PREFIX = "Không tìm thấy thông tin này"
@@ -39,7 +39,7 @@ class AnswerService:
     def __init__(
         self,
         session_factory: async_sessionmaker[AsyncSession],
-        gateway: AiGateway,
+        gateway: AiPort,
         settings: Settings,
         emit: EmitFn | None = None,
     ) -> None:
