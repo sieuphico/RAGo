@@ -34,7 +34,7 @@ Tạo một lần ở `app/domain/types.py` (task [T-009](tasks/T-009-kieu-du-li
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Literal
+from typing import Any, Literal
 from uuid import UUID
 
 
@@ -142,7 +142,7 @@ class IdpIdentity:
 class Job:
     job_id: UUID
     type: str                             # mục 8
-    payload: dict
+    payload: dict[str, Any]
     attempts: int
 
 

@@ -54,7 +54,7 @@ class InvalidTransition(Exception): ...
 ## Tiêu chí hoàn thành
 
 - [ ] Mọi tên kiểu và giá trị enum khớp từng chữ với CONTRACTS mục 2.
-- [ ] `assert_transition` chấp nhận đúng 9 cặp ở bảng 2.1 và từ chối mọi cặp khác.
+- [ ] `assert_transition` chấp nhận đúng 10 cặp ở bảng 2.1 (kể cả tạo mới) và từ chối mọi cặp khác.
 - [ ] Dataclass có `frozen=True` không gán lại được trường.
 - [ ] `mypy --strict app/domain` không lỗi.
 
@@ -63,7 +63,7 @@ class InvalidTransition(Exception): ...
 | Test | Tình huống | Kết quả mong đợi |
 |---|---|---|
 | `test_enum_values_match_contract` | Liệt kê thành viên `Role`, `DocumentStatus`, `FailureReason`, `MessageStatus` | Đúng tập giá trị ở CONTRACTS mục 2 (4, 5, 4, 7 giá trị) |
-| `test_allowed_transitions` | Gọi `assert_transition` cho 9 cặp ở bảng 2.1 (kể cả `None → PROCESSING`) | Không ném lỗi |
+| `test_allowed_transitions` | Gọi `assert_transition` cho 10 cặp ở bảng 2.1 (kể cả `None → PROCESSING`) | Không ném lỗi |
 | `test_invalid_transition_raises` | `assert_transition(READY, PROCESSING)` | `InvalidTransition` với thông điệp `"READY -> PROCESSING"` |
 | `test_frozen_dataclass` | Tạo `PageText(1, "a", True)` rồi gán `.page = 2` | `FrozenInstanceError` |
 
