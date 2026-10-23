@@ -44,6 +44,20 @@ export const M = {
   "audit.empty": "Chưa có hoạt động nào",
   "action.retry": "Thử lại",
   "action.askAgain": "Hỏi lại",
+
+  // ---- Khóa thêm bởi các task giao diện (chỉ thêm; không thuộc bảng CONTRACTS 10.4)
+  "app.name": "Chat với tài liệu",
+  "app.skipToMain": "Bỏ qua tới nội dung chính",
+  "nav.aria": "Điều hướng chính",
+  "nav.chat": "Hỏi đáp",
+  "nav.library": "Kho tài liệu",
+  "nav.metrics": "Số liệu",
+  "nav.admin": "Quản trị",
+  "auth.logout": "Đăng xuất",
+  "role.BD_USER": "Người dùng BD",
+  "role.TEAM_LEAD": "Trưởng nhóm BD",
+  "role.ADMIN": "Quản trị viên",
+  "role.SPONSOR": "Nhà tài trợ",
 } as const;
 
 export type MessageKey = keyof typeof M;
