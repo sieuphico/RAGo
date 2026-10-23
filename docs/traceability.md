@@ -58,6 +58,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-105 | Repository hội thoại (US-020, US-041) | `app/models/chat.py`, `app/modules/chat/repository.py` | `tests/integration/test_chat_repository.py` | ✅ |
 | T-307 | Dịch vụ trả lời (1/2): luồng chính có trích dẫn (US-020, US-021, US-022, US-023, US-027) | `app/modules/answer/service.py`, `app/modules/answer/lang.py` | `tests/integration/test_answer_service.py` | ✅ |
 | T-316 | Dịch vụ trả lời (2/2): dừng, đứt kết nối, lỗi, hết giờ (US-027, US-020) | `app/modules/answer/{service,running}.py` | `tests/integration/test_answer_interrupts.py` | ✅ |
+| T-308 | API hội thoại: tạo phiên, gửi câu hỏi (SSE), dừng (API-07/08/09; US-020, US-022, US-027) | `app/api/chat.py`, `app/modules/answer/service.py` (`begin`) | `tests/integration/test_chat_api.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

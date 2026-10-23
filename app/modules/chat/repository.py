@@ -1,6 +1,6 @@
 """Hội thoại: phiên, tin nhắn, trích dẫn. Chỉ `flush`; nơi gọi quyết định `commit`."""
 
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 from typing import Literal
 from uuid import UUID
 
@@ -126,7 +126,13 @@ async def get_message_for_user(
     return (await session.execute(query)).scalar_one_or_none()
 
 
-async def has_running_message(session: AsyncSession, user_email: str) -> bool:
+RUNNING_MAX_AGE = timedelta(minutes=10)
+
+
+async def has_running_message(
+    session: AsyncSession, user_email: str, max_age: timedelta = RUNNING_MAX_AGE
+) -> bool:
+    """Tin nhắn SEARCHING/STREAMING quá `max_age` coi là treo (tiến trình sập), không chặn người dùng."""
     query = (
         select(func.count())
         .select_from(Message)
@@ -135,6 +141,7 @@ async def has_running_message(session: AsyncSession, user_email: str) -> bool:
             ChatSession.user_email == user_email.lower(),
             Message.role == "assistant",
             Message.status.in_(_RUNNING),
+            Message.created_at >= datetime.now(UTC) - max_age,
         )
     )
     return int((await session.execute(query)).scalar_one()) > 0

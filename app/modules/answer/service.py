@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 from typing import Any
 from uuid import UUID
 
+from sqlalchemy import text as sa_text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.core.config import Settings
@@ -127,18 +128,38 @@ class AnswerService:
         )  # fmt: skip
 
     # ---- luồng chính
-    async def ask(
-        self, user: CurrentUser, sid: str, session_id: UUID, text: str, scope: set[UUID]
-    ) -> AsyncGenerator[AnswerEvent]:
-        started = time.monotonic()
+    async def begin(self, user: CurrentUser, session_id: UUID, text: str) -> UUID:
+        """Kiểm tra "đang có câu trả lời chạy" và tạo tin nhắn trong một giao dịch có khóa theo người dùng.
+
+        Gọi trước khi mở luồng SSE để trả lỗi JSON (409 QUESTION_IN_PROGRESS) đúng hợp đồng.
+        """
         async with self.factory() as session:
+            await session.execute(
+                sa_text("SELECT pg_advisory_xact_lock(hashtext(:email))"), {"email": user.email}
+            )
+            if await chat.has_running_message(session, user.email):
+                raise AppError(ErrorCode.QUESTION_IN_PROGRESS)
             await chat.add_message(session, session_id, "user", text, MessageStatus.COMPLETED)
             assistant = await chat.add_message(
                 session, session_id, "assistant", "", MessageStatus.SEARCHING
             )
             await chat.set_title_if_empty(session, session_id, text)
-            await session.commit()
-            message_id = assistant.message_id
+            await session.commit()  # nhả khóa advisory
+            return assistant.message_id
+
+    async def ask(
+        self,
+        user: CurrentUser,
+        sid: str,
+        session_id: UUID,
+        text: str,
+        scope: set[UUID],
+        message_id: UUID | None = None,
+    ) -> AsyncGenerator[AnswerEvent]:
+        started = time.monotonic()
+        if message_id is None:
+            message_id = await self.begin(user, session_id, text)
+        async with self.factory() as session:
             ready = await documents.ready_doc_ids(session, scope or None)
 
         progress = _Progress(message_id, started)

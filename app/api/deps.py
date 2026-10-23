@@ -7,11 +7,13 @@ from typing import Annotated
 from fastapi import Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core import db
 from app.core.config import Settings, get_settings
 from app.core.db import get_session
 from app.core.errors import AppError, ErrorCode
-from app.core.wiring import build_idp, build_storage
+from app.core.wiring import build_gateway, build_idp, build_storage
 from app.domain import CurrentUser, Role
+from app.modules.answer.service import AnswerService
 from app.modules.auth.cookies import SESSION_COOKIE, SessionData, read_cookie
 from app.modules.users import repository as users
 from app.ports.idp import IdpPort
@@ -60,3 +62,12 @@ def require_roles(*roles: Role) -> Callable[..., Awaitable[CurrentUser]]:
         return user
 
     return dependency
+
+
+@lru_cache
+def get_answer_service() -> AnswerService:
+    settings = get_settings()
+    return AnswerService(db.get_session_factory(), build_gateway(settings), settings)
+
+
+AnswerServiceDep = Annotated[AnswerService, Depends(get_answer_service)]
