@@ -12,6 +12,7 @@ import httpx
 import pytest
 from alembic import command
 from alembic.config import Config
+from fastapi import FastAPI
 from sqlalchemy import Engine, create_engine, text
 from sqlalchemy.engine import URL, make_url
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
@@ -119,17 +120,22 @@ def scratch_db() -> Iterator[ScratchDb]:
 
 
 @pytest.fixture
-async def client(session: AsyncSession) -> AsyncIterator[httpx.AsyncClient]:
-    """Client gọi thẳng ứng dụng; dùng chung `session` (rollback sau test)."""
+def app(session: AsyncSession) -> FastAPI:
+    """Ứng dụng dùng chung `session` (rollback sau test); test có thể thêm route thử."""
     from app.core.db import get_session
     from app.main import create_app
 
-    app = create_app()
+    application = create_app()
 
     async def _session() -> AsyncIterator[AsyncSession]:
         yield session
 
-    app.dependency_overrides[get_session] = _session
+    application.dependency_overrides[get_session] = _session
+    return application
+
+
+@pytest.fixture
+async def client(app: FastAPI) -> AsyncIterator[httpx.AsyncClient]:
     transport = httpx.ASGITransport(app=app, raise_app_exceptions=False)
     async with httpx.AsyncClient(transport=transport, base_url="https://test") as c:
         yield c

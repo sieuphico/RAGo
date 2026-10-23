@@ -31,6 +31,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-104 | ORM và repository tài liệu (US-010, US-015) | `app/models/document.py`, `app/modules/documents/repository.py` | `tests/integration/test_document_repository.py` | ✅ |
 | T-106 | Repository allow-list, nhật ký, telemetry, chi phí AI (US-061, US-063) | `app/models/admin.py`, `app/modules/{users,audit,telemetry,usage}/repository.py` | `tests/integration/test_admin_repositories.py` | ✅ |
 | T-108 | Đăng nhập, cookie phiên, `GET /me` — dùng IdpFake (US-001, US-002) | `app/modules/auth/`, `app/api/auth.py`, `app/api/me.py`, `app/api/deps.py` | `tests/integration/test_auth_flow.py` | 🔶 IdP thật chờ T-006 |
+| T-109 | AuthZ theo vai trò và chống CSRF (US-002, US-061) | `app/api/deps.py`, `app/api/csrf.py` | `tests/integration/test_authz.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
