@@ -48,6 +48,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-203 | API-05 xóa tài liệu (US-016, US-062, BR-007) | `app/modules/documents/delete.py`, `app/api/documents_delete.py` | `tests/integration/test_delete_document.py` | ✅ |
 | T-212 | API-06 tải PDF theo Range cho khung xem nguồn (US-022b) | `app/api/document_file.py` | `tests/integration/test_document_file.py` | ✅ |
 | T-213 | Tác vụ xóa dữ liệu ≤ 24 giờ và purge_sweep (US-064, US-016, BR-029) | `app/worker/purge.py` | `tests/integration/test_purge.py` | ✅ |
+| T-113 | Telemetry: 19 sự kiện, `emit`, API-16 (US-051, AD-10) | `app/modules/telemetry/{schema,service}.py`, `app/api/telemetry.py` | `tests/unit/test_telemetry_schema.py`, `tests/integration/test_telemetry_api.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
