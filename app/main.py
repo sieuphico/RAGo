@@ -16,6 +16,7 @@ from app.api import (
     features,
     health,
     me,
+    metrics,
     telemetry,
 )
 from app.api.csrf import CsrfMiddleware
@@ -54,4 +55,5 @@ def create_app() -> FastAPI:
     app.include_router(documents_upload.router)
     app.include_router(documents_delete.router)
     app.include_router(telemetry.router)
+    app.include_router(metrics.router)
     return app
