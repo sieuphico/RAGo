@@ -25,6 +25,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-008 | Cổng và bộ nối giả | `app/ports/`, `app/adapters/*_fake.py`, `app/core/wiring.py` | `tests/unit/test_fakes.py`, `test_import_rules.py` | ✅ |
 | T-009 | Kiểu miền, chuyển trạng thái | `app/domain/` | `tests/unit/test_domain.py` | ✅ |
 | T-101 | Migration 001: tài liệu, chunk, gợi ý (US-010, US-015) | `migrations/versions/001_documents.py` | `tests/integration/test_migration_001.py` | ✅ |
+| T-102 | Migration 002: phiên hội thoại, tin nhắn (US-020, US-041) | `migrations/versions/002_chat.py` | `tests/integration/test_migration_002.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
