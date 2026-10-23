@@ -4,6 +4,7 @@ import { nextTick, onMounted, ref, watch } from "vue";
 import type { CitationOut, UiMessage, UiMessageState } from "@/api/types";
 import { t } from "@/content/messages";
 import AnswerBlock from "./AnswerBlock.vue";
+import AnswerActions from "./AnswerActions.vue";
 import AnswerState from "./AnswerState.vue";
 
 const props = defineProps<{ messages: UiMessage[] }>();
@@ -69,7 +70,7 @@ onMounted(scrollToEnd);
             @open="emit('openCitation', m.messageId ?? m.id, $event)"
           >
             <template #state><AnswerState :message="m" @retry="emit('retry', m.id)" @stop="emit('stop')" /></template>
-            <template #actions><slot name="actions" :message="m" /></template>
+            <template #actions><AnswerActions :message="m" /></template>
           </AnswerBlock>
         </template>
       </div>

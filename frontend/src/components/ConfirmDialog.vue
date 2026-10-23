@@ -3,7 +3,7 @@
 import { nextTick, ref, useId, watch } from "vue";
 import { t } from "@/content/messages";
 
-const props = defineProps<{ open: boolean; title: string; confirmLabel: string; destructive?: boolean }>();
+const props = defineProps<{ open: boolean; title: string; confirmLabel: string; destructive?: boolean; cancelLabel?: string }>();
 const emit = defineEmits<{ confirm: []; cancel: [] }>();
 
 const dlg = ref<HTMLDialogElement | null>(null);
@@ -51,7 +51,7 @@ function onCancel(e: Event) {
     <div class="dlg-body"><slot /></div>
     <div class="dlg-actions">
       <button ref="cancelBtn" type="button" class="btn" data-testid="dialog-cancel" @click="emit('cancel')">
-        {{ t("action.cancel") }}
+        {{ cancelLabel ?? t("action.cancel") }}
       </button>
       <button
         ref="confirmBtn"

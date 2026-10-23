@@ -1,4 +1,5 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
+import { createPinia, setActivePinia } from "pinia";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { mount, flushPromises } from "@vue/test-utils";
@@ -17,6 +18,8 @@ const ai = (over: Partial<UiMessage> = {}): UiMessage => ({
 });
 
 describe("answer rendering", () => {
+  beforeEach(() => setActivePinia(createPinia()));
+
   it("split_answer", () => {
     expect(splitAnswer("A [[1]] B [[2]].")).toEqual([
       { kind: "text", value: "A " },
