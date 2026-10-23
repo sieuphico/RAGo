@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core import db
 from app.core.config import Settings, get_settings
-from app.core.wiring import build_ai, build_ocr, build_renderer, build_storage
+from app.core.wiring import build_gateway, build_ocr, build_renderer, build_storage
 from app.domain import DocumentStatus, FailureReason, Job
 from app.models.document import Document
 from app.modules.documents import repository as documents
@@ -44,7 +44,7 @@ def default_deps() -> IngestDeps:
     return IngestDeps(
         factory=db.get_session_factory(),
         storage=build_storage(settings),
-        embed=build_ai(settings).embed,
+        embed=build_gateway(settings).embed,
         ocr=build_ocr(settings),
         render=build_renderer(settings),
         settings=settings,

@@ -49,6 +49,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-212 | API-06 tải PDF theo Range cho khung xem nguồn (US-022b) | `app/api/document_file.py` | `tests/integration/test_document_file.py` | ✅ |
 | T-213 | Tác vụ xóa dữ liệu ≤ 24 giờ và purge_sweep (US-064, US-016, BR-029) | `app/worker/purge.py` | `tests/integration/test_purge.py` | ✅ |
 | T-113 | Telemetry: 19 sự kiện, `emit`, API-16 (US-051, AD-10) | `app/modules/telemetry/{schema,service}.py`, `app/api/telemetry.py` | `tests/unit/test_telemetry_schema.py`, `tests/integration/test_telemetry_api.py` | ✅ |
+| T-301 | Cổng AI AiGateway: thời hạn, thử lại, ngắt mạch, hạn mức, ghi nhận (US-060, NFR-009) | `app/adapters/ai_gateway.py`, `app/core/wiring.py` | `tests/unit/test_ai_gateway.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

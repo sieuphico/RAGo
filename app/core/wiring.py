@@ -1,9 +1,11 @@
 """Chọn bộ nối (giả hay thật). Chỉ file này được nhập app.adapters."""
 
 from app.adapters.ai_fake import AiFake
+from app.adapters.ai_gateway import AiGateway
 from app.adapters.idp_fake import IdpFake
 from app.adapters.ocr_fake import OcrFake
 from app.adapters.storage_fs import FsStorage
+from app.core import db
 from app.core.config import Settings
 from app.ports.ai import AiPort
 from app.ports.idp import IdpPort
@@ -39,3 +41,14 @@ def build_renderer(settings: Settings) -> Render:
     if settings.ocr_engine == "fake":
         return lambda pdf, page: b"PNG-fake"
     raise NotImplementedError(settings.ocr_engine)
+
+
+_gateway: AiGateway | None = None
+
+
+def build_gateway(settings: Settings) -> AiGateway:
+    """Thể hiện duy nhất của cổng AI; mọi mô-đun gọi AI qua đây (AD-04)."""
+    global _gateway
+    if _gateway is None:
+        _gateway = AiGateway(build_ai(settings), settings, db.get_session_factory())
+    return _gateway
