@@ -56,6 +56,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-305 | Dựng prompt với nhãn chunk (US-020, US-022) | `app/modules/answer/prompt.py` | `tests/unit/test_prompt.py` | ✅ |
 | T-306 | Kiểm tra và ánh xạ trích dẫn [cN] → [[n]] (US-022) | `app/modules/answer/citations.py` | `tests/unit/test_citations.py` | ✅ |
 | T-105 | Repository hội thoại (US-020, US-041) | `app/models/chat.py`, `app/modules/chat/repository.py` | `tests/integration/test_chat_repository.py` | ✅ |
+| T-307 | Dịch vụ trả lời (1/2): luồng chính có trích dẫn (US-020, US-021, US-022, US-023, US-027) | `app/modules/answer/service.py`, `app/modules/answer/lang.py` | `tests/integration/test_answer_service.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
