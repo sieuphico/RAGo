@@ -8,12 +8,12 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 
 | Story | BR | Task | Mã | Test | Trạng thái |
 |---|---|---|---|---|---|
-| US-010 Tải PDF lên | BR-001 | T-101, T-104, T-112, T-201, T-204–T-211 | `app/modules/documents/upload.py`, `app/api/documents_upload.py` | `tests/integration/test_upload_api.py` | 🔶 API tải lên xong (AC1); chờ worker T-205–T-211 để READY (AC2) |
+| US-010 Tải PDF lên | BR-001 | T-101, T-104, T-112, T-201, T-204–T-211 | `app/modules/documents/upload.py`, `app/worker/ingest.py` | `tests/integration/test_upload_api.py`, `test_ingest.py` | ✅ backend (AC1, AC2); chờ giao diện T-508/T-523 |
 | US-011 Báo tệp không hợp lệ | BR-003, BR-004 | T-201, T-508 | `app/modules/documents/upload.py` | `tests/integration/test_upload_api.py` | 🔶 phía máy chủ xong; chờ giao diện T-508 |
-| US-012 Trạng thái xử lý | BR-005 | T-206, T-210, T-211 | — | — | ⬜ |
-| US-020 Hỏi và nhận trả lời | BR-008, BR-013 | T-303–T-308, T-315, T-316 | — | — | ⬜ |
-| US-022a Thẻ trích dẫn trong câu trả lời | BR-010 | T-305, T-306, T-307, T-308 | — | — | ⬜ |
-| US-022b Bấm mở đúng trang | BR-010 | T-212, T-512, T-513 | — | — | ⬜ |
+| US-012 Trạng thái xử lý | BR-005 | T-206, T-210, T-211 | `app/worker/extract.py`, `app/modules/documents/events.py` | `test_extract.py`, `test_document_events.py` | ✅ backend (SSE API-04); chờ giao diện T-509 |
+| US-020 Hỏi và nhận trả lời | BR-008, BR-013 | T-303–T-308, T-315, T-316 | `app/modules/answer/`, `app/modules/retrieval/`, `app/api/chat.py`, `app/adapters/ai_ollama.py` | `test_answer_service.py`, `test_chat_api.py`, `test_retrieval.py` | 🔶 backend xong, đã chạy thật với Ollama; NFR-001 chưa đạt trên CPU (xem ADR-0004); chờ giao diện |
+| US-022a Thẻ trích dẫn trong câu trả lời | BR-010 | T-305, T-306, T-307, T-308 | `app/modules/answer/{prompt,citations}.py` | `test_prompt.py`, `test_citations.py`, `test_answer_service.py` | ✅ backend |
+| US-022b Bấm mở đúng trang | BR-010 | T-212, T-512, T-513 | `app/api/document_file.py` | `test_document_file.py` | 🔶 API-06 xong (Range); chờ khung xem nguồn T-513 |
 
 ## Task nền tảng (không gắn story)
 

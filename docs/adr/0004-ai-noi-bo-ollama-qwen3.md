@@ -27,3 +27,8 @@ AD-06 (nhà cung cấp AI) chưa chốt; DEP-001 chưa duyệt nên chưa đư�
 - Đổi mô hình nhúng đổi số chiều: phải tạo lại CSDL (`make db-reset`) và nhúng lại mọi tài liệu (migration 001 đọc `embedding_dim` lúc chạy).
 - Qwen3 1.7B nhỏ: chất lượng trả lời, trích dẫn nhãn `[cK]` và tiếng Việt cần đo bằng bộ câu hỏi chuẩn (T-607); chạy CPU có thể chậm hơn NFR-001 (p90 ≤ 15 giây).
 - CONTRACTS mục 7 thiếu 3 khóa; người duyệt cần cập nhật tài liệu baseline.
+
+## Số đo thực tế (2026-10-23, CPU, máy phát triển)
+- Nhúng 1024 chiều đúng; Qwen3 1.7B trả lời tiếng Việt và tiếng Anh, ghi nhãn `[c1]` đúng, từ chối câu ngoài phạm vi bằng đúng câu mẫu.
+- Một câu hỏi đầu cuối (8 chunk trong prompt): token đầu sau ~15–22 giây, hoàn tất ~17–23 giây. **Chưa đạt NFR-001 (p90 ≤ 15 giây)** khi chạy CPU; cần GPU, giảm `retrieval_k` hoặc rút gọn ngữ cảnh. Đo lại ở T-607/T-608.
+- Tải tài liệu 12 trang lên `READY` trong ~10 giây (nhúng 1024 chiều bằng CPU).
