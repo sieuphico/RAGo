@@ -164,6 +164,16 @@ export const useChatStore = defineStore("chat", () => {
     }, STOP_GRACE_MS);
   }
 
+  /** Hỏi lại / Thử lại: bỏ cặp câu hỏi và câu trả lời lỗi rồi gửi lại cùng câu hỏi. */
+  async function retry(assistantId: string): Promise<void> {
+    if (busy.value) return;
+    const i = messages.value.findIndex((m) => m.id === assistantId);
+    const q = i > 0 ? messages.value[i - 1] : undefined;
+    if (!q || q.role !== "user") return;
+    messages.value.splice(i - 1, 2);
+    await send(q.text);
+  }
+
   function newSession(): void {
     controller?.abort();
     clearTimers();
@@ -201,5 +211,5 @@ export const useChatStore = defineStore("chat", () => {
     }
   }
 
-  return { sessionId, messages, draft, busy, scope, libraryEmpty, send, stop, newSession, open };
+  return { sessionId, messages, draft, busy, scope, libraryEmpty, send, stop, retry, newSession, open };
 });

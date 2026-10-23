@@ -76,6 +76,7 @@ export const M = {
   "upload.dismiss": "Đóng",
   "docs.announceReady": "{tên}: Sẵn sàng",
   "docs.announceFailed": "{tên}: Thất bại – {lý do}",
+  "answer.searchingNoCount": "Đang tìm trong tài liệu…",
   "library.title": "Kho tài liệu",
   "library.uploadAria": "Tải tài liệu lên",
   "library.searchLabel": "Tìm theo tên",

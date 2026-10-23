@@ -17,7 +17,6 @@ function citationFor(index: number): CitationOut | undefined {
 
 <template>
   <div class="msg-ai" data-testid="answer-block">
-    <slot name="state" />
     <div v-if="message.text" class="answer-body">
       <p class="answer-text" :class="{ caret: message.state === 'STREAMING' }" data-testid="answer-text"><template
           v-for="(part, i) in parts"
@@ -27,7 +26,7 @@ function citationFor(index: number): CitationOut | undefined {
             @open="emit('open', $event)"
           /></template></template></p>
     </div>
-    <slot name="notice" />
+    <slot name="state" />
     <slot name="actions" />
   </div>
 </template>

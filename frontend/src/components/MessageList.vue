@@ -4,9 +4,10 @@ import { nextTick, onMounted, ref, watch } from "vue";
 import type { CitationOut, UiMessage, UiMessageState } from "@/api/types";
 import { t } from "@/content/messages";
 import AnswerBlock from "./AnswerBlock.vue";
+import AnswerState from "./AnswerState.vue";
 
 const props = defineProps<{ messages: UiMessage[] }>();
-const emit = defineEmits<{ openCitation: [messageId: string, c: CitationOut] }>();
+const emit = defineEmits<{ openCitation: [messageId: string, c: CitationOut]; retry: [id: string]; stop: [] }>();
 
 const scroller = ref<HTMLElement | null>(null);
 const announcement = ref("");
@@ -67,8 +68,7 @@ onMounted(scrollToEnd);
             :message="m"
             @open="emit('openCitation', m.messageId ?? m.id, $event)"
           >
-            <template #state><slot name="state" :message="m" /></template>
-            <template #notice><slot name="notice" :message="m" /></template>
+            <template #state><AnswerState :message="m" @retry="emit('retry', m.id)" @stop="emit('stop')" /></template>
             <template #actions><slot name="actions" :message="m" /></template>
           </AnswerBlock>
         </template>
