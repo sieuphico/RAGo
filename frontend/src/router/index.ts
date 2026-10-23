@@ -3,6 +3,7 @@ import type { Role } from "@/api/types";
 import PlaceholderView from "@/views/PlaceholderView.vue";
 import LoginView from "@/views/LoginView.vue";
 import DeniedView from "@/views/DeniedView.vue";
+import LibraryView from "@/views/LibraryView.vue";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -27,7 +28,7 @@ export const routes: RouteRecordRaw[] = [
     component: PlaceholderView,
     meta: { roles: CHAT_ROLES, title: "Hỏi đáp" },
   },
-  { path: "/library", name: "library", component: PlaceholderView, meta: { roles: CHAT_ROLES, title: "Kho tài liệu" } },
+  { path: "/library", name: "library", component: LibraryView, meta: { roles: CHAT_ROLES, title: "Kho tài liệu" } },
   {
     path: "/admin/users",
     name: "admin-users",

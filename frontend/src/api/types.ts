@@ -193,6 +193,14 @@ export interface DocumentStatusData {
   pageCount: number | null;
 }
 
+/** Giá trị `sort` của API-03 (CONTRACTS mục 4.1). */
+export type DocumentSort = "uploadedAt_desc" | "uploadedAt_asc" | "name_asc" | "name_desc";
+
+export interface DocumentListOut {
+  items: DocumentOut[];
+  total: number;
+}
+
 /** Lỗi trả về của mọi API (CONTRACTS mục 3). */
 export interface ErrorBody {
   code: string;
