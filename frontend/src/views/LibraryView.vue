@@ -1,9 +1,11 @@
 <script setup lang="ts">
 // S-04 Kho tài liệu (library.html): 5 trạng thái — đang tải, trống, dữ liệu, lỗi, hạn chế quyền (US-015).
 import { computed, onMounted, ref } from "vue";
-import type { DocumentSort } from "@/api/types";
+import type { DocumentOut, DocumentSort } from "@/api/types";
 import DocumentTable from "@/components/DocumentTable.vue";
 import DropZone from "@/components/DropZone.vue";
+import DuplicateDialog from "@/components/DuplicateDialog.vue";
+import RowMenu from "@/components/RowMenu.vue";
 import SkeletonRows from "@/components/SkeletonRows.vue";
 import UploadQueue from "@/components/UploadQueue.vue";
 import { useDocumentEvents } from "@/composables/useDocumentEvents";
@@ -11,9 +13,11 @@ import { useUpload } from "@/composables/useUpload";
 import { t } from "@/content/messages";
 import { useAuthStore } from "@/stores/auth";
 import { useDocumentsStore } from "@/stores/documents";
+import { useFeaturesStore } from "@/stores/features";
 
 const auth = useAuthStore();
 const docs = useDocumentsStore();
+const features = useFeaturesStore();
 
 const search = ref("");
 const sort = ref<DocumentSort>("uploadedAt_desc");
@@ -21,10 +25,35 @@ const sort = ref<DocumentSort>("uploadedAt_desc");
 const canUpload = computed(() => auth.me?.role === "TEAM_LEAD");
 const upload = useUpload();
 const { announcement } = useDocumentEvents();
-/** Tệp đã qua kiểm tra (T-508) → hàng đợi tải lên (T-523). */
-function onAccepted(files: File[]) {
-  upload.enqueue(files);
+
+// Tệp trùng tên và kích thước với tài liệu đã có (EC-10): hỏi từng tệp một.
+const duplicates = ref<{ file: File; existing: DocumentOut }[]>([]);
+const currentDuplicate = computed(() => duplicates.value[0] ?? null);
+
+function findDuplicate(file: File): DocumentOut | undefined {
+  return docs.items.find((d) => d.status !== "DELETED" && d.name === file.name && d.sizeBytes === file.size);
 }
+
+/** Tệp đã qua kiểm tra (T-508) → kiểm tra trùng (T-510, khi cờ bật) → hàng đợi tải lên (T-523). */
+function onAccepted(files: File[]) {
+  if (!features.flags.duplicateCheck) {
+    upload.enqueue(files);
+    return;
+  }
+  const fresh: File[] = [];
+  for (const file of files) {
+    const existing = findDuplicate(file);
+    if (existing) duplicates.value.push({ file, existing });
+    else fresh.push(file);
+  }
+  if (fresh.length > 0) upload.enqueue(fresh);
+}
+
+function resolveDuplicate(proceed: boolean) {
+  const current = duplicates.value.shift();
+  if (current && proceed) upload.enqueue([current.file]);
+}
+
 const rows = computed(() => docs.filtered(search.value, sort.value));
 
 onMounted(() => {
@@ -70,11 +99,24 @@ onMounted(() => {
     </div>
     <template v-else>
       <DocumentTable :rows="rows" :sort="sort" :slow-ids="docs.slowIds" @sort="sort = $event">
-        <!-- Menu thao tác theo dòng (T-510, T-518) gắn vào slot "actions" -->
+        <template #actions="{ doc }">
+          <RowMenu :doc="doc">
+            <!-- Mục "Tóm tắt" (T-518) -->
+          </RowMenu>
+        </template>
       </DocumentTable>
       <p v-if="rows.length === 0" class="muted no-match" data-testid="no-match">{{ t("library.noMatch") }}</p>
     </template>
     <div class="sr-only" aria-live="polite" data-testid="sr-live">{{ announcement }}</div>
+
+    <DuplicateDialog
+      v-if="currentDuplicate"
+      :key="currentDuplicate.file.name + currentDuplicate.file.size + duplicates.length"
+      :file="currentDuplicate.file"
+      :existing="currentDuplicate.existing"
+      @cancel="resolveDuplicate(false)"
+      @proceed="resolveDuplicate(true)"
+    />
   </main>
 </template>
 
