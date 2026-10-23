@@ -8,6 +8,7 @@ import uuid
 from collections.abc import AsyncIterator, Iterator
 from pathlib import Path
 
+import httpx
 import pytest
 from alembic import command
 from alembic.config import Config
@@ -115,3 +116,20 @@ def scratch_db() -> Iterator[ScratchDb]:
     with admin.connect() as conn:
         conn.execute(text(f'DROP DATABASE IF EXISTS "{url.database}" WITH (FORCE)'))
     admin.dispose()
+
+
+@pytest.fixture
+async def client(session: AsyncSession) -> AsyncIterator[httpx.AsyncClient]:
+    """Client gọi thẳng ứng dụng; dùng chung `session` (rollback sau test)."""
+    from app.core.db import get_session
+    from app.main import create_app
+
+    app = create_app()
+
+    async def _session() -> AsyncIterator[AsyncSession]:
+        yield session
+
+    app.dependency_overrides[get_session] = _session
+    transport = httpx.ASGITransport(app=app, raise_app_exceptions=False)
+    async with httpx.AsyncClient(transport=transport, base_url="https://test") as c:
+        yield c
