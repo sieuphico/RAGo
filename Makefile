@@ -1,4 +1,4 @@
-.PHONY: ai-up ai-pull sample-data gate install lint type test run db-up db-down migrate db-reset
+.PHONY: add-admin ai-up ai-pull sample-data gate install lint type test run db-up db-down migrate db-reset
 
 install:
 	pip install -e ".[dev]"
@@ -40,3 +40,6 @@ ai-up:
 ai-pull:
 	docker compose -f deploy/compose.dev.yml --profile ai exec ollama ollama pull qwen3:1.7b
 	docker compose -f deploy/compose.dev.yml --profile ai exec ollama ollama pull qwen3-embedding:0.6b
+
+add-admin:
+	python -m app.cli add-admin $(EMAIL)

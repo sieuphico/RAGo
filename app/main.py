@@ -5,6 +5,7 @@ from fastapi import FastAPI
 
 from app.api import (
     admin_audit,
+    admin_users,
     auth,
     chat,
     document_events,
@@ -43,6 +44,7 @@ def create_app() -> FastAPI:
     app.include_router(auth.router)
     app.include_router(me.router)
     app.include_router(admin_audit.router)
+    app.include_router(admin_users.router)
     app.include_router(chat.router)
     app.include_router(document_events.router)  # trước các route /documents/{docId}
     app.include_router(documents.router)
