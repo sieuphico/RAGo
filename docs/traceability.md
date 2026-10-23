@@ -37,6 +37,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-204 | Hàng đợi tác vụ trong PostgreSQL | `app/models/job.py`, `app/modules/jobs/` | `tests/integration/test_jobs_service.py` | ✅ |
 | T-201 | API-02 tải lên PDF (US-010, US-011, BR-001, BR-003, BR-004) | `app/modules/documents/upload.py`, `app/api/documents_upload.py` | `tests/integration/test_upload_api.py` | ✅ |
 | T-207 | Ingest: chia chunk theo trang (US-022) | `app/worker/chunker.py` | `tests/unit/test_chunker.py` | ✅ |
+| T-208 | Ingest: nhúng và lập chỉ mục (US-020) | `app/worker/indexer.py` | `tests/integration/test_indexer.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
