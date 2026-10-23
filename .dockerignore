@@ -1,0 +1,16 @@
+.git
+.venv
+.claude
+.vscode
+node_modules
+frontend/node_modules
+frontend/dist
+var
+tests/fixtures/generated
+**/__pycache__
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.env
+deploy/.env
+deploy/certs

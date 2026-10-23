@@ -1,0 +1,22 @@
+# Một ảnh cho cả API và worker (T-602). Bí mật nạp lúc chạy từ biến môi trường, không đưa vào ảnh.
+FROM python:3.12-slim AS builder
+WORKDIR /build
+ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+COPY pyproject.toml ./
+COPY app ./app
+RUN python -m venv /opt/venv && /opt/venv/bin/pip install .
+
+FROM python:3.12-slim
+RUN useradd --system --uid 10001 --create-home --shell /usr/sbin/nologin cwd \
+    && mkdir -p /srv/storage && chown cwd /srv/storage
+COPY --from=builder /opt/venv /opt/venv
+WORKDIR /srv
+COPY alembic.ini ./
+COPY migrations ./migrations
+ENV PATH=/opt/venv/bin:$PATH PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 CWD_STORAGE_ROOT=/srv/storage
+USER cwd
+EXPOSE 8000 9101
+HEALTHCHECK --interval=15s --timeout=3s --retries=5 \
+  CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2).status == 200 else 1)"
+# api chỉ nhận yêu cầu từ nginx trong mạng compose nên tin X-Forwarded-* (địa chỉ callback SSO đúng giao thức)
+CMD ["uvicorn", "app.main:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips", "*"]
