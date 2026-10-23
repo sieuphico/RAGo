@@ -28,6 +28,10 @@ def _session_factory() -> async_sessionmaker[AsyncSession]:
     return async_sessionmaker(_engine(), expire_on_commit=False)
 
 
+def get_session_factory() -> async_sessionmaker[AsyncSession]:
+    return _session_factory()
+
+
 def __getattr__(name: str) -> Any:
     if name == "engine":
         return _engine()
