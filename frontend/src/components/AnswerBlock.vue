@@ -18,13 +18,19 @@ function citationFor(index: number): CitationOut | undefined {
 <template>
   <div class="msg-ai" data-testid="answer-block">
     <div v-if="message.text" class="answer-body">
-      <p class="answer-text" :class="{ caret: message.state === 'STREAMING' }" data-testid="answer-text"><template
+      <p class="answer-text" :class="{ caret: message.state === 'STREAMING' }" data-testid="answer-text">
+<template
           v-for="(part, i) in parts"
           :key="i"
-        ><template v-if="part.kind === 'text'">{{ part.value }}</template><template v-else-if="citationFor(part.index)"><CitationChip
+        >
+<template v-if="part.kind === 'text'">{{ part.value }}</template><template v-else-if="citationFor(part.index)">
+<CitationChip
             :citation="citationFor(part.index)!"
             @open="emit('open', $event)"
-          /></template></template></p>
+          />
+</template>
+</template>
+</p>
     </div>
     <slot name="state" />
     <slot name="actions" />

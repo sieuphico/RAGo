@@ -21,3 +21,4 @@ Bảng task → file → test → trạng thái, kèm US/BR. Sẽ được gộp
 | T-525 | US-023, US-027, US-020 | BR-011, BR-013 | `src/components/AnswerState.vue`, `src/stores/chat.ts` (retry), `src/components/MessageList.vue` | `src/__tests__/answer_state.spec.ts` | Xong |
 | T-513 | US-022 | BR-010 | `src/components/SourceViewer.vue`, `src/views/ChatView.vue` | `src/__tests__/source_viewer.spec.ts` | Xong |
 | T-519 | US-061, US-063 | BR-016, BR-018 | `src/views/AdminUsersView.vue`, `src/views/AdminAuditView.vue`, `src/components/AdminTabs.vue` | `src/__tests__/admin.spec.ts` | Xong |
+| T-520 | US-051 | BR-024 | `src/views/MetricsView.vue`, `src/components/WeeklyChart.vue`, `src/utils/metrics.ts` | `src/__tests__/metrics.spec.ts` | Xong |

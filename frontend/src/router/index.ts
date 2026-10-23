@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import type { Role } from "@/api/types";
-import PlaceholderView from "@/views/PlaceholderView.vue";
 import LoginView from "@/views/LoginView.vue";
 import DeniedView from "@/views/DeniedView.vue";
 import LibraryView from "@/views/LibraryView.vue";
 import ChatView from "@/views/ChatView.vue";
 import AdminUsersView from "@/views/AdminUsersView.vue";
 import AdminAuditView from "@/views/AdminAuditView.vue";
+import MetricsView from "@/views/MetricsView.vue";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -44,7 +44,7 @@ export const routes: RouteRecordRaw[] = [
     component: AdminAuditView,
     meta: { roles: ["ADMIN"], title: "Nhật ký" },
   },
-  { path: "/metrics", name: "metrics", component: PlaceholderView, meta: { roles: ["ADMIN", "SPONSOR"], title: "Số liệu" } },
+  { path: "/metrics", name: "metrics", component: MetricsView, meta: { roles: ["ADMIN", "SPONSOR"], title: "Số liệu" } },
 ];
 
 const router = createRouter({

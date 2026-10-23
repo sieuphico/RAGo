@@ -8,12 +8,12 @@ const route = useRoute();
 
 <template>
   <nav class="nav admin-tabs" :aria-label="t('admin.tabsAria')">
-    <RouterLink to="/admin/users" custom v-slot="{ href, navigate }">
+    <RouterLink v-slot="{ href, navigate }" to="/admin/users" custom>
       <a :href="href" :aria-current="route.path === '/admin/users' ? 'page' : undefined" @click="navigate">{{
         t("admin.tabUsers")
       }}</a>
     </RouterLink>
-    <RouterLink to="/admin/audit" custom v-slot="{ href, navigate }">
+    <RouterLink v-slot="{ href, navigate }" to="/admin/audit" custom>
       <a :href="href" :aria-current="route.path === '/admin/audit' ? 'page' : undefined" @click="navigate">{{
         t("admin.tabAudit")
       }}</a>

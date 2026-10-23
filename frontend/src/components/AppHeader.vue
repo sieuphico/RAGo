@@ -19,7 +19,7 @@ const roleLabel = computed(() => (props.role ? M[`role.${props.role}`] : ""));
     <a class="skip-link" href="#main" data-testid="skip-link">{{ t("app.skipToMain") }}</a>
     <span class="brand"><span class="brand-mark" aria-hidden="true">◆</span> {{ t("app.name") }}</span>
     <nav class="nav" :aria-label="t('nav.aria')">
-      <RouterLink v-for="item in items" :key="item.to" :to="item.to" custom v-slot="{ href, navigate }">
+      <RouterLink v-for="item in items" :key="item.to" v-slot="{ href, navigate }" :to="item.to" custom>
         <a :href="href" :aria-current="isCurrent(item, route.path) ? 'page' : undefined" @click="navigate">{{
           item.label
         }}</a>
