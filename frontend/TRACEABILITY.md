@@ -17,3 +17,4 @@ Bảng task → file → test → trạng thái, kèm US/BR. Sẽ được gộp
 | T-508 | US-010, US-011, US-014 | BR-001..BR-004 | `src/components/DropZone.vue`, `src/utils/validateFiles.ts`, `src/views/LibraryView.vue` | `src/__tests__/upload.spec.ts` | Xong (nối `enqueue` ở T-523) |
 | T-512 | US-020, US-022, US-023, US-027 | BR-010, BR-011, BR-013 | `src/components/{MessageList,AnswerBlock,CitationChip}.vue`, `src/utils/answerText.ts` | `src/__tests__/answer.spec.ts` | Xong |
 | T-523 | US-010, US-014 | BR-001, BR-003, BR-004 | `src/composables/useUpload.ts`, `src/components/UploadQueue.vue`, `src/views/LibraryView.vue` | `src/__tests__/use_upload.spec.ts` | Xong (hàng đợi dùng chung cấp module; thêm `dismiss`) |
+| T-509 | US-012 | BR-005 | `src/composables/useDocumentEvents.ts`, `src/views/LibraryView.vue` | `src/__tests__/document_events.spec.ts` | Xong (composable trả thêm `announcement`) |

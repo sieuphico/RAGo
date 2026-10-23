@@ -74,6 +74,8 @@ export const M = {
   "chat.logAria": "Tin nhắn",
   "upload.queueAria": "Tệp đang tải lên",
   "upload.dismiss": "Đóng",
+  "docs.announceReady": "{tên}: Sẵn sàng",
+  "docs.announceFailed": "{tên}: Thất bại – {lý do}",
   "library.title": "Kho tài liệu",
   "library.uploadAria": "Tải tài liệu lên",
   "library.searchLabel": "Tìm theo tên",

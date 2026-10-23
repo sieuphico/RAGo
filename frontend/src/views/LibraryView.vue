@@ -6,6 +6,7 @@ import DocumentTable from "@/components/DocumentTable.vue";
 import DropZone from "@/components/DropZone.vue";
 import SkeletonRows from "@/components/SkeletonRows.vue";
 import UploadQueue from "@/components/UploadQueue.vue";
+import { useDocumentEvents } from "@/composables/useDocumentEvents";
 import { useUpload } from "@/composables/useUpload";
 import { t } from "@/content/messages";
 import { useAuthStore } from "@/stores/auth";
@@ -19,6 +20,7 @@ const sort = ref<DocumentSort>("uploadedAt_desc");
 
 const canUpload = computed(() => auth.me?.role === "TEAM_LEAD");
 const upload = useUpload();
+const { announcement } = useDocumentEvents();
 /** Tệp đã qua kiểm tra (T-508) → hàng đợi tải lên (T-523). */
 function onAccepted(files: File[]) {
   upload.enqueue(files);
@@ -72,6 +74,7 @@ onMounted(() => {
       </DocumentTable>
       <p v-if="rows.length === 0" class="muted no-match" data-testid="no-match">{{ t("library.noMatch") }}</p>
     </template>
+    <div class="sr-only" aria-live="polite" data-testid="sr-live">{{ announcement }}</div>
   </main>
 </template>
 

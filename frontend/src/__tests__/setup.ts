@@ -12,4 +12,15 @@ if (typeof HTMLDialogElement !== "undefined") {
   };
 }
 
+// jsdom không có EventSource: bản giả không làm gì; test cần hành vi riêng dùng vi.stubGlobal (ADR 0101).
+if (typeof globalThis.EventSource === "undefined") {
+  class NoopEventSource {
+    onopen: (() => void) | null = null;
+    onerror: (() => void) | null = null;
+    addEventListener(): void {}
+    close(): void {}
+  }
+  (globalThis as unknown as { EventSource: unknown }).EventSource = NoopEventSource;
+}
+
 export {};
