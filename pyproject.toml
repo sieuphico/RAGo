@@ -12,6 +12,7 @@ dependencies = [
   "asyncpg",
   "alembic",
   "psycopg[binary]",
+  "python-multipart",
 ]
 
 [project.optional-dependencies]

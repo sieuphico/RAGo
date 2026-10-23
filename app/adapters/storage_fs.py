@@ -3,14 +3,13 @@
 import os
 import re
 import tempfile
-import uuid
 from pathlib import Path
 
+from app.ports.storage import new_file_key
+
+__all__ = ["FsStorage", "new_file_key"]
+
 _KEY = re.compile(r"^[0-9a-f]{32}\.pdf$")
-
-
-def new_file_key() -> str:
-    return f"{uuid.uuid4().hex}.pdf"
 
 
 class FsStorage:

@@ -8,8 +8,8 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 
 | Story | BR | Task | Mã | Test | Trạng thái |
 |---|---|---|---|---|---|
-| US-010 Tải PDF lên | BR-001 | T-101, T-104, T-112, T-201, T-204–T-211 | — | — | ⬜ |
-| US-011 Báo tệp không hợp lệ | BR-003, BR-004 | T-201, T-508 | — | — | ⬜ |
+| US-010 Tải PDF lên | BR-001 | T-101, T-104, T-112, T-201, T-204–T-211 | `app/modules/documents/upload.py`, `app/api/documents_upload.py` | `tests/integration/test_upload_api.py` | 🔶 API tải lên xong (AC1); chờ worker T-205–T-211 để READY (AC2) |
+| US-011 Báo tệp không hợp lệ | BR-003, BR-004 | T-201, T-508 | `app/modules/documents/upload.py` | `tests/integration/test_upload_api.py` | 🔶 phía máy chủ xong; chờ giao diện T-508 |
 | US-012 Trạng thái xử lý | BR-005 | T-206, T-210, T-211 | — | — | ⬜ |
 | US-020 Hỏi và nhận trả lời | BR-008, BR-013 | T-303–T-308, T-315, T-316 | — | — | ⬜ |
 | US-022a Thẻ trích dẫn trong câu trả lời | BR-010 | T-305, T-306, T-307, T-308 | — | — | ⬜ |
@@ -35,6 +35,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-111 | Nhật ký kiểm toán và API-15 (US-062, US-063) | `app/modules/audit/service.py`, `app/api/admin_audit.py`, `app/core/schemas.py` | `tests/integration/test_audit.py` | ✅ |
 | T-112 | Bộ nối kho tệp FsStorage (US-010, US-022) | `app/adapters/storage_fs.py`, `app/core/wiring.py` | `tests/unit/test_storage_fs.py` | ✅ |
 | T-204 | Hàng đợi tác vụ trong PostgreSQL | `app/models/job.py`, `app/modules/jobs/` | `tests/integration/test_jobs_service.py` | ✅ |
+| T-201 | API-02 tải lên PDF (US-010, US-011, BR-001, BR-003, BR-004) | `app/modules/documents/upload.py`, `app/api/documents_upload.py` | `tests/integration/test_upload_api.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
@@ -48,3 +49,4 @@ US-013 ⛔ chờ chọn OCR (T-004, T-010). US-001 ⛔ chờ giao thức SSO (T-
 |---|---|
 | [0001](adr/0001-ma-nguon-o-goc-kho.md) | Mã ở gốc kho |
 | [0002](adr/0002-engine-csdl-tao-luoi-va-cong-dev-5433.md) | Engine tạo lười, CSDL dev cổng 5433 |
+| [0003](adr/0003-thu-vien-bo-sung-python-multipart-pypdf.md) | python-multipart, pypdf; reportlab chờ duyệt |

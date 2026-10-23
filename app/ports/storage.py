@@ -1,4 +1,10 @@
+import uuid
 from typing import Protocol
+
+
+def new_file_key() -> str:
+    """Khóa tệp do máy chủ tạo; không bao giờ lấy từ tên tệp của người dùng."""
+    return f"{uuid.uuid4().hex}.pdf"
 
 
 class StoragePort(Protocol):

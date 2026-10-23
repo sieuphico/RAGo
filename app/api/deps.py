@@ -7,19 +7,25 @@ from typing import Annotated
 from fastapi import Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 from app.core.db import get_session
 from app.core.errors import AppError, ErrorCode
-from app.core.wiring import build_idp
+from app.core.wiring import build_idp, build_storage
 from app.domain import CurrentUser, Role
 from app.modules.auth.cookies import SESSION_COOKIE, SessionData, read_cookie
 from app.modules.users import repository as users
 from app.ports.idp import IdpPort
+from app.ports.storage import StoragePort
 
 
 @lru_cache
 def get_idp() -> IdpPort:
     return build_idp(get_settings())
+
+
+@lru_cache
+def get_storage() -> StoragePort:
+    return build_storage(get_settings())
 
 
 def session_data(request: Request) -> SessionData:
@@ -31,6 +37,8 @@ def session_data(request: Request) -> SessionData:
 
 SessionDep = Annotated[AsyncSession, Depends(get_session)]
 IdpDep = Annotated[IdpPort, Depends(get_idp)]
+StorageDep = Annotated[StoragePort, Depends(get_storage)]
+SettingsDep = Annotated[Settings, Depends(get_settings)]
 SessionDataDep = Annotated[SessionData, Depends(session_data)]
 
 
