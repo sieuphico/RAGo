@@ -1,9 +1,16 @@
 <script setup lang="ts">
 // Hộp thoại xác nhận bằng <dialog> + showModal(): giam focus, Esc đóng, trả focus về phần tử đã mở.
-import { nextTick, ref, useId, watch } from "vue";
+import { nextTick, onMounted, ref, useId, watch } from "vue";
 import { t } from "@/content/messages";
 
-const props = defineProps<{ open: boolean; title: string; confirmLabel: string; destructive?: boolean; cancelLabel?: string }>();
+const props = defineProps<{
+  open: boolean;
+  title: string;
+  confirmLabel: string;
+  destructive?: boolean;
+  cancelLabel?: string;
+  hideConfirm?: boolean;
+}>();
 const emit = defineEmits<{ confirm: []; cancel: [] }>();
 
 const dlg = ref<HTMLDialogElement | null>(null);
@@ -12,25 +19,27 @@ const confirmBtn = ref<HTMLButtonElement | null>(null);
 const titleId = `dlg-title-${useId()}`;
 let opener: HTMLElement | null = null;
 
-watch(
-  () => props.open,
-  async (isOpen) => {
-    const el = dlg.value;
-    if (!el) return;
-    if (isOpen) {
-      opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-      if (!el.open) el.showModal();
-      await nextTick();
-      // Thao tác phá hủy: focus mặc định ở "Hủy" (Blueprint 3.8.2).
-      (props.destructive ? cancelBtn.value : confirmBtn.value)?.focus();
-    } else {
-      if (el.open) el.close();
-      opener?.focus();
-      opener = null;
-    }
-  },
-  { immediate: true, flush: "post" },
-);
+async function sync(isOpen: boolean) {
+  const el = dlg.value;
+  if (!el) return;
+  if (isOpen) {
+    opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    if (!el.open) el.showModal();
+    await nextTick();
+    // Thao tác phá hủy: focus mặc định ở "Hủy" (Blueprint 3.8.2).
+    (props.destructive || props.hideConfirm ? cancelBtn.value : confirmBtn.value)?.focus();
+  } else {
+    if (el.open) el.close();
+    opener?.focus();
+    opener = null;
+  }
+}
+
+watch(() => props.open, sync, { flush: "post" });
+// Hộp thoại gắn vào khi đã `open` (ví dụ bằng v-if): mở ngay sau khi gắn.
+onMounted(() => {
+  if (props.open) void sync(true);
+});
 
 function onCancel(e: Event) {
   e.preventDefault(); // phần cha quyết định đóng bằng prop `open`
@@ -54,6 +63,7 @@ function onCancel(e: Event) {
         {{ cancelLabel ?? t("action.cancel") }}
       </button>
       <button
+        v-if="!hideConfirm"
         ref="confirmBtn"
         type="button"
         class="btn"

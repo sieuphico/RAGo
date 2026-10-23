@@ -6,6 +6,7 @@ import DocumentTable from "@/components/DocumentTable.vue";
 import DropZone from "@/components/DropZone.vue";
 import DuplicateDialog from "@/components/DuplicateDialog.vue";
 import RowMenu from "@/components/RowMenu.vue";
+import SummaryDialog from "@/components/SummaryDialog.vue";
 import SkeletonRows from "@/components/SkeletonRows.vue";
 import UploadQueue from "@/components/UploadQueue.vue";
 import { useDocumentEvents } from "@/composables/useDocumentEvents";
@@ -54,6 +55,16 @@ function resolveDuplicate(proceed: boolean) {
   if (current && proceed) upload.enqueue([current.file]);
 }
 
+// Tóm tắt (T-518): chỉ tài liệu sẵn sàng và khi cờ `summary` bật.
+const summaryDoc = ref<DocumentOut | null>(null);
+const summaryOpen = ref(false);
+const canSummarize = (d: DocumentOut): boolean =>
+  features.flags.summary && d.status === "READY";
+function openSummary(d: DocumentOut) {
+  summaryDoc.value = d;
+  summaryOpen.value = true;
+}
+
 const rows = computed(() => docs.filtered(search.value, sort.value));
 
 onMounted(() => {
@@ -100,14 +111,25 @@ onMounted(() => {
     <template v-else>
       <DocumentTable :rows="rows" :sort="sort" :slow-ids="docs.slowIds" @sort="sort = $event">
         <template #actions="{ doc }">
-          <RowMenu :doc="doc">
-            <!-- Mục "Tóm tắt" (T-518) -->
+          <RowMenu :doc="doc" :has-extra="canSummarize(doc)">
+            <button
+              v-if="canSummarize(doc)"
+              type="button"
+              role="menuitem"
+              class="btn btn-ghost btn-sm"
+              data-testid="menu-summary"
+              @click="openSummary(doc)"
+            >
+              {{ t("rowmenu.summary") }}
+            </button>
           </RowMenu>
         </template>
       </DocumentTable>
       <p v-if="rows.length === 0" class="muted no-match" data-testid="no-match">{{ t("library.noMatch") }}</p>
     </template>
     <div class="sr-only" aria-live="polite" data-testid="sr-live">{{ announcement }}</div>
+
+    <SummaryDialog v-if="summaryDoc" :doc="summaryDoc" :open="summaryOpen" @close="summaryOpen = false" />
 
     <DuplicateDialog
       v-if="currentDuplicate"

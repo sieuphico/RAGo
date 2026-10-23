@@ -111,7 +111,7 @@ async function confirmDelete() {
       >
         <span aria-hidden="true">⋯</span>
       </button>
-      <div v-if="menuOpen" ref="menu" class="menu" role="menu" data-testid="menu">
+      <div v-if="menuOpen" ref="menu" class="menu" role="menu" data-testid="menu" @click="closeMenu(false)">
         <slot />
         <button v-if="doc.canDelete" type="button" role="menuitem" class="btn btn-ghost btn-sm danger-text" data-testid="menu-delete" @click="askDelete">
           <IconGlyph name="trash" /> {{ t("rowmenu.delete") }}
