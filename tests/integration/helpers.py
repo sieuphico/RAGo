@@ -18,3 +18,19 @@ async def login(
     client.cookies.clear()
     resp = await client.get("/auth/login", params={"login_hint": email})
     await client.get(resp.headers["location"].removeprefix("https://test"))
+
+
+class SharedSession:
+    """Factory trả về cùng một session của test (rollback sau test)."""
+
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
+
+    def __call__(self) -> "SharedSession":
+        return self
+
+    async def __aenter__(self) -> AsyncSession:
+        return self.session
+
+    async def __aexit__(self, *exc: object) -> None:
+        return None

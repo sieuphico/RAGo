@@ -19,22 +19,7 @@ from app.ports.storage import new_file_key
 from app.worker import chunker, ingest
 from app.worker.ingest import IngestDeps, handle_ingest
 from tests.fixtures.documents import make_document
-
-
-class SharedSession:
-    """Factory trả về cùng một session của test (rollback sau test)."""
-
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
-    def __call__(self) -> "SharedSession":
-        return self
-
-    async def __aenter__(self) -> AsyncSession:
-        return self.session
-
-    async def __aexit__(self, *exc: object) -> None:
-        return None
+from tests.integration.helpers import SharedSession
 
 
 @pytest.fixture
