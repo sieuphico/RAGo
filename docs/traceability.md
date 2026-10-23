@@ -63,6 +63,9 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-614 | Cờ tính năng P1 và GET /features | `app/core/features.py`, `app/api/features.py` | `tests/unit/test_features.py` | ✅ |
 | T-314 | Nối telemetry vào đăng nhập, phân quyền, tải lên, xử lý, xóa (US-051) | `app/modules/telemetry/mapping.py`, `app/modules/auth/service.py`, `app/api/deps.py`, `app/modules/documents/{upload,delete}.py`, `app/worker/ingest.py` | `tests/integration/test_telemetry_wiring.py` | ✅ |
 | T-312 | API-13 số liệu hàng tuần (US-051, BR-024) | `app/modules/metrics/service.py`, `app/api/metrics.py` | `tests/integration/test_metrics.py` | ✅ |
+| T-309 | Trả lời theo ngôn ngữ của câu hỏi, ghi chú ngôn ngữ ngoài vi/en (US-024, BR-026) | `app/modules/answer/prompt.py`, `service.py` | `tests/unit/test_lang_prompt.py`, `tests/integration/test_answer_extras.py` | ✅ (đo AC-026 ở T-607) |
+| T-310 | Câu hỏi nối tiếp trong phiên (US-025, BR-014) | `app/modules/answer/history.py`, `service.py` | `tests/integration/test_answer_extras.py` | ✅ (đo AC-014 ở T-607) |
+| T-311 | Phạm vi tài liệu và loại tài liệu đã xóa (US-026, BR-015) | `app/modules/answer/scope.py`, `service.py` | `tests/integration/test_answer_extras.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

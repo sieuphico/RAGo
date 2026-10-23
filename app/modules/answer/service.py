@@ -10,7 +10,7 @@ import time
 import uuid
 from collections.abc import AsyncGenerator, Awaitable, Callable
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Literal
 from uuid import UUID
 
 from sqlalchemy import text as sa_text
@@ -28,12 +28,15 @@ from app.domain import (
     MessageStatus,
     StatusEvent,
     TokenEvent,
+    Turn,
 )
 from app.modules.answer.citations import CitationResolver
+from app.modules.answer.history import recent_turns
 from app.modules.answer.lang import detect_lang
 from app.modules.answer.prompt import build_prompt
 from app.modules.answer.relevance import decide, filter_evidence
 from app.modules.answer.running import RUNNING, RunningAnswers
+from app.modules.answer.scope import normalize_scope
 from app.modules.chat import repository as chat
 from app.modules.documents import repository as documents
 from app.modules.retrieval.service import retrieve
@@ -59,6 +62,7 @@ class _Progress:
     parts: list[str] = field(default_factory=list)
     resolver: CitationResolver | None = None
     stopped: bool = False
+    notice: Literal["LANG_UNSUPPORTED"] | None = None
 
     @property
     def text(self) -> str:
@@ -159,15 +163,32 @@ class AnswerService:
         started = time.monotonic()
         if message_id is None:
             message_id = await self.begin(user, session_id, text)
+        removed: set[UUID] = set()
         async with self.factory() as session:
+            if "scope" in self.settings.features:
+                result = await normalize_scope(session, scope)
+                scope, removed = result.effective, result.removed
+                await chat.set_scope(session, session_id, scope)
+                await session.commit()
+            else:
+                scope = set()  # cờ `scope` tắt: bỏ qua scopeDocIds
             ready = await documents.ready_doc_ids(session, scope or None)
+            turns = (
+                await recent_turns(session, session_id)
+                if "followup" in self.settings.features
+                else []
+            )
 
         progress = _Progress(message_id, started)
         stop = self.running.start(message_id)
-        inner = self._answer(user, sid, text, scope, ready, progress, stop)
+        inner = self._answer(user, sid, text, scope, ready, progress, stop, turns)
         try:
             # Trạng thái đến người dùng trước mọi lời gọi AI (NFR-001: ≤ 1 giây)
-            yield StatusEvent(message_id=message_id, doc_count=len(ready))
+            yield StatusEvent(
+                message_id=message_id,
+                doc_count=len(ready),
+                scope_removed=sorted(removed, key=str),
+            )
             async for event in inner:
                 yield event
         except (GeneratorExit, asyncio.CancelledError):
@@ -202,13 +223,16 @@ class AnswerService:
         ready: set[UUID],
         progress: _Progress,
         stop: asyncio.Event,
+        turns: list[Turn],
     ) -> AsyncGenerator[AnswerEvent]:
         message_id = progress.message_id
         threshold = self.settings.relevance_threshold
+        lang = detect_lang(text)
+        progress.notice = "LANG_UNSUPPORTED" if lang == "other" else None
         await self._emit(
             user, sid, "question_submitted",
-            question_id=str(message_id), length_chars=len(text), language=detect_lang(text),
-            is_followup=False, scope_doc_count=len(scope),
+            question_id=str(message_id), length_chars=len(text), language=lang,
+            is_followup=bool(turns), scope_doc_count=len(scope),
         )  # fmt: skip
 
         if not ready:
@@ -217,15 +241,17 @@ class AnswerService:
             return
 
         async with self.factory() as session:
+            # Câu nối tiếp: ghép câu hỏi trước vào truy vấn, không tốn thêm lời gọi AI
+            query = f"{turns[-1].question} {text}" if turns else text
             chunks = await retrieve(
-                session, self.gateway.embed, text, scope, k=self.settings.retrieval_k
+                session, self.gateway.embed, query, scope, k=self.settings.retrieval_k
             )
         if decide(chunks, len(ready), threshold) == "NO_EVIDENCE":
             async for event in self._not_found(user, sid, progress, "NO_EVIDENCE"):
                 yield event
             return
 
-        prompt = build_prompt(text, filter_evidence(chunks, threshold))
+        prompt = build_prompt(text, filter_evidence(chunks, threshold), turns or None, lang)
         progress.resolver = resolver = CitationResolver(prompt.label_map)
         stream = self.gateway.generate(prompt.system, prompt.user).__aiter__()
         first_token = True
@@ -293,6 +319,7 @@ class AnswerService:
             citation_count=len(citations),
             is_not_found=is_not_found,
             not_found_reason="NO_EVIDENCE" if is_not_found else None,
+            notice=progress.notice,
         )
         await self._emit(
             user, sid, "answer_completed",
@@ -309,6 +336,7 @@ class AnswerService:
             citation_count=0,
             is_not_found=True,
             not_found_reason=reason,  # type: ignore[arg-type]
+            notice=progress.notice,
         )
         await self._emit(
             user, sid, "answer_completed",

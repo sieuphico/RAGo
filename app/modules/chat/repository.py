@@ -24,6 +24,15 @@ async def create_session(
     return chat
 
 
+async def set_scope(session: AsyncSession, session_id: UUID, scope: set[UUID]) -> None:
+    await session.execute(
+        update(ChatSession)
+        .where(ChatSession.session_id == session_id)
+        .values(scope_doc_ids=sorted(scope, key=str))
+    )
+    await session.flush()
+
+
 async def set_title_if_empty(session: AsyncSession, session_id: UUID, question: str) -> None:
     await session.execute(
         update(ChatSession)
@@ -62,7 +71,10 @@ async def add_message(
     text: str,
     status: MessageStatus,
 ) -> Message:
-    message = Message(session_id=session_id, role=role, text=text, status=status)
+    # created_at đặt ở ứng dụng: `now()` của CSDL trùng nhau trong cùng giao dịch (hỏi và đáp) nên mất thứ tự
+    message = Message(
+        session_id=session_id, role=role, text=text, status=status, created_at=datetime.now(UTC)
+    )
     session.add(message)
     await session.flush()
     await session.execute(

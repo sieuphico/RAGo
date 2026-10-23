@@ -1,0 +1,82 @@
+[
+  {
+    "lang": "vi",
+    "question": "Thời hạn hợp đồng là bao lâu?"
+  },
+  {
+    "lang": "vi",
+    "question": "Ai là bên cung cấp dịch vụ?"
+  },
+  {
+    "lang": "vi",
+    "question": "Điều khoản thanh toán quy định gì?"
+  },
+  {
+    "lang": "vi",
+    "question": "Mức phạt chậm giao hàng là bao nhiêu?"
+  },
+  {
+    "lang": "vi",
+    "question": "Hợp đồng bắt đầu từ ngày nào?"
+  },
+  {
+    "lang": "vi",
+    "question": "Bên nào chịu chi phí vận chuyển?"
+  },
+  {
+    "lang": "vi",
+    "question": "Thời gian bảo hành là mấy tháng?"
+  },
+  {
+    "lang": "vi",
+    "question": "Có điều khoản gia hạn không?"
+  },
+  {
+    "lang": "vi",
+    "question": "Giá trị hợp đồng là bao nhiêu?"
+  },
+  {
+    "lang": "vi",
+    "question": "Phụ lục A nói về nội dung gì?"
+  },
+  {
+    "lang": "en",
+    "question": "What is the term of the contract?"
+  },
+  {
+    "lang": "en",
+    "question": "Who is the service provider?"
+  },
+  {
+    "lang": "en",
+    "question": "What are the payment terms?"
+  },
+  {
+    "lang": "en",
+    "question": "What is the penalty for late delivery?"
+  },
+  {
+    "lang": "en",
+    "question": "When does the contract start?"
+  },
+  {
+    "lang": "en",
+    "question": "Which party pays for shipping?"
+  },
+  {
+    "lang": "en",
+    "question": "How long is the warranty period?"
+  },
+  {
+    "lang": "en",
+    "question": "Is there a renewal clause?"
+  },
+  {
+    "lang": "en",
+    "question": "What is the total contract value?"
+  },
+  {
+    "lang": "en",
+    "question": "What is the scope of appendix A?"
+  }
+]
