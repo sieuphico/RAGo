@@ -5,7 +5,8 @@ Nguồn sự thật: `docs/`. Docs chưa rõ hoặc mâu thuẫn → **dừng v�
 
 ## Stack
 Python 3.12, FastAPI, SQLAlchemy 2 async + asyncpg, Alembic (psycopg), PostgreSQL 16 + pgvector, pydantic-settings.
-Kiểm tra: pytest + pytest-asyncio, ruff, mypy `--strict`. Frontend (chưa dựng): Vue 3, TypeScript, Vite, Pinia, Vitest.
+Kiểm tra: pytest + pytest-asyncio, ruff, mypy `--strict`. Frontend (`frontend/`): Vue 3, TypeScript, Vite, Pinia, Vue Router, Vitest (`npm run lint | type-check | test | build`).
+AI nội bộ: Ollama (`qwen3:1.7b` sinh, `qwen3-embedding:0.6b` nhúng) — `make ai-up ai-pull`; đặt `CWD_AI_PROVIDER=ollama`, `CWD_EMBEDDING_DIM=1024`.
 AI, OCR, SSO, kho tệp đi qua `ports/`; chạy bằng bộ nối giả (`adapters/*_fake.py`) tới khi nhà cung cấp được chốt (AD-06).
 
 ## Lệnh
@@ -13,7 +14,9 @@ AI, OCR, SSO, kho tệp đi qua `ports/`; chạy bằng bộ nối giả (`adapt
 |---|---|
 | Cài | `pip install -e ".[dev]"` (hoặc `make install`) |
 | CSDL dev | `make db-up` (cổng **5433**; 5432 hay bị PostgreSQL cài sẵn chiếm), `make migrate`, `make db-down` |
-| Chạy | `make run` (uvicorn, `create_app` factory) |
+| Chạy | `make run` (API), `python -m app.worker` (worker), `npm run dev` trong `frontend/` (proxy sang :8000) |
+| Đóng gói | `docker compose -f deploy/compose.prod.yml --env-file deploy/.env up -d --build` (xem `deploy/evidence/runbook.md`) |
+| E2E trình duyệt | `scripts/e2e/README.md` (Playwright cài riêng) |
 | Lint / kiểu / test | `make lint`, `make type`, `make test` |
 | **Cổng chất lượng** | `make gate` = lint + type + test |
 
