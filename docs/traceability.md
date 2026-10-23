@@ -45,6 +45,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-209 | Ingest: bước OCR cho PDF ảnh quét (lõi, bộ dựng ảnh và Tesseract chưa có) | `app/worker/ocr_step.py`, `app/core/wiring.py` | `tests/unit/test_ocr_step.py` | 🔶 ⛔ bộ nối Tesseract và dựng ảnh chờ T-004/T-010 |
 | T-210 | Ingest: điều phối, chuyển trạng thái, phát sự kiện (US-010, US-012, US-013) | `app/worker/ingest.py`, `app/worker/main.py` | `tests/integration/test_ingest.py` | ✅ |
 | T-202 | API-03 danh sách tài liệu (US-015, BR-006) | `app/api/documents.py` | `tests/integration/test_list_documents.py` | ✅ |
+| T-203 | API-05 xóa tài liệu (US-016, US-062, BR-007) | `app/modules/documents/delete.py`, `app/api/documents_delete.py` | `tests/integration/test_delete_document.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
