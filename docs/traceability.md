@@ -71,6 +71,11 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-402 | API-17 gợi ý câu hỏi mẫu và tác vụ sinh gợi ý (US-030, US-031, BR-020) | `app/worker/suggest.py`, `app/api/suggestions.py` | `tests/integration/test_suggestions.py` | ✅ |
 | T-403 | API-12 tóm tắt tài liệu có trích dẫn (US-040, BR-019) | `app/modules/summary/service.py`, `app/api/summary.py` | `tests/integration/test_summary.py` | ✅ |
 | T-604 | Giám sát: /healthz mở rộng, /metrics, cảnh báo (NFR-005, G10) | `app/api/health.py`, `app/core/metrics.py`, `deploy/alerts.yml` | `tests/integration/test_health_metrics.py` | ✅ promtool: 6 quy tắc hợp lệ |
+| T-601 | CI: backend + frontend, coverage riêng worker và answer (G7) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | coverage `app/worker` 80%, `app/modules/answer` 100% | ✅ chưa chạy trên GitHub Actions thật |
+| T-602 | Đóng gói triển khai tại chỗ: Dockerfile, nginx TLS/SSE, compose, .env.template | `deploy/Dockerfile.backend`, `deploy/web/`, `deploy/compose.prod.yml` | kiểm chứng thủ công trong `deploy/evidence/deploy-notes.md` | ✅ trên Docker cục bộ; chưa thử trên máy IT |
+| T-603 | Sao lưu và khôi phục | `deploy/backup/{backup,restore}.sh` | `tests/unit/test_backup_script.py`; `deploy/evidence/restore-drill.md` | 🔶 thử 3 tài liệu, chưa 20 tài liệu trên staging; chờ duyệt ngoại lệ BR-029 |
+| T-611 | Sổ tay vận hành và ghi chú phát hành | `deploy/evidence/{runbook,release-notes}.md` | quét bí mật: không có | 🔶 chưa diễn tập bởi người vận hành |
+| Frontend T-501–T-525 | Giao diện Vue (nhánh gộp 2026-10-23) | `frontend/` — chi tiết ở `frontend/TRACEABILITY.md` | 241 test Vitest + E2E trình duyệt thủ công (Playwright ngoài repo) | ✅ P0, P1; T-522 một phần (xem `frontend/A11Y_REPORT.md`) |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

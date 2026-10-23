@@ -13,3 +13,5 @@ var/
 tests/fixtures/generated/
 .claude/worktrees/
 .vscode/
+deploy/certs/
+deploy/.env

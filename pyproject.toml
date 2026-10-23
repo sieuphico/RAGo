@@ -13,6 +13,7 @@ dependencies = [
   "alembic",
   "psycopg[binary]",
   "python-multipart",
+  "httpx",
   "pypdf",
   "prometheus-client",
 ]
