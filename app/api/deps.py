@@ -18,6 +18,7 @@ from app.modules.auth.cookies import SESSION_COOKIE, SessionData, read_cookie
 from app.modules.telemetry.mapping import emit_once
 from app.modules.telemetry.service import emit
 from app.modules.users import repository as users
+from app.ports.ai import AiPort
 from app.ports.idp import IdpPort
 from app.ports.storage import StoragePort
 
@@ -84,3 +85,10 @@ def get_answer_service() -> AnswerService:
 
 
 AnswerServiceDep = Annotated[AnswerService, Depends(get_answer_service)]
+
+
+def get_gateway() -> AiPort:
+    return build_gateway(get_settings())
+
+
+GatewayDep = Annotated[AiPort, Depends(get_gateway)]

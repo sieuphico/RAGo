@@ -66,6 +66,10 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-309 | Trả lời theo ngôn ngữ của câu hỏi, ghi chú ngôn ngữ ngoài vi/en (US-024, BR-026) | `app/modules/answer/prompt.py`, `service.py` | `tests/unit/test_lang_prompt.py`, `tests/integration/test_answer_extras.py` | ✅ (đo AC-026 ở T-607) |
 | T-310 | Câu hỏi nối tiếp trong phiên (US-025, BR-014) | `app/modules/answer/history.py`, `service.py` | `tests/integration/test_answer_extras.py` | ✅ (đo AC-014 ở T-607) |
 | T-311 | Phạm vi tài liệu và loại tài liệu đã xóa (US-026, BR-015) | `app/modules/answer/scope.py`, `service.py` | `tests/integration/test_answer_extras.py` | ✅ |
+| T-313 | API-11 đánh giá 👍/👎 (US-050, BR-023) | `app/api/rating.py` | `tests/integration/test_rating.py` | ✅ |
+| T-401 | API-10 lịch sử hội thoại và hết hạn 90 ngày (US-041, BR-021) | `app/api/chat_history.py`, `app/worker/expire_history.py` | `tests/integration/test_history.py` | ✅ |
+| T-402 | API-17 gợi ý câu hỏi mẫu và tác vụ sinh gợi ý (US-030, US-031, BR-020) | `app/worker/suggest.py`, `app/api/suggestions.py` | `tests/integration/test_suggestions.py` | ✅ |
+| T-403 | API-12 tóm tắt tài liệu có trích dẫn (US-040, BR-019) | `app/modules/summary/service.py`, `app/api/summary.py` | `tests/integration/test_summary.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

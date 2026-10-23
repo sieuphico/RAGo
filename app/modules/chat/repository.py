@@ -4,11 +4,12 @@ from datetime import UTC, datetime, timedelta
 from typing import Literal
 from uuid import UUID
 
-from sqlalchemy import func, select, update
+from sqlalchemy import delete, func, select, update
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain import CitationOut, MessageStatus
-from app.models.chat import ChatSession, Citation, Message
+from app.models.chat import ChatSession, Citation, Message, Rating
 
 TITLE_CHARS = 60
 _RUNNING = (MessageStatus.SEARCHING, MessageStatus.STREAMING)
@@ -157,3 +158,23 @@ async def has_running_message(
         )
     )
     return int((await session.execute(query)).scalar_one()) > 0
+
+
+async def upsert_rating(
+    session: AsyncSession, message_id: UUID, value: str, reason_code: str | None
+) -> None:
+    """Gửi lại thì ghi đè (API-11)."""
+    stmt = insert(Rating).values(message_id=message_id, value=value, reason_code=reason_code)
+    stmt = stmt.on_conflict_do_update(
+        index_elements=[Rating.message_id],
+        set_={"value": stmt.excluded.value, "reason_code": stmt.excluded.reason_code},
+    )
+    await session.execute(stmt)
+    await session.flush()
+
+
+async def delete_sessions_before(session: AsyncSession, cutoff: datetime) -> int:
+    """Xóa phiên quá hạn; tin nhắn, trích dẫn, đánh giá xóa dây chuyền."""
+    result = await session.execute(delete(ChatSession).where(ChatSession.last_message_at < cutoff))
+    await session.flush()
+    return int(result.rowcount)  # type: ignore[attr-defined]

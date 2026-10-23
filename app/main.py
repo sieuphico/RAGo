@@ -8,6 +8,7 @@ from app.api import (
     admin_users,
     auth,
     chat,
+    chat_history,
     document_events,
     document_file,
     documents,
@@ -17,6 +18,9 @@ from app.api import (
     health,
     me,
     metrics,
+    rating,
+    suggestions,
+    summary,
     telemetry,
 )
 from app.api.csrf import CsrfMiddleware
@@ -49,6 +53,10 @@ def create_app() -> FastAPI:
     app.include_router(admin_audit.router)
     app.include_router(admin_users.router)
     app.include_router(chat.router)
+    app.include_router(chat_history.router)
+    app.include_router(rating.router)
+    app.include_router(suggestions.router)
+    app.include_router(summary.router)
     app.include_router(document_events.router)  # trước các route /documents/{docId}
     app.include_router(documents.router)
     app.include_router(document_file.router)

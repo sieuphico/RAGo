@@ -11,8 +11,10 @@ from app.core import db
 from app.modules.audit import service as audit
 from app.modules.jobs import service as jobs
 from app.worker import registry
+from app.worker.expire_history import expire_history
 from app.worker.ingest import make_handler
 from app.worker.purge import purge_document, purge_sweep
+from app.worker.suggest import generate_suggestions
 
 logger = logging.getLogger("app.worker")
 SessionFactory = Callable[[], AsyncSession]
@@ -69,6 +71,11 @@ def register_defaults() -> None:
             await jobs.release_stale(session, _utcnow())
             await session.commit()
 
+    async def history_expire() -> None:
+        async with db.get_session_factory()() as session:
+            await expire_history(session, _utcnow())
+            await session.commit()
+
     async def audit_expire() -> None:
         async with db.get_session_factory()() as session:
             await audit.expire(session, _utcnow())
@@ -79,6 +86,8 @@ def register_defaults() -> None:
 
     registry.register("ingest", make_handler())
     registry.register("purge", purge_document)
+    registry.register("suggest", generate_suggestions)
     registry.every("purge_sweep", 3600, sweep)
     registry.every("release_stale_jobs", 60, release_stale)
     registry.daily("audit_expire", "02:00", audit_expire)
+    registry.daily("history_expire", "02:30", history_expire)
