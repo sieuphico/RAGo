@@ -3,6 +3,7 @@
 import { computed, onMounted, ref } from "vue";
 import type { DocumentSort } from "@/api/types";
 import DocumentTable from "@/components/DocumentTable.vue";
+import DropZone from "@/components/DropZone.vue";
 import SkeletonRows from "@/components/SkeletonRows.vue";
 import { t } from "@/content/messages";
 import { useAuthStore } from "@/stores/auth";
@@ -15,6 +16,11 @@ const search = ref("");
 const sort = ref<DocumentSort>("uploadedAt_desc");
 
 const canUpload = computed(() => auth.me?.role === "TEAM_LEAD");
+const acceptedFiles = ref<File[]>([]);
+/** Tệp đã qua kiểm tra; T-523 chuyển cho `useUpload().enqueue`. */
+function onAccepted(files: File[]) {
+  acceptedFiles.value = files;
+}
 const rows = computed(() => docs.filtered(search.value, sort.value));
 
 onMounted(() => {
@@ -44,7 +50,8 @@ onMounted(() => {
     </div>
 
     <section v-if="canUpload" :aria-label="t('library.uploadAria')" data-testid="upload-slot">
-      <!-- Vùng tải lên và hàng đợi (T-508, T-523) gắn vào đây -->
+      <DropZone @accepted="onAccepted" />
+      <!-- Hàng đợi tải lên (T-523) gắn vào đây -->
     </section>
     <p v-else class="note-line" data-testid="upload-not-allowed">{{ t("library.uploadNotAllowed") }}</p>
 
