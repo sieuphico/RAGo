@@ -4,6 +4,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import ChatSidebar from "@/components/ChatSidebar.vue";
 import Composer from "@/components/Composer.vue";
+import MessageList from "@/components/MessageList.vue";
 import { layoutFor, useViewport } from "@/composables/useViewport";
 import { t } from "@/content/messages";
 import { useChatStore } from "@/stores/chat";
@@ -64,9 +65,7 @@ function onNewSession() {
       <template #history><!-- Danh sách lịch sử (T-516) --></template>
     </ChatSidebar>
     <main id="main" class="chat-main" :aria-label="t('chat.conversationAria')" data-testid="conversation">
-      <div class="chat-scroll">
-        <div class="chat-inner"><!-- Danh sách tin nhắn (T-512) --></div>
-      </div>
+      <MessageList :messages="chat.messages" />
       <div class="composer-wrap">
         <Composer @submit="chat.send($event)" @stop="chat.stop()" />
       </div>

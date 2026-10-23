@@ -70,6 +70,8 @@ export const M = {
   "upload.pick": "Chọn tệp",
   "upload.limits": "Tối đa 10 tệp mỗi lần, mỗi tệp ≤ 50 MB.",
   "upload.rejections": "Tệp bị từ chối",
+  "answer.done": "Câu trả lời đã xong",
+  "chat.logAria": "Tin nhắn",
   "library.title": "Kho tài liệu",
   "library.uploadAria": "Tải tài liệu lên",
   "library.searchLabel": "Tìm theo tên",
