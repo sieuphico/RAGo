@@ -22,3 +22,4 @@ Bảng task → file → test → trạng thái, kèm US/BR. Sẽ được gộp
 | T-513 | US-022 | BR-010 | `src/components/SourceViewer.vue`, `src/views/ChatView.vue` | `src/__tests__/source_viewer.spec.ts` | Xong |
 | T-519 | US-061, US-063 | BR-016, BR-018 | `src/views/AdminUsersView.vue`, `src/views/AdminAuditView.vue`, `src/components/AdminTabs.vue` | `src/__tests__/admin.spec.ts` | Xong |
 | T-520 | US-051 | BR-024 | `src/views/MetricsView.vue`, `src/components/WeeklyChart.vue`, `src/utils/metrics.ts` | `src/__tests__/metrics.spec.ts` | Xong |
+| T-522 | — | BR-033 | `e2e/a11y.spec.ts` (khung, chưa chạy), `A11Y_REPORT.md`, h1 ẩn ở `ChatView.vue` | `src/__tests__/a11y_static.spec.ts` | Một phần: kiểm tĩnh xong; quét axe, cuộn ngang, 200% zoom, trình đọc màn hình chưa chạy (FQ-07, FQ-08) |

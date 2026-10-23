@@ -6,7 +6,7 @@ import {
 } from "@vue/eslint-config-typescript";
 
 export default defineConfigWithVueTs(
-  { ignores: ["dist/**", "coverage/**", "node_modules/**", "playwright-report/**", "test-results/**"] },
+  { ignores: ["dist/**", "coverage/**", "node_modules/**", "playwright-report/**", "test-results/**", "e2e/**"] },
   js.configs.recommended,
   pluginVue.configs["flat/recommended"],
   vueTsConfigs.recommended,

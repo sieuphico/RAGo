@@ -82,6 +82,7 @@ function onNewSession() {
       <template #history><!-- Danh sách lịch sử (T-516) --></template>
     </ChatSidebar>
     <main id="main" class="chat-main" :aria-label="t('chat.conversationAria')" data-testid="conversation">
+      <h1 class="sr-only">{{ t("nav.chat") }}</h1>
       <MessageList :messages="chat.messages" @open-citation="onOpenCitation" @retry="chat.retry($event)" @stop="chat.stop()" />
       <div class="composer-wrap">
         <Composer @submit="chat.send($event)" @stop="chat.stop()" />
