@@ -43,7 +43,7 @@ export async function toApiError(res: Response): Promise<ApiError> {
   return new ApiError(code, retryable, res.status);
 }
 
-function notifyHandlers(err: ApiError): void {
+export function notifyAuthError(err: ApiError): void {
   if (err.code === "AUTH_EXPIRED") authExpiredHandler?.();
   else if (err.code === "AUTH_FORBIDDEN") forbiddenHandler?.();
 }
@@ -77,7 +77,7 @@ export async function request<T>(
 
   if (!res.ok) {
     const err = await toApiError(res);
-    notifyHandlers(err);
+    notifyAuthError(err);
     throw err;
   }
   if (res.status === 204) return undefined as T;
