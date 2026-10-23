@@ -29,3 +29,4 @@ Bảng task → file → test → trạng thái, kèm US/BR. Sẽ được gộp
 | T-517 | US-042, US-050 | BR-022, BR-023 | `src/components/AnswerActions.vue`, `src/components/RatingDialog.vue`, `src/utils/answerText.ts` (copyText), `src/components/ConfirmDialog.vue` (prop `cancelLabel`) | `src/__tests__/answer_actions.spec.ts` | Xong (P1, ẩn theo cờ `copy`/`rating`) |
 | T-510 | US-016, US-017, US-062 | BR-007, BR-001 | `src/components/RowMenu.vue`, `src/components/DuplicateDialog.vue`, `src/views/LibraryView.vue` | `src/__tests__/row_actions.spec.ts` | Xong (P1; kiểm tra trùng chỉ khi cờ `duplicateCheck` bật; dòng không có thao tác thì không hiện nút ⋯) |
 | T-518 | US-040 | BR-019 | `src/components/SummaryDialog.vue`, `src/views/LibraryView.vue`, `src/components/RowMenu.vue` (prop `hasExtra`), `src/components/ConfirmDialog.vue` (prop `hideConfirm`) | `src/__tests__/summary.spec.ts` | Xong (P1, ẩn khi cờ `summary` tắt) |
+
