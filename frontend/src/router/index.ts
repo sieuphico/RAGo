@@ -4,6 +4,7 @@ import PlaceholderView from "@/views/PlaceholderView.vue";
 import LoginView from "@/views/LoginView.vue";
 import DeniedView from "@/views/DeniedView.vue";
 import LibraryView from "@/views/LibraryView.vue";
+import ChatView from "@/views/ChatView.vue";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -21,11 +22,11 @@ const CHAT_ROLES: Role[] = ["BD_USER", "TEAM_LEAD", "ADMIN"];
 export const routes: RouteRecordRaw[] = [
   { path: "/login", name: "login", component: LoginView, meta: { public: true, title: "Đăng nhập" } },
   { path: "/denied", name: "denied", component: DeniedView, meta: { title: "Không có quyền" } },
-  { path: "/", name: "chat", component: PlaceholderView, meta: { roles: CHAT_ROLES, title: "Hỏi đáp" } },
+  { path: "/", name: "chat", component: ChatView, meta: { roles: CHAT_ROLES, title: "Hỏi đáp" } },
   {
     path: "/chat/:sessionId",
     name: "chat-session",
-    component: PlaceholderView,
+    component: ChatView,
     meta: { roles: CHAT_ROLES, title: "Hỏi đáp" },
   },
   { path: "/library", name: "library", component: LibraryView, meta: { roles: CHAT_ROLES, title: "Kho tài liệu" } },

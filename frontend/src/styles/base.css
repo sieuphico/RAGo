@@ -173,12 +173,6 @@ table.table { width: 100%; border-collapse: collapse; font-size: var(--font-capt
 .dropzone.is-over { background: var(--color-info-bg); border-color: var(--color-primary); }
 .note-line { margin-bottom: var(--space-5); padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); background: var(--color-surface); color: var(--color-text-muted); font-size: var(--font-caption); }
 
-/* ---------- Trang Hỏi đáp: 3 vùng (CMP-04, CMP-09) ---------- */
-.chat-shell {
-  display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr) 0;
-  height: calc(100vh - var(--header-height)); transition: grid-template-columns var(--motion);
-}
-.chat-shell.has-viewer { grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--viewer-width); }
 .sidebar { background: var(--color-surface); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-4); overflow-y: auto; }
 .sidebar h2 { font-size: var(--font-caption); line-height: var(--line-caption); color: var(--color-text-muted); text-transform: none; }
 .history-group { margin-top: var(--space-2); }
@@ -262,29 +256,6 @@ table.table { width: 100%; border-collapse: collapse; font-size: var(--font-capt
 .counter.is-over { color: var(--color-warning-text); font-weight: 600; }
 .ai-note { text-align: center; margin-top: var(--space-2); font-size: var(--font-caption); line-height: var(--line-caption); color: var(--color-text-muted); }
 
-/* ---------- Khung xem nguồn (S-05, CMP-09) ---------- */
-.viewer { background: var(--color-surface); border-left: 1px solid var(--color-divider); display: none; flex-direction: column; min-width: 0; overflow: hidden; }
-.chat-shell.has-viewer .viewer { display: flex; }
-.viewer-head { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); background: var(--color-white); }
-.viewer-head .doc-title { flex: 1; min-width: 0; font-weight: 600; font-size: var(--font-caption); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.viewer-nav { display: flex; align-items: center; justify-content: center; gap: var(--space-3); padding: var(--space-2); font-size: var(--font-caption); }
-.viewer-body { flex: 1; overflow-y: auto; padding: var(--space-4); display: flex; justify-content: center; align-items: flex-start; }
-.pdf-page {
-  width: 100%; max-width: 420px; aspect-ratio: 1 / 1.414; background: var(--color-white);
-  border: 1px solid var(--color-divider); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2);
-  box-shadow: 0 1px 4px rgba(31,41,55,.1);
-}
-.pdf-line { height: 8px; background: var(--color-neutral-bg); border-radius: 4px; }
-.pdf-line.w90 { width: 90%; } .pdf-line.w70 { width: 70%; } .pdf-line.w50 { width: 50%; } .pdf-line.w30 { width: 30%; }
-.pdf-line.hl { background: var(--color-info-bg); }
-.pdf-head { font-weight: 600; font-size: var(--font-caption); color: var(--color-text-muted); margin-bottom: var(--space-2); }
-@media (max-width: 1279px) {
-  .chat-shell { grid-template-columns: 64px minmax(0, 1fr) 0; }
-  .chat-shell.has-viewer { grid-template-columns: 64px minmax(0, 1fr) 0; }
-  .sidebar { padding: var(--space-2); align-items: center; }
-  .sidebar .side-text { display: none; }
-  .chat-shell.has-viewer .viewer { position: fixed; inset: var(--header-height) 0 0 0; z-index: 30; border-left: 0; }
-}
 
 /* ---------- Số liệu (S-09) ---------- */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-5); }
