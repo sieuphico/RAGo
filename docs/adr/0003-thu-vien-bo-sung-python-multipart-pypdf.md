@@ -15,6 +15,9 @@ Danh sách thư viện được xác nhận (RP-07) chưa gồm gói nhận tệ
 - **pypdf** (BSD, thuần Python): người dùng chọn ngày 2026-10-23 để trích văn bản theo trang ở T-206; thêm khi làm T-206. T-007 (khảo sát) đo lại sau.
 - **reportlab** (BSD): chỉ trong `dev`, cho T-605 sinh PDF mẫu có font tiếng Việt (task T-605 tự đề xuất). Không vào ảnh chạy. Thêm 2026-10-23 để không chặn T-206; người duyệt có thể thay bằng thư viện khác. Test T-201 vẫn dùng PDF tối thiểu trong `tests/fixtures/pdfs.py`.
 
+- **prometheus-client** (Apache-2.0): T-604 tự đề xuất cho `/metrics`. Thêm vào phụ thuộc chạy; worker mở cổng `worker_metrics_port` (mặc định 9101, khóa cấu hình ngoài CONTRACTS mục 7) để Prometheus thu chỉ số của worker.
+- **Không thêm PyYAML**: không build được trên Python 3.15; `deploy/alerts.yml` kiểm bằng `promtool` trong Docker (`make check-alerts`).
+
 ## Lựa chọn đã xét
 Tự ghi bộ phân tích multipart (rủi ro bảo mật, không đáng); PyMuPDF (AGPL, cần Pháp chế).
 

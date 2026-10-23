@@ -26,6 +26,7 @@ from app.api import (
 from app.api.csrf import CsrfMiddleware
 from app.core.config import get_settings
 from app.core.errors import install_error_handlers
+from app.core.metrics import MetricsMiddleware
 from app.core.wiring import ai_startup_check
 from app.modules.documents.events import StatusHub
 
@@ -46,6 +47,7 @@ def create_app() -> FastAPI:
     app = FastAPI(title="Chat với tài liệu", lifespan=lifespan)
     install_error_handlers(app)
     app.add_middleware(CsrfMiddleware)
+    app.add_middleware(MetricsMiddleware)  # ngoài cùng: đo cả yêu cầu bị CSRF từ chối
     app.include_router(health.router)
     app.include_router(auth.router)
     app.include_router(me.router)

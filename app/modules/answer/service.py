@@ -18,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.core.config import Settings
 from app.core.errors import AppError, ErrorCode
+from app.core.metrics import ERRORS, FIRST_TOKEN, QUESTIONS
 from app.domain import (
     AnswerEvent,
     CitationEvent,
@@ -197,6 +198,7 @@ class AnswerService:
             raise
         except AppError as exc:
             reason = _FAIL_REASON.get(exc.code, "provider_error")
+            ERRORS.labels(code=exc.code.value).inc()
             await self._save(progress, MessageStatus.FAILED, error_code=exc.code.value)
             yield ErrorEvent(code=exc.code.value, retryable=exc.retryable)
             await self._emit(
@@ -205,6 +207,7 @@ class AnswerService:
         except Exception as exc:  # noqa: BLE001 - mọi lỗi lạ đều phải kết thúc luồng gọn gàng
             request_id = uuid.uuid4().hex
             logger.error("answer failed %s request_id=%s", type(exc).__name__, request_id)
+            ERRORS.labels(code=ErrorCode.INTERNAL.value).inc()
             await self._save(progress, MessageStatus.FAILED, error_code=ErrorCode.INTERNAL.value)
             yield ErrorEvent(code=ErrorCode.INTERNAL.value, retryable=False)
             await self._emit(
@@ -227,6 +230,7 @@ class AnswerService:
     ) -> AsyncGenerator[AnswerEvent]:
         message_id = progress.message_id
         threshold = self.settings.relevance_threshold
+        QUESTIONS.inc()
         lang = detect_lang(text)
         progress.notice = "LANG_UNSUPPORTED" if lang == "other" else None
         await self._emit(
@@ -277,6 +281,7 @@ class AnswerService:
                 if visible:
                     if first_token:
                         first_token = False
+                        FIRST_TOKEN.observe(time.monotonic() - progress.started)
                         async with self.factory() as session:
                             await chat.update_message(
                                 session, message_id, status=MessageStatus.STREAMING

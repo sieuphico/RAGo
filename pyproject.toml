@@ -14,6 +14,7 @@ dependencies = [
   "psycopg[binary]",
   "python-multipart",
   "pypdf",
+  "prometheus-client",
 ]
 
 [project.optional-dependencies]

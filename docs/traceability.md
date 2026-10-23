@@ -70,6 +70,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-401 | API-10 lịch sử hội thoại và hết hạn 90 ngày (US-041, BR-021) | `app/api/chat_history.py`, `app/worker/expire_history.py` | `tests/integration/test_history.py` | ✅ |
 | T-402 | API-17 gợi ý câu hỏi mẫu và tác vụ sinh gợi ý (US-030, US-031, BR-020) | `app/worker/suggest.py`, `app/api/suggestions.py` | `tests/integration/test_suggestions.py` | ✅ |
 | T-403 | API-12 tóm tắt tài liệu có trích dẫn (US-040, BR-019) | `app/modules/summary/service.py`, `app/api/summary.py` | `tests/integration/test_summary.py` | ✅ |
+| T-604 | Giám sát: /healthz mở rộng, /metrics, cảnh báo (NFR-005, G10) | `app/api/health.py`, `app/core/metrics.py`, `deploy/alerts.yml` | `tests/integration/test_health_metrics.py` | ✅ promtool: 6 quy tắc hợp lệ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

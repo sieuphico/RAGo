@@ -53,6 +53,7 @@ class Settings(BaseSettings):
     job_stale_after_s: int = 1800
     features: Annotated[frozenset[str], NoDecode] = ALL_FEATURES
     app_version: str = "0.0.0-dev"
+    worker_metrics_port: int = 9101
 
     @field_validator("features", mode="before")
     @classmethod

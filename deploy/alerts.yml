@@ -1,0 +1,43 @@
+# Quy tắc cảnh báo Prometheus (SAD 4.3, G10). Kiểm tra: `make check-alerts` (promtool trong Docker).
+groups:
+  - name: chat-voi-tai-lieu
+    rules:
+      - alert: ChiPhiAiGanHanMuc
+        expr: cwd_ai_cost_usd_month >= 0.8 * 300
+        for: 5m
+        labels: {severity: warning}
+        annotations:
+          summary: "Chi phí AI trong tháng đạt 80% hạn mức 300 USD (NFR-009)"
+
+      - alert: LoiXuLyTaiLieuNhieu
+        expr: increase(cwd_errors_total{code="PROCESSING_ERROR"}[1h]) > 3
+        labels: {severity: warning}
+        annotations:
+          summary: "Hơn 3 tài liệu xử lý lỗi trong 1 giờ"
+
+      - alert: KhoTepSapDay
+        expr: cwd_disk_free_bytes < 5e9
+        for: 10m
+        labels: {severity: critical}
+        annotations:
+          summary: "Dung lượng trống của kho tệp dưới 5 GB"
+
+      - alert: PhanHoiDauTienCham
+        expr: histogram_quantile(0.9, sum by (le) (rate(cwd_answer_first_token_seconds_bucket[15m]))) > 15
+        for: 15m
+        labels: {severity: warning}
+        annotations:
+          summary: "p90 thời gian tới token đầu tiên vượt 15 giây (NFR-001)"
+
+      - alert: SaoLuuThatBai
+        expr: cwd_backup_last_failure_timestamp_seconds > 0
+        labels: {severity: critical}
+        annotations:
+          summary: "Lần sao lưu gần nhất thất bại (NFR-006); xem deploy/backup"
+
+      - alert: HangDoiTacVuTichTu
+        expr: cwd_jobs_queued > 50
+        for: 15m
+        labels: {severity: warning}
+        annotations:
+          summary: "Hàng đợi tác vụ tích tụ; kiểm tra worker"

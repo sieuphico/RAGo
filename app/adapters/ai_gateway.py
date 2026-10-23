@@ -16,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.core.config import Settings
 from app.core.errors import AppError, ErrorCode
+from app.core.metrics import AI_COST
 from app.modules.usage import repository as usage
 from app.ports.ai import AiPort, ProviderError, ProviderTimeout
 
@@ -82,6 +83,7 @@ class AiGateway:
         month = self._month()
         async with self.session_factory() as session:
             cost = await usage.get_cost(session, month)
+        AI_COST.set(cost)
         budget = self.settings.ai_monthly_budget_usd
         if cost >= budget:
             raise AppError(ErrorCode.BUDGET_EXCEEDED)
@@ -103,6 +105,7 @@ class AiGateway:
         async with self.session_factory() as session:
             await usage.add_cost(session, self._month(), cost)
             await session.commit()
+            AI_COST.set(await usage.get_cost(session, self._month()))
 
     def _log(self, op: str, chars_in: int, chars_out: int, started: float, outcome: str) -> None:
         logger.info(

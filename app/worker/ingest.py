@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core import db
 from app.core.config import Settings, get_settings
+from app.core.metrics import DOC_SECONDS, ERRORS
 from app.core.wiring import build_gateway, build_ocr, build_renderer, build_storage
 from app.domain import CurrentUser, DocumentStatus, FailureReason, Job, Role
 from app.models.document import Document
@@ -125,6 +126,7 @@ async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
                 session, doc_id, DocumentStatus.READY, page_count=len(pages), used_ocr=used_ocr
             )
             seconds = (done.processed_at - uploaded_at).total_seconds() if done.processed_at else 0.0
+            DOC_SECONDS.labels(ocr=str(used_ocr).lower()).observe(max(seconds, 0.0))
             await emit(
                 session, uploader, WORKER_SID, "document_processing_completed",
                 doc_id=str(doc_id), page_count=len(pages), processing_seconds=max(seconds, 0.0),
@@ -135,6 +137,7 @@ async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
         except ExtractError as exc:  # lỗi do tệp: thử lại vô ích
             await session.rollback()
             await _transition(session, doc_id, DocumentStatus.FAILED, reason=exc.reason)
+            ERRORS.labels(code=exc.reason.value).inc()
             await emit(
                 session, uploader, WORKER_SID, "document_processing_failed",
                 doc_id=str(doc_id), reason=failure_reason(exc.reason), used_ocr=ocr_attempted,
@@ -146,6 +149,7 @@ async def handle_ingest(job: Job, deps: IngestDeps | None = None) -> None:
                 await _transition(
                     session, doc_id, DocumentStatus.FAILED, reason=FailureReason.PROCESSING_ERROR
                 )
+                ERRORS.labels(code=FailureReason.PROCESSING_ERROR.value).inc()
                 await emit(
                     session, uploader, WORKER_SID, "document_processing_failed",
                     doc_id=str(doc_id), reason="other", used_ocr=ocr_attempted,

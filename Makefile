@@ -1,4 +1,4 @@
-.PHONY: add-admin ai-up ai-pull sample-data gate install lint type test run db-up db-down migrate db-reset
+.PHONY: check-alerts add-admin ai-up ai-pull sample-data gate install lint type test run db-up db-down migrate db-reset
 
 install:
 	pip install -e ".[dev]"
@@ -43,3 +43,6 @@ ai-pull:
 
 add-admin:
 	python -m app.cli add-admin $(EMAIL)
+
+check-alerts:
+	docker run --rm -v "$(CURDIR)/deploy:/rules:ro" --entrypoint promtool prom/prometheus:latest check rules /rules/alerts.yml
