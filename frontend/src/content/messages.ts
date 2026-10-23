@@ -152,6 +152,8 @@ export const M = {
   "history.older": "Cũ hơn",
   "history.untitled": "Phiên chưa có tiêu đề",
   "history.loading": "Đang tải lịch sử",
+  "welcome.greeting": "Xin chào {tên}! Kho đang có {N} tài liệu.",
+  "welcome.uploadCta": "Tải PDF lên",
   "library.title": "Kho tài liệu",
   "library.uploadAria": "Tải tài liệu lên",
   "library.searchLabel": "Tìm theo tên",

@@ -9,6 +9,8 @@ const collator = new Intl.Collator("vi");
 export const useDocumentsStore = defineStore("documents", () => {
   const items = ref<DocumentOut[]>([]);
   const loading = ref(false);
+  /** Đã tải danh sách thành công ít nhất một lần (để phân biệt "kho trống" với "chưa tải"). */
+  const loaded = ref(false);
   const error = ref<string | null>(null);
   /** Mã tài liệu OCR đang xử lý quá 15 phút (T-509, EC-20). */
   const slowIds = ref<Set<string>>(new Set());
@@ -25,6 +27,7 @@ export const useDocumentsStore = defineStore("documents", () => {
     try {
       const data = await request<DocumentListOut>("/api/v1/documents");
       items.value = data.items;
+      loaded.value = true;
     } catch (e) {
       if (!opts.silent) error.value = e instanceof ApiError ? e.code : "INTERNAL";
     } finally {
@@ -69,5 +72,5 @@ export const useDocumentsStore = defineStore("documents", () => {
     return rows;
   }
 
-  return { items, loading, error, slowIds, readyItems, processingCount, fetch, upsert, remove, applyEvent, filtered };
+  return { items, loading, loaded, error, slowIds, readyItems, processingCount, fetch, upsert, remove, applyEvent, filtered };
 });

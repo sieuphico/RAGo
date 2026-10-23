@@ -8,6 +8,8 @@ import Composer from "@/components/Composer.vue";
 import MessageList from "@/components/MessageList.vue";
 import ScopePicker from "@/components/ScopePicker.vue";
 import SourceViewer from "@/components/SourceViewer.vue";
+import WelcomePanel from "@/components/WelcomePanel.vue";
+import { useAuthStore } from "@/stores/auth";
 import { useFeaturesStore } from "@/stores/features";
 import { track } from "@/api/telemetry";
 import type { CitationOut } from "@/api/types";
@@ -21,6 +23,8 @@ const router = useRouter();
 const chat = useChatStore();
 const docs = useDocumentsStore();
 const features = useFeaturesStore();
+const auth = useAuthStore();
+const displayName = computed(() => auth.me?.email.split("@")[0] ?? "");
 const { width } = useViewport();
 
 const layout = computed(() => layoutFor(width.value));
@@ -42,7 +46,7 @@ function onOpenCitation(messageId: string, c: CitationOut) {
 }
 
 onMounted(() => {
-  if (docs.items.length === 0 && !docs.loading) void docs.fetch({ silent: true });
+  if (!docs.loaded && !docs.loading) void docs.fetch({ silent: true });
 });
 
 // Đổi sessionId trên URL → mở phiên (T-516/T-524 cài đặt `open`).
@@ -87,7 +91,9 @@ function onNewSession() {
     </ChatSidebar>
     <main id="main" class="chat-main" :aria-label="t('chat.conversationAria')" data-testid="conversation">
       <h1 class="sr-only">{{ t("nav.chat") }}</h1>
-      <MessageList :messages="chat.messages" @open-citation="onOpenCitation" @retry="chat.retry($event)" @stop="chat.stop()" />
+      <MessageList :messages="chat.messages" @open-citation="onOpenCitation" @retry="chat.retry($event)" @stop="chat.stop()">
+        <template #before><WelcomePanel v-if="chat.messages.length === 0" :user-name="displayName" /></template>
+      </MessageList>
       <div class="composer-wrap">
         <Composer @submit="chat.send($event)" @stop="chat.stop()">
           <template #bar-start><ScopePicker v-if="features.flags.scope" v-model="chat.scope" /></template>
