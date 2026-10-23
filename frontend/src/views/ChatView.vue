@@ -5,7 +5,9 @@ import { useRoute, useRouter } from "vue-router";
 import ChatSidebar from "@/components/ChatSidebar.vue";
 import Composer from "@/components/Composer.vue";
 import MessageList from "@/components/MessageList.vue";
+import ScopePicker from "@/components/ScopePicker.vue";
 import SourceViewer from "@/components/SourceViewer.vue";
+import { useFeaturesStore } from "@/stores/features";
 import { track } from "@/api/telemetry";
 import type { CitationOut } from "@/api/types";
 import { layoutFor, useViewport } from "@/composables/useViewport";
@@ -17,6 +19,7 @@ const route = useRoute();
 const router = useRouter();
 const chat = useChatStore();
 const docs = useDocumentsStore();
+const features = useFeaturesStore();
 const { width } = useViewport();
 
 const layout = computed(() => layoutFor(width.value));
@@ -85,7 +88,9 @@ function onNewSession() {
       <h1 class="sr-only">{{ t("nav.chat") }}</h1>
       <MessageList :messages="chat.messages" @open-citation="onOpenCitation" @retry="chat.retry($event)" @stop="chat.stop()" />
       <div class="composer-wrap">
-        <Composer @submit="chat.send($event)" @stop="chat.stop()" />
+        <Composer @submit="chat.send($event)" @stop="chat.stop()">
+          <template #bar-start><ScopePicker v-if="features.flags.scope" v-model="chat.scope" /></template>
+        </Composer>
       </div>
     </main>
     <section v-if="viewerDoc" class="viewer-slot" :class="{ overlay: layout !== 'wide' }" data-testid="viewer-slot">
