@@ -3,10 +3,12 @@
 from app.adapters.ai_fake import AiFake
 from app.adapters.idp_fake import IdpFake
 from app.adapters.ocr_fake import OcrFake
+from app.adapters.storage_fs import FsStorage
 from app.core.config import Settings
 from app.ports.ai import AiPort
 from app.ports.idp import IdpPort
 from app.ports.ocr import OcrPort
+from app.ports.storage import StoragePort
 
 
 def build_ai(settings: Settings) -> AiPort:
@@ -25,3 +27,7 @@ def build_idp(settings: Settings) -> IdpPort:
     if settings.idp == "fake":
         return IdpFake(default_email="user@example.com")
     raise NotImplementedError(settings.idp)
+
+
+def build_storage(settings: Settings) -> StoragePort:
+    return FsStorage(settings.storage_root)

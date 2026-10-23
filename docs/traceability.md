@@ -33,6 +33,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-108 | Đăng nhập, cookie phiên, `GET /me` — dùng IdpFake (US-001, US-002) | `app/modules/auth/`, `app/api/auth.py`, `app/api/me.py`, `app/api/deps.py` | `tests/integration/test_auth_flow.py` | 🔶 IdP thật chờ T-006 |
 | T-109 | AuthZ theo vai trò và chống CSRF (US-002, US-061) | `app/api/deps.py`, `app/api/csrf.py` | `tests/integration/test_authz.py` | ✅ |
 | T-111 | Nhật ký kiểm toán và API-15 (US-062, US-063) | `app/modules/audit/service.py`, `app/api/admin_audit.py`, `app/core/schemas.py` | `tests/integration/test_audit.py` | ✅ |
+| T-112 | Bộ nối kho tệp FsStorage (US-010, US-022) | `app/adapters/storage_fs.py`, `app/core/wiring.py` | `tests/unit/test_storage_fs.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
