@@ -40,6 +40,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-208 | Ingest: nhúng và lập chỉ mục (US-020) | `app/worker/indexer.py` | `tests/integration/test_indexer.py` | ✅ |
 | T-205 | Worker: vòng lặp xử lý, scheduler, đăng ký | `app/worker/{registry,main,scheduler,__main__}.py` | `tests/integration/test_worker_loop.py` | ✅ |
 | T-605 | Sinh PDF mẫu và fixture kiểm thử | `scripts/make_sample_data.py`, `tests/conftest.py` (`sample_pdfs`) | `tests/unit/test_sample_data.py` | ✅ |
+| T-206 | Ingest: trích văn bản theo trang bằng pypdf (US-012, US-013) | `app/worker/extract.py` | `tests/unit/test_extract.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại
