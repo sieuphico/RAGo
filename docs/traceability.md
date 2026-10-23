@@ -89,4 +89,7 @@ US-013 ⛔ chờ chọn OCR (T-004, T-010). US-001 ⛔ chờ giao thức SSO (T-
 |---|---|
 | [0001](adr/0001-ma-nguon-o-goc-kho.md) | Mã ở gốc kho |
 | [0002](adr/0002-engine-csdl-tao-luoi-va-cong-dev-5433.md) | Engine tạo lười, CSDL dev cổng 5433 |
-| [0003](adr/0003-thu-vien-bo-sung-python-multipart-pypdf.md) | python-multipart, pypdf; reportlab chờ duyệt |
+| [0003](adr/0003-thu-vien-bo-sung-python-multipart-pypdf.md) | python-multipart, pypdf, prometheus-client, httpx; reportlab (dev) chờ duyệt |
+| [0004](adr/0004-ai-noi-bo-ollama-qwen3.md) | AI nội bộ Ollama (Qwen3 1.7B + qwen3-embedding:0.6b) |
+| [0005](adr/0005-idp-gia-mac-dinh-dong.md) | IdP giả mặc định đóng; API một tiến trình |
+| [0101](adr/0101-gia-lap-api-trong-test-frontend.md), [0102](adr/0102-phien-ban-cong-cu-frontend.md) | Frontend: giả lập API trong test; ghim phiên bản công cụ |

@@ -54,6 +54,7 @@ class Settings(BaseSettings):
     features: Annotated[frozenset[str], NoDecode] = ALL_FEATURES
     app_version: str = "0.0.0-dev"
     worker_metrics_port: int = 9101
+    allow_fake_idp: bool = False  # IdP giả nhận email bất kỳ: chỉ bật ở dev/staging
 
     @field_validator("features", mode="before")
     @classmethod

@@ -22,6 +22,8 @@ Cổng vào: 80 (chuyển hướng) và 443; `/metrics` không chuyển ra ngoà
 | Lỗi tìm thấy khi kiểm chứng | (1) `httpx` thiếu ở phụ thuộc chạy; (2) nginx gửi `Host` không kèm cổng và uvicorn chưa tin `X-Forwarded-Proto` làm địa chỉ callback đăng nhập sai — đã sửa (`$http_host`, `--proxy-headers`) |
 
 ## Chưa kiểm chứng / còn mở
+- **Chưa có IdP thật:** `CWD_IDP=fake` bị từ chối nếu không đặt `CWD_ALLOW_FAKE_IDP=true` (ADR-0005). Chỉ bật ở staging; môi trường thật cần bộ nối SSO (T-006).
+- API phải chạy **một** tiến trình uvicorn (`RunningAnswers` ở bộ nhớ); không thêm `--workers`.
 - Cỡ máy, hệ điều hành, kho tệp (đĩa mã hóa hay NAS, Q-A8), chứng chỉ TLS thật và cổng nội bộ: `[TBD]`, chờ đội IT.
 - Thử trên máy ảo mới của IT và với AI thật (Ollama trên GPU): chưa làm.
 - Chuyển hướng HTTP→HTTPS giả định cổng chuẩn 80/443; với cổng khác cần đặt lại `return 301` trong `nginx.conf`.

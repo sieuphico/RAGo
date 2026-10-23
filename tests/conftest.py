@@ -26,6 +26,7 @@ for _key, _value in {
     "CWD_STORAGE_ROOT": "./var/test-storage",
     "CWD_EMBEDDING_DIM": "384",
     "CWD_AI_PROVIDER": "fake",  # test không gọi Ollama thật
+    "CWD_ALLOW_FAKE_IDP": "true",  # test đăng nhập bằng IdP giả
 }.items():
     os.environ.setdefault(_key, _value)
 

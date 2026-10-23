@@ -15,7 +15,7 @@
 - **OCR PDF ảnh quét (US-013) chưa dùng được thật:** luồng, trạng thái và ngưỡng đã có nhưng chưa có bộ nối Tesseract/bộ dựng ảnh trang; tệp quét sẽ báo lỗi xử lý. Chờ khảo sát T-004/T-010.
 - **Hiệu năng AI trên CPU:** câu hỏi đầu cuối ~17–23 giây, chưa đạt NFR-001 (p90 ≤ 15 giây). Cần GPU, giảm `CWD_RETRIEVAL_K` hoặc mô hình nhanh hơn; đo bằng bộ câu hỏi chuẩn (T-607) và thử tải (T-608).
 - Chất lượng Qwen3 1.7B (trích dẫn đúng trang, từ chối câu ngoài phạm vi, tiếng Việt) chưa đo bằng bộ câu hỏi chuẩn (DEP-003 chưa có); ngưỡng liên quan mặc định 0,0.
-- SSO thật chưa tích hợp (T-006): đang dùng IdP giả cho phát triển; **không dùng IdP giả ở môi trường có dữ liệu thật**.
+- **SSO thật chưa tích hợp (T-006): chưa triển khai được môi trường thật.** IdP giả nhận email bất kỳ nên mặc định bị tắt (`CWD_ALLOW_FAKE_IDP=false`, ADR-0005); chỉ bật ở dev/staging.
 - Danh sách tài liệu không phân trang (tối đa 500).
 - Ngôn ngữ ngoài Việt/Anh: trả lời tiếng Việt kèm thông báo.
 - Bản sao lưu ≤ 7 ngày có thể còn dữ liệu tài liệu đã xóa (ngoại lệ BR-029, chờ Bảo mật thông tin duyệt).

@@ -27,12 +27,13 @@ from app.api.csrf import CsrfMiddleware
 from app.core.config import get_settings
 from app.core.errors import install_error_handlers
 from app.core.metrics import MetricsMiddleware
-from app.core.wiring import ai_startup_check
+from app.core.wiring import ai_startup_check, build_idp
 from app.modules.documents.events import StatusHub
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    build_idp(get_settings())  # dừng sớm nếu cấu hình SSO không an toàn
     await ai_startup_check(get_settings())
     hub = StatusHub()
     await hub.start(get_settings().database_url)

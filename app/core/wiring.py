@@ -31,6 +31,12 @@ def build_ocr(settings: Settings) -> OcrPort:
 
 def build_idp(settings: Settings) -> IdpPort:
     if settings.idp == "fake":
+        if not settings.allow_fake_idp:
+            # IdP giả nhận email bất kỳ qua login_hint: mặc định đóng để không lọt vào môi trường thật
+            raise RuntimeError(
+                "IdP giả đang tắt. Đặt CWD_ALLOW_FAKE_IDP=true chỉ ở máy phát triển hoặc staging; "
+                "môi trường thật phải dùng IdP thật (T-006)."
+            )
         return IdpFake(default_email="user@example.com")
     raise NotImplementedError(settings.idp)
 
