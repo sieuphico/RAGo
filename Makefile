@@ -1,4 +1,4 @@
-.PHONY: install lint type test run db-up db-down migrate db-reset
+.PHONY: gate install lint type test run db-up db-down migrate db-reset
 
 install:
 	pip install -e ".[dev]"
@@ -28,3 +28,5 @@ db-reset:
 	docker compose -f deploy/compose.dev.yml down -v
 	docker compose -f deploy/compose.dev.yml up -d --wait
 	alembic upgrade head
+
+gate: lint type test
