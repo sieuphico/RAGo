@@ -72,6 +72,8 @@ export const M = {
   "upload.rejections": "Tệp bị từ chối",
   "answer.done": "Câu trả lời đã xong",
   "chat.logAria": "Tin nhắn",
+  "upload.queueAria": "Tệp đang tải lên",
+  "upload.dismiss": "Đóng",
   "library.title": "Kho tài liệu",
   "library.uploadAria": "Tải tài liệu lên",
   "library.searchLabel": "Tìm theo tên",
