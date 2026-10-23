@@ -41,6 +41,7 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 | T-205 | Worker: vòng lặp xử lý, scheduler, đăng ký | `app/worker/{registry,main,scheduler,__main__}.py` | `tests/integration/test_worker_loop.py` | ✅ |
 | T-605 | Sinh PDF mẫu và fixture kiểm thử | `scripts/make_sample_data.py`, `tests/conftest.py` (`sample_pdfs`) | `tests/unit/test_sample_data.py` | ✅ |
 | T-206 | Ingest: trích văn bản theo trang bằng pypdf (US-012, US-013) | `app/worker/extract.py` | `tests/unit/test_extract.py` | ✅ |
+| T-211 | Sự kiện trạng thái tài liệu: NOTIFY/LISTEN và SSE API-04 (US-012) | `app/modules/documents/events.py`, `app/api/document_events.py`, `app/main.py` | `tests/integration/test_document_events.py` | ✅ |
 | T-601 | CI (backend) | `ci/run_ci.sh`, `.github/workflows/ci.yml` | — | 🔶 chưa có frontend |
 
 ## Story còn lại

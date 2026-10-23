@@ -36,5 +36,5 @@ python_version = "3.12"
 strict = true
 
 [[tool.mypy.overrides]]
-module = ["reportlab.*", "PIL.*"]
+module = ["reportlab.*", "PIL.*", "asyncpg.*"]
 ignore_missing_imports = true
