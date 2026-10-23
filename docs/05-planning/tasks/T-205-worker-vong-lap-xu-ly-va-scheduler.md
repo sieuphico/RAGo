@@ -34,11 +34,11 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/__main__.py`
-- `backend/app/worker/main.py`
-- `backend/app/worker/scheduler.py`
-- `backend/app/worker/registry.py`
-- `backend/tests/integration/test_worker_loop.py`
+- `app/worker/__main__.py`
+- `app/worker/main.py`
+- `app/worker/scheduler.py`
+- `app/worker/registry.py`
+- `tests/integration/test_worker_loop.py`
 
 ## Chữ ký và giao diện
 
@@ -74,7 +74,7 @@ async def run_scheduler(clock: Callable[[], datetime], stop: asyncio.Event) -> N
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_worker_loop.py -q
+pytest tests/integration/test_worker_loop.py -q
 make lint type test
 ```
 

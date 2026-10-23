@@ -32,10 +32,10 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/domain/__init__.py`
-- `backend/app/domain/types.py`
-- `backend/app/domain/status.py`
-- `backend/tests/unit/test_domain.py`
+- `app/domain/__init__.py`
+- `app/domain/types.py`
+- `app/domain/status.py`
+- `tests/unit/test_domain.py`
 
 ## Chữ ký và giao diện
 
@@ -70,7 +70,7 @@ class InvalidTransition(Exception): ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_domain.py -q
+pytest tests/unit/test_domain.py -q
 make lint type test
 ```
 

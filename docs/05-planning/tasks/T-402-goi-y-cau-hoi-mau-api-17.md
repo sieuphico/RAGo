@@ -38,9 +38,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/suggest.py`
-- `backend/app/api/suggestions.py`
-- `backend/tests/integration/test_suggestions.py`
+- `app/worker/suggest.py`
+- `app/api/suggestions.py`
+- `tests/integration/test_suggestions.py`
 
 ## Chữ ký và giao diện
 
@@ -80,7 +80,7 @@ async def suggestions_api(user: CurrentUser = Depends(...)) -> SuggestionListOut
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_suggestions.py -q
+pytest tests/integration/test_suggestions.py -q
 make lint type test
 ```
 

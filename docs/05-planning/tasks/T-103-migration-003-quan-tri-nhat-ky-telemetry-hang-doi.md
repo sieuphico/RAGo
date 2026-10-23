@@ -30,12 +30,12 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-102](T-102-migration-002-phien-hoi-thoai-va-tin-nhan.md) Migration 002: phiên hội thoại và tin nhắn: `backend/migrations/versions/002_chat.py`, `backend/tests/integration/test_migration_002.py`
+- [T-102](T-102-migration-002-phien-hoi-thoai-va-tin-nhan.md) Migration 002: phiên hội thoại và tin nhắn: `migrations/versions/002_chat.py`, `tests/integration/test_migration_002.py`
 
 ## File cần tạo hoặc sửa
 
-- `backend/migrations/versions/003_admin.py`
-- `backend/tests/integration/test_migration_003.py`
+- `migrations/versions/003_admin.py`
+- `tests/integration/test_migration_003.py`
 
 ## Các bước
 
@@ -64,7 +64,7 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_migration_003.py -q
+pytest tests/integration/test_migration_003.py -q
 make lint type test
 ```
 

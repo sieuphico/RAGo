@@ -30,16 +30,16 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-010](T-010-khao-sat-ocr-2-2-dich-vu-dam-may-so-sanh-khuyen-nghi.md) Khảo sát OCR (2/2): dịch vụ đám mây, so sánh, khuyến nghị: `docs/05-planning/spikes/OCR-spike.md`, `docs/05-planning/spikes/ocr-results.csv`, `backend/scripts/ocr_trial.py`
+- [T-010](T-010-khao-sat-ocr-2-2-dich-vu-dam-may-so-sanh-khuyen-nghi.md) Khảo sát OCR (2/2): dịch vụ đám mây, so sánh, khuyến nghị: `docs/05-planning/spikes/OCR-spike.md`, `docs/05-planning/spikes/ocr-results.csv`, `scripts/ocr_trial.py`
 - [T-206](T-206-ingest-trich-van-ban-theo-trang.md) Ingest: trích văn bản theo trang: `ExtractError`, `extract_pages`
 - [T-008](T-008-cong-ports-va-bo-noi-gia-fake-adapters.md) Cổng (ports) và bộ nối giả (fake adapters): `ProviderError`, `ProviderTimeout`, `AiPort`, `OcrPort`, `StoragePort`, `IdpPort`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/ocr_step.py`
-- `backend/app/adapters/ocr_tesseract.py`
-- `backend/tests/unit/test_ocr_step.py`
-- `backend/tests/integration/test_ocr_tesseract.py`
+- `app/worker/ocr_step.py`
+- `app/adapters/ocr_tesseract.py`
+- `tests/unit/test_ocr_step.py`
+- `tests/integration/test_ocr_tesseract.py`
 
 ## Chữ ký và giao diện
 
@@ -77,8 +77,8 @@ class TesseractOcr:
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_ocr_step.py -q
-cd backend && pytest tests/integration/test_ocr_tesseract.py -q
+pytest tests/unit/test_ocr_step.py -q
+pytest tests/integration/test_ocr_tesseract.py -q
 make lint type test
 ```
 

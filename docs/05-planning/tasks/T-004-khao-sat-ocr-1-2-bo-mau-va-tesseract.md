@@ -27,7 +27,7 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 ## File cần tạo hoặc sửa
 
-- `backend/scripts/ocr_trial.py`
+- `scripts/ocr_trial.py`
 - `docs/05-planning/spikes/ocr-samples/README.md`
 - `docs/05-planning/spikes/ocr-results.csv`
 

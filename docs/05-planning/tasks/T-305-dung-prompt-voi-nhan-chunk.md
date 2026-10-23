@@ -33,8 +33,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/answer/prompt.py`
-- `backend/tests/unit/test_prompt.py`
+- `app/modules/answer/prompt.py`
+- `tests/unit/test_prompt.py`
 
 ## Chữ ký và giao diện
 
@@ -77,7 +77,7 @@ def build_prompt(question: str, chunks: list[ScoredChunk], history: list[Turn] |
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_prompt.py -q
+pytest tests/unit/test_prompt.py -q
 make lint type test
 ```
 

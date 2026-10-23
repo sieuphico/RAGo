@@ -33,8 +33,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/answer/citations.py`
-- `backend/tests/unit/test_citations.py`
+- `app/modules/answer/citations.py`
+- `tests/unit/test_citations.py`
 
 ## Chữ ký và giao diện
 
@@ -81,7 +81,7 @@ def resolve(text: str, label_map: dict[str, ChunkRef]) -> tuple[str, list[Citati
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_citations.py -q
+pytest tests/unit/test_citations.py -q
 make lint type test
 ```
 

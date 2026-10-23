@@ -35,10 +35,10 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/users/service.py`
-- `backend/app/api/admin_users.py`
-- `backend/app/cli.py`
-- `backend/tests/integration/test_admin_users.py`
+- `app/modules/users/service.py`
+- `app/api/admin_users.py`
+- `app/cli.py`
+- `tests/integration/test_admin_users.py`
 - `Makefile`
 
 ## Chữ ký và giao diện
@@ -80,7 +80,7 @@ def main(argv: list[str] | None = None) -> int: ...  # app/cli.py
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_admin_users.py -q
+pytest tests/integration/test_admin_users.py -q
 make lint type test
 ```
 

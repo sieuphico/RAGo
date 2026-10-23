@@ -33,9 +33,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/core/features.py`
-- `backend/app/api/features.py`
-- `backend/tests/unit/test_features.py`
+- `app/core/features.py`
+- `app/api/features.py`
+- `tests/unit/test_features.py`
 
 ## Chữ ký và giao diện
 
@@ -69,7 +69,7 @@ def require_feature(name: str) -> Callable[[], None]: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_features.py -q
+pytest tests/unit/test_features.py -q
 make lint type test
 ```
 

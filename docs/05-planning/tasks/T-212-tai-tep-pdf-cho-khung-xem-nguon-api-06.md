@@ -35,8 +35,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/api/document_file.py`
-- `backend/tests/integration/test_document_file.py`
+- `app/api/document_file.py`
+- `tests/integration/test_document_file.py`
 
 ## Chữ ký và giao diện
 
@@ -75,7 +75,7 @@ async def get_file(doc_id: UUID, request: Request, user: CurrentUser = Depends(r
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_document_file.py -q
+pytest tests/integration/test_document_file.py -q
 make lint type test
 ```
 

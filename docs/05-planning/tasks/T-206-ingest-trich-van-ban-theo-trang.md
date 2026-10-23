@@ -32,12 +32,12 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 - [T-007](T-007-khao-sat-thu-vien-trich-van-ban-pdf.md) Khảo sát thư viện trích văn bản PDF: `docs/05-planning/spikes/PDF-lib.md`
 - [T-009](T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md) Kiểu dữ liệu miền và chuyển trạng thái: kiểu ở CONTRACTS mục 2 – `FailureReason`, `PageText`, `assert_transition`, `InvalidTransition`
-- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `backend/scripts/make_sample_data.py`, `backend/tests/fixtures/README.md`
+- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `scripts/make_sample_data.py`, `tests/fixtures/README.md`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/extract.py`
-- `backend/tests/unit/test_extract.py`
+- `app/worker/extract.py`
+- `tests/unit/test_extract.py`
 
 ## Chữ ký và giao diện
 
@@ -77,7 +77,7 @@ def extract_pages(data: bytes, *, max_pages: int) -> list[PageText]: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_extract.py -q
+pytest tests/unit/test_extract.py -q
 make lint type test
 ```
 

@@ -30,16 +30,16 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-103](T-103-migration-003-quan-tri-nhat-ky-telemetry-hang-doi.md) Migration 003: quản trị, nhật ký, telemetry, hàng đợi: `backend/migrations/versions/003_admin.py`, `backend/tests/integration/test_migration_003.py`
+- [T-103](T-103-migration-003-quan-tri-nhat-ky-telemetry-hang-doi.md) Migration 003: quản trị, nhật ký, telemetry, hàng đợi: `migrations/versions/003_admin.py`, `tests/integration/test_migration_003.py`
 - [T-009](T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md) Kiểu dữ liệu miền và chuyển trạng thái: kiểu ở CONTRACTS mục 2 – `Job`, `assert_transition`, `InvalidTransition`
 - [T-002](T-002-nap-cau-hinh-va-bi-mat.md) Nạp cấu hình và bí mật: `Settings`, `get_settings`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/models/job.py`
-- `backend/app/modules/jobs/repository.py`
-- `backend/app/modules/jobs/service.py`
-- `backend/tests/integration/test_jobs_service.py`
+- `app/models/job.py`
+- `app/modules/jobs/repository.py`
+- `app/modules/jobs/service.py`
+- `tests/integration/test_jobs_service.py`
 
 ## Chữ ký và giao diện
 
@@ -79,7 +79,7 @@ async def release_stale(session: AsyncSession, now: datetime) -> int: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_jobs_service.py -q
+pytest tests/integration/test_jobs_service.py -q
 make lint type test
 ```
 

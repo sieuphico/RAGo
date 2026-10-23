@@ -14,4 +14,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: coverage
-          path: backend/coverage.xml
+          path: coverage.xml

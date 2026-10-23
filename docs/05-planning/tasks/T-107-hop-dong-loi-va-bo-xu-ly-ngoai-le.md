@@ -32,8 +32,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/core/errors.py`
-- `backend/tests/unit/test_errors.py`
+- `app/core/errors.py`
+- `tests/unit/test_errors.py`
 
 ## Chữ ký và giao diện
 
@@ -76,7 +76,7 @@ def install_error_handlers(app: FastAPI) -> None: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_errors.py -q
+pytest tests/unit/test_errors.py -q
 make lint type test
 ```
 

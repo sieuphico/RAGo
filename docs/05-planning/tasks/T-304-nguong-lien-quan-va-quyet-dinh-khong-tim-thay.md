@@ -35,8 +35,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/answer/relevance.py`
-- `backend/tests/unit/test_relevance.py`
+- `app/modules/answer/relevance.py`
+- `tests/unit/test_relevance.py`
 
 ## Chữ ký và giao diện
 
@@ -73,7 +73,7 @@ def filter_evidence(chunks: list[ScoredChunk], threshold: float) -> list[ScoredC
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_relevance.py -q
+pytest tests/unit/test_relevance.py -q
 make lint type test
 ```
 

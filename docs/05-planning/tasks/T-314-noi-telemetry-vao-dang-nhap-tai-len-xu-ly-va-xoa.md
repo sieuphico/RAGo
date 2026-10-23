@@ -38,13 +38,13 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/telemetry/mapping.py`
-- `backend/app/modules/auth/service.py`
-- `backend/app/api/deps.py`
-- `backend/app/modules/documents/upload.py`
-- `backend/app/modules/documents/delete.py`
-- `backend/app/worker/ingest.py`
-- `backend/tests/integration/test_telemetry_wiring.py`
+- `app/modules/telemetry/mapping.py`
+- `app/modules/auth/service.py`
+- `app/api/deps.py`
+- `app/modules/documents/upload.py`
+- `app/modules/documents/delete.py`
+- `app/worker/ingest.py`
+- `tests/integration/test_telemetry_wiring.py`
 
 ## Chữ ký và giao diện
 
@@ -84,7 +84,7 @@ def emit_once(sid: str, reason: str) -> bool: ...  # True nếu cặp (sid, reas
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_telemetry_wiring.py -q
+pytest tests/integration/test_telemetry_wiring.py -q
 make lint type test
 ```
 

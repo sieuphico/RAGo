@@ -34,8 +34,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/api/documents.py`
-- `backend/tests/integration/test_list_documents.py`
+- `app/api/documents.py`
+- `tests/integration/test_list_documents.py`
 
 ## Chữ ký và giao diện
 
@@ -75,7 +75,7 @@ async def list_documents_api(search: str | None = None, sort: DocumentSort = "up
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_list_documents.py -q
+pytest tests/integration/test_list_documents.py -q
 make lint type test
 ```
 

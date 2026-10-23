@@ -38,9 +38,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/documents/delete.py`
-- `backend/app/api/documents_delete.py`
-- `backend/tests/integration/test_delete_document.py`
+- `app/modules/documents/delete.py`
+- `app/api/documents_delete.py`
+- `tests/integration/test_delete_document.py`
 
 ## Chữ ký và giao diện
 
@@ -78,7 +78,7 @@ async def delete_document(session: AsyncSession, doc_id: UUID, actor: CurrentUse
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_delete_document.py -q
+pytest tests/integration/test_delete_document.py -q
 make lint type test
 ```
 

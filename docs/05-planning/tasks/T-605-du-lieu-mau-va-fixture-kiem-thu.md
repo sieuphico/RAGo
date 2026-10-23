@@ -32,15 +32,15 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/scripts/make_sample_data.py`
-- `backend/tests/fixtures/README.md`
+- `scripts/make_sample_data.py`
+- `tests/fixtures/README.md`
 
 ## Các bước
 
 1. Viết `make_sample_data.py --out <thư mục> [--count N]` (`--count` sinh thêm N tài liệu văn bản 5–50 trang có nội dung ngẫu nhiên tất định theo seed, dùng cho staging và thử tải ở T-613, T-608) tạo bằng thư viện của T-007 hoặc `reportlab` `[Đề xuất]`: `text_1p.pdf` (1 trang), `text_12p.pdf`, `text_100p.pdf`, `scan_1p.pdf` (ảnh chữ, không có lớp văn bản), `corrupted.pdf` (cắt 50% cuối), `encrypted.pdf` (mật khẩu `x`), `not_pdf.pdf` (nội dung PNG đổi đuôi), `big_51mb.pdf`.
 2. Mỗi tệp văn bản chứa câu biết trước ở trang biết trước, ví dụ trang 12 của `text_12p.pdf`: "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026."
 3. Ghi `manifest.json`: tên tệp, số trang, các câu biết trước kèm số trang.
-4. Thêm đích `make sample-data` (ghi vào `backend/tests/fixtures/generated/`, đã có trong `.gitignore`).
+4. Thêm đích `make sample-data` (ghi vào `tests/fixtures/generated/`, đã có trong `.gitignore`).
 
 ## Tiêu chí hoàn thành
 
@@ -60,7 +60,7 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/fixtures/README.md -q
+pytest tests/fixtures/README.md -q
 make lint type test
 ```
 

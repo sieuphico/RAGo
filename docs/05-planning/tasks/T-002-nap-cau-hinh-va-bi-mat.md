@@ -32,9 +32,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/core/config.py`
-- `backend/tests/unit/test_config.py`
-- `backend/.env.example`
+- `app/core/config.py`
+- `tests/unit/test_config.py`
+- `.env.example`
 
 ## Chữ ký và giao diện
 
@@ -73,7 +73,7 @@ def get_settings() -> Settings: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_config.py -q
+pytest tests/unit/test_config.py -q
 make lint type test
 ```
 

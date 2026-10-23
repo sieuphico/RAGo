@@ -8,11 +8,11 @@ Dự án "Chat với tài liệu" (MVP). Nguồn sự thật duy nhất: `docs/`
 - Story xương sống: `docs/03-analysis/BACKBONE_STORIES.md`.
 
 ## Cấu trúc
-`backend/app` (domain, core, api, modules, ports, adapters, models, worker), `backend/tests`, `docs/`, `ci/`.
+`app` (domain, core, api, modules, ports, adapters, models, worker), `tests`, `docs/`, `ci/`.
 Quy tắc phụ thuộc: router → mô-đun → ports → adapters; mô-đun không nhập `app.adapters`; chỉ `ai_gateway` gọi nhà cung cấp AI.
 
 ## Lệnh
-`make install lint type test` (backend). Trên Windows không có make: chạy trong `backend/` `ruff check .`, `mypy app`, `pytest`.
+`make install lint type test` (Python). Trên Windows không có make: chạy ở gốc kho `ruff check .`, `mypy app`, `pytest`.
 
 ## Quy ước
 - Commit: Conventional Commits, kèm mã task/US/BR, ví dụ `feat(documents): upload API (T-201, US-010, US-011)`. Commit nhỏ, một task một commit.

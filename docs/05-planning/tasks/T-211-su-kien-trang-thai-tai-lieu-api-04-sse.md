@@ -35,9 +35,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/documents/events.py`
-- `backend/app/api/document_events.py`
-- `backend/tests/integration/test_document_events.py`
+- `app/modules/documents/events.py`
+- `app/api/document_events.py`
+- `tests/integration/test_document_events.py`
 
 ## Chữ ký và giao diện
 
@@ -77,7 +77,7 @@ class StatusHub:
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_document_events.py -q
+pytest tests/integration/test_document_events.py -q
 make lint type test
 ```
 

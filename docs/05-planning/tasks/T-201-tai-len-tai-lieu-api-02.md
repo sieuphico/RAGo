@@ -41,9 +41,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/documents/upload.py`
-- `backend/app/api/documents_upload.py`
-- `backend/tests/integration/test_upload_api.py`
+- `app/modules/documents/upload.py`
+- `app/api/documents_upload.py`
+- `tests/integration/test_upload_api.py`
 
 ## Chữ ký và giao diện
 
@@ -84,7 +84,7 @@ async def upload_documents(session: AsyncSession, storage: StoragePort, files: l
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_upload_api.py -q
+pytest tests/integration/test_upload_api.py -q
 make lint type test
 ```
 

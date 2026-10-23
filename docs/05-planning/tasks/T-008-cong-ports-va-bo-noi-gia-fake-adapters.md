@@ -34,16 +34,16 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/ports/ai.py`
-- `backend/app/ports/ocr.py`
-- `backend/app/ports/storage.py`
-- `backend/app/ports/idp.py`
-- `backend/app/adapters/ai_fake.py`
-- `backend/app/adapters/ocr_fake.py`
-- `backend/app/adapters/idp_fake.py`
-- `backend/app/core/wiring.py`
-- `backend/tests/unit/test_fakes.py`
-- `backend/tests/unit/test_import_rules.py`
+- `app/ports/ai.py`
+- `app/ports/ocr.py`
+- `app/ports/storage.py`
+- `app/ports/idp.py`
+- `app/adapters/ai_fake.py`
+- `app/adapters/ocr_fake.py`
+- `app/adapters/idp_fake.py`
+- `app/core/wiring.py`
+- `tests/unit/test_fakes.py`
+- `tests/unit/test_import_rules.py`
 
 ## Chữ ký và giao diện
 
@@ -99,8 +99,8 @@ class IdpPort(Protocol):
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_fakes.py -q
-cd backend && pytest tests/unit/test_import_rules.py -q
+pytest tests/unit/test_fakes.py -q
+pytest tests/unit/test_import_rules.py -q
 make lint type test
 ```
 

@@ -33,12 +33,12 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 - [T-307](T-307-dich-vu-tra-loi-1-2-luong-chinh-co-trich-dan.md) Dịch vụ trả lời (1/2): luồng chính có trích dẫn: `AnswerService`, `detect_lang`
 - [T-316](T-316-dich-vu-tra-loi-2-2-dung-dut-ket-noi-loi-va-het-gio.md) Dịch vụ trả lời (2/2): dừng, đứt kết nối, lỗi và hết giờ: `RunningAnswers`
 - [T-315](T-315-bo-noi-ai-that-2-2-sinh-cau-tra-loi-dang-luong.md) Bộ nối AI thật (2/2): sinh câu trả lời dạng luồng: `ProviderAi`
-- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `backend/scripts/make_sample_data.py`, `backend/tests/fixtures/README.md`
+- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `scripts/make_sample_data.py`, `tests/fixtures/README.md`
 
 ## File cần tạo hoặc sửa
 
-- `backend/scripts/eval_answers.py`
-- `backend/eval/README.md`
+- `scripts/eval_answers.py`
+- `eval/README.md`
 - `docs/05-planning/evidence/eval-method.md`
 - `docs/05-planning/evidence/eval-answers.md`
 

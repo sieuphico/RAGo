@@ -36,8 +36,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/tests/security/test_authz_matrix.py`
-- `backend/tests/security/test_prompt_injection.py`
+- `tests/security/test_authz_matrix.py`
+- `tests/security/test_prompt_injection.py`
 - `docs/05-planning/evidence/security-report.md`
 
 ## Các bước
@@ -68,8 +68,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/security/test_authz_matrix.py -q
-cd backend && pytest tests/security/test_prompt_injection.py -q
+pytest tests/security/test_authz_matrix.py -q
+pytest tests/security/test_prompt_injection.py -q
 make lint type test
 ```
 

@@ -28,7 +28,7 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 ## File cần tạo hoặc sửa
 
 - `docs/05-planning/spikes/AI-provider.md`
-- `backend/scripts/ai_trial.py`
+- `scripts/ai_trial.py`
 - `docs/05-planning/spikes/ai-qa-pairs.json`
 
 ## Các bước

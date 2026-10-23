@@ -35,9 +35,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/answer/scope.py`
-- `backend/app/modules/answer/service.py`
-- `backend/tests/integration/test_scope.py`
+- `app/modules/answer/scope.py`
+- `app/modules/answer/service.py`
+- `tests/integration/test_scope.py`
 
 ## Chữ ký và giao diện
 
@@ -76,7 +76,7 @@ async def normalize_scope(session: AsyncSession, requested: set[UUID]) -> ScopeR
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_scope.py -q
+pytest tests/integration/test_scope.py -q
 make lint type test
 ```
 

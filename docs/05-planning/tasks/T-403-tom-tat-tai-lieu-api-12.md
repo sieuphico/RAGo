@@ -40,9 +40,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/summary/service.py`
-- `backend/app/api/summary.py`
-- `backend/tests/integration/test_summary.py`
+- `app/modules/summary/service.py`
+- `app/api/summary.py`
+- `tests/integration/test_summary.py`
 
 ## Chữ ký và giao diện
 
@@ -79,7 +79,7 @@ async def summarize(session: AsyncSession, gateway: AiGateway, doc_id: UUID, use
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_summary.py -q
+pytest tests/integration/test_summary.py -q
 make lint type test
 ```
 

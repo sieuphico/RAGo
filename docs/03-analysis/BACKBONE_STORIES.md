@@ -14,7 +14,7 @@ Cả hai đều P0. US-010 chạy với bộ nối giả (T-008) nên không b�
 ## Điểm chưa rõ — dừng, chờ PM/PO hoặc Trưởng đội kỹ thuật
 
 1. **Không có mã FR trong docs.** PRD/USER_STORIES chỉ dùng US, BR, NFR, EC. Commit gắn US và BR; nếu cần FR thì phải có bảng FR trước.
-2. **Vị trí thư mục.** Yêu cầu nói `app/`, `tests/` ở gốc; PLAN 3.1 đặt `backend/app`, `backend/tests`. Đang theo PLAN (docs là nguồn sự thật).
+2. **Vị trí thư mục.** Yêu cầu nói `app/`, `tests/` ở gốc; PLAN 3.1 đặt `app`, `tests`. Đang theo PLAN (docs là nguồn sự thật).
 3. **US-022 ghép hai kết quả** (có thẻ trích dẫn; bấm mở đúng trang) — USER_STORIES mục 10.2 đề nghị tách 022a/022b, chưa quyết. Chỉ làm phần trích dẫn trong câu trả lời (API-08) trước.
 4. **AC ngưỡng chưa kiểm chứng được:** US-022 "≥ 90% trích dẫn đúng trang" và US-020 "≥ 90% trong 15 giây" cần bộ mẫu DEP-003 (hạn 2026-11-27). Chưa viết test ngưỡng.
 5. **AC `[Đề xuất]` chưa được duyệt** (US-010 EC-03 thử lại; US-020 EC-04/07/11; US-022 tài liệu đã xóa). Chưa triển khai các AC này.

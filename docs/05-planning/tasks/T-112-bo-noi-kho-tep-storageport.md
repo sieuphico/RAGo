@@ -32,8 +32,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/adapters/storage_fs.py`
-- `backend/tests/unit/test_storage_fs.py`
+- `app/adapters/storage_fs.py`
+- `tests/unit/test_storage_fs.py`
 
 ## Chữ ký và giao diện
 
@@ -77,7 +77,7 @@ def new_file_key() -> str: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_storage_fs.py -q
+pytest tests/unit/test_storage_fs.py -q
 make lint type test
 ```
 

@@ -29,12 +29,12 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-005](T-005-khao-sat-ai-1-2-mo-hinh-nhung-va-truy-xuat-tieng-viet.md) Khảo sát AI (1/2): mô hình nhúng và truy xuất tiếng Việt: `docs/05-planning/spikes/AI-provider.md`, `backend/scripts/ai_trial.py`, `docs/05-planning/spikes/ai-qa-pairs.json`
+- [T-005](T-005-khao-sat-ai-1-2-mo-hinh-nhung-va-truy-xuat-tieng-viet.md) Khảo sát AI (1/2): mô hình nhúng và truy xuất tiếng Việt: `docs/05-planning/spikes/AI-provider.md`, `scripts/ai_trial.py`, `docs/05-planning/spikes/ai-qa-pairs.json`
 
 ## File cần tạo hoặc sửa
 
 - `docs/05-planning/spikes/AI-provider.md`
-- `backend/scripts/ai_trial.py`
+- `scripts/ai_trial.py`
 
 ## Các bước
 

@@ -41,24 +41,25 @@
 
 ### 3.1 Cây thư mục `[Đề xuất]`
 
+Mã backend ở gốc kho (`app/`, `tests/`), không có thư mục `backend/` (quyết định 2026-10-23).
+
 ```
-backend/
-  pyproject.toml
-  app/
-    main.py                  # create_app()
-    cli.py                   # add-admin
-    domain/                  # types.py, status.py (CONTRACTS mục 2, T-009)
-    core/                    # config.py, db.py, errors.py, features.py, metrics.py, wiring.py
-    api/                     # routers: auth, me, documents*, chat, admin_*, metrics, telemetry, suggestions, health, deps.py
-    modules/                 # auth, users, documents, audit, retrieval, answer, chat, suggest, summary, metrics, telemetry, jobs, usage
-    ports/                   # ai.py, ocr.py, storage.py, idp.py   (Protocol)
-    adapters/                # ai_gateway.py, ai_fake.py, ai_provider.py, ocr_fake.py, ocr_tesseract.py, storage_fs.py, idp_*.py
-    models/                  # SQLAlchemy
-    worker/                  # __main__.py, main.py, registry.py, scheduler.py, extract.py, chunker.py, indexer.py, ocr_step.py, ingest.py, purge.py, suggest.py
-  migrations/                # Alembic
-  tests/                     # unit/, integration/, security/, fixtures/
-  scripts/                   # make_sample_data.py, eval_*.py, ocr_trial.py, ai_trial.py
-  loadtest/
+pyproject.toml
+app/
+  main.py                  # create_app()
+  cli.py                   # add-admin
+  domain/                  # types.py, status.py (CONTRACTS mục 2, T-009)
+  core/                    # config.py, db.py, errors.py, features.py, metrics.py, wiring.py
+  api/                     # routers: auth, me, documents*, chat, admin_*, metrics, telemetry, suggestions, health, deps.py
+  modules/                 # auth, users, documents, audit, retrieval, answer, chat, suggest, summary, metrics, telemetry, jobs, usage
+  ports/                   # ai.py, ocr.py, storage.py, idp.py   (Protocol)
+  adapters/                # ai_gateway.py, ai_fake.py, ai_provider.py, ocr_fake.py, ocr_tesseract.py, storage_fs.py, idp_*.py
+  models/                  # SQLAlchemy
+  worker/                  # __main__.py, main.py, registry.py, scheduler.py, extract.py, chunker.py, indexer.py, ocr_step.py, ingest.py, purge.py, suggest.py
+migrations/                # Alembic
+tests/                     # unit/, integration/, security/, fixtures/
+scripts/                   # make_sample_data.py, eval_*.py, ocr_trial.py, ai_trial.py
+loadtest/
 frontend/
   src/                       # api/, content/, stores/, views/, components/, composables/, utils/, styles/, router/
   e2e/

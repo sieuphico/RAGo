@@ -38,11 +38,11 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/auth/service.py`
-- `backend/app/modules/auth/cookies.py`
-- `backend/app/api/auth.py`
-- `backend/app/api/me.py`
-- `backend/tests/integration/test_auth_flow.py`
+- `app/modules/auth/service.py`
+- `app/modules/auth/cookies.py`
+- `app/api/auth.py`
+- `app/api/me.py`
+- `tests/integration/test_auth_flow.py`
 
 ## Chữ ký và giao diện
 
@@ -91,7 +91,7 @@ async def complete_login(session: AsyncSession, idp: IdpPort, params: dict[str, 
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_auth_flow.py -q
+pytest tests/integration/test_auth_flow.py -q
 make lint type test
 ```
 

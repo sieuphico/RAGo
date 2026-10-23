@@ -36,9 +36,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/answer/history.py`
-- `backend/app/modules/answer/service.py`
-- `backend/tests/integration/test_followup.py`
+- `app/modules/answer/history.py`
+- `app/modules/answer/service.py`
+- `tests/integration/test_followup.py`
 
 ## Chữ ký và giao diện
 
@@ -71,7 +71,7 @@ async def recent_turns(session: AsyncSession, session_id: UUID, n: int = 3) -> l
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_followup.py -q
+pytest tests/integration/test_followup.py -q
 make lint type test
 ```
 

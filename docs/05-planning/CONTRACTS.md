@@ -28,7 +28,7 @@ Quyền theo API ở mục 4; quyền theo màn hình ở mục 10.2.
 
 ## 2. Kiểu dữ liệu miền (backend)
 
-Tạo một lần ở `backend/app/domain/types.py` (task [T-009](tasks/T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md)); mọi mô-đun khác nhập từ đây, không định nghĩa lại.
+Tạo một lần ở `app/domain/types.py` (task [T-009](tasks/T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md)); mọi mô-đun khác nhập từ đây, không định nghĩa lại.
 
 ```python
 from dataclasses import dataclass, field
@@ -194,7 +194,7 @@ AnswerEvent = StatusEvent | TokenEvent | CitationEvent | DoneEvent | ErrorEvent
 
 ### 2.1 Chuyển trạng thái tài liệu
 
-Đặt ở `backend/app/domain/status.py` (T-009). `set_status` (T-104) gọi `assert_transition` trước khi ghi.
+Đặt ở `app/domain/status.py` (T-009). `set_status` (T-104) gọi `assert_transition` trước khi ghi.
 
 | Từ | Được sang |
 |---|---|
@@ -395,7 +395,7 @@ data: {"docId":"uuid","status":"READY","failureReason":null,"pageCount":48}
 
 ## 6. Telemetry
 
-PRD 5.2 liệt kê **19** sự kiện (Blueprint 3.3.4 và SAD ghi 18; xem câu hỏi Q-C1). Lược đồ ở `backend/app/modules/telemetry/schema.py` (T-113); mỗi sự kiện là một mô hình Pydantic `extra="forbid"`.
+PRD 5.2 liệt kê **19** sự kiện (Blueprint 3.3.4 và SAD ghi 18; xem câu hỏi Q-C1). Lược đồ ở `app/modules/telemetry/schema.py` (T-113); mỗi sự kiện là một mô hình Pydantic `extra="forbid"`.
 
 **Thuộc tính chung** (máy chủ tự thêm, client không gửi): `anon_user_id = HMAC-SHA256(telemetry_secret, email)` dạng hex, `session_id` (mã ngẫu nhiên của phiên đăng nhập, không phải `sessionId` hội thoại), `ts` (giờ máy chủ), `app_version`.
 
@@ -614,17 +614,17 @@ Nhà tài trợ đăng nhập thì vào thẳng `/metrics`. Vai trò không đư
 
 | File | Task tạo | Task được sửa | Quy tắc |
 |---|---|---|---|
-| `backend/app/main.py` | T-001 | mọi task thêm router | Chỉ thêm đúng một dòng `app.include_router(...)` trong `create_app()`; không sửa dòng khác |
-| `backend/app/domain/types.py` | T-009 | không ai | Đổi kiểu = đổi hợp đồng (mục 0) |
-| `backend/app/core/config.py` | T-002 | T-301, T-312 | Chỉ thêm khóa đã có ở mục 7 |
-| `backend/app/core/wiring.py` | T-008 | T-112, T-209, T-301, T-302 | Mỗi task thêm nhánh chọn bộ nối của mình |
-| `backend/app/worker/registry.py` | T-205 | T-210, T-213, T-401, T-402 | Mỗi task thêm đúng các dòng `register`/`every`/`daily` của mình |
-| `backend/app/api/health.py` | T-001 | T-604 | T-604 mở rộng, giữ đường dẫn `/healthz` |
-| `backend/app/core/errors.py` | T-107 | không ai | Mã lỗi mới phải thêm vào mục 3 trước |
-| `backend/app/api/documents.py` | T-202 | không ai | API-02 ở `documents_upload.py` (T-201), API-05 ở `documents_delete.py` (T-203) để tránh xung đột |
-| `backend/app/modules/answer/prompt.py` | T-305 | T-309, T-310 | T-309 và T-310 chỉ thêm tham số có giá trị mặc định, không đổi hành vi mặc định |
-| `backend/app/modules/answer/service.py` | T-307 | T-316, T-309, T-310, T-311 | Mỗi task chỉ thêm bước của mình; giữ nguyên chữ ký `ask` |
-| `backend/app/modules/auth/service.py`, `api/deps.py`, `modules/documents/upload.py`, `delete.py`, `worker/ingest.py` | T-108, T-109, T-201, T-203, T-210 | T-314 | T-314 chỉ thêm lời gọi `emit` |
+| `app/main.py` | T-001 | mọi task thêm router | Chỉ thêm đúng một dòng `app.include_router(...)` trong `create_app()`; không sửa dòng khác |
+| `app/domain/types.py` | T-009 | không ai | Đổi kiểu = đổi hợp đồng (mục 0) |
+| `app/core/config.py` | T-002 | T-301, T-312 | Chỉ thêm khóa đã có ở mục 7 |
+| `app/core/wiring.py` | T-008 | T-112, T-209, T-301, T-302 | Mỗi task thêm nhánh chọn bộ nối của mình |
+| `app/worker/registry.py` | T-205 | T-210, T-213, T-401, T-402 | Mỗi task thêm đúng các dòng `register`/`every`/`daily` của mình |
+| `app/api/health.py` | T-001 | T-604 | T-604 mở rộng, giữ đường dẫn `/healthz` |
+| `app/core/errors.py` | T-107 | không ai | Mã lỗi mới phải thêm vào mục 3 trước |
+| `app/api/documents.py` | T-202 | không ai | API-02 ở `documents_upload.py` (T-201), API-05 ở `documents_delete.py` (T-203) để tránh xung đột |
+| `app/modules/answer/prompt.py` | T-305 | T-309, T-310 | T-309 và T-310 chỉ thêm tham số có giá trị mặc định, không đổi hành vi mặc định |
+| `app/modules/answer/service.py` | T-307 | T-316, T-309, T-310, T-311 | Mỗi task chỉ thêm bước của mình; giữ nguyên chữ ký `ask` |
+| `app/modules/auth/service.py`, `api/deps.py`, `modules/documents/upload.py`, `delete.py`, `worker/ingest.py` | T-108, T-109, T-201, T-203, T-210 | T-314 | T-314 chỉ thêm lời gọi `emit` |
 | `frontend/src/router/index.ts` | T-502 | T-505, T-519, T-520 | Chỉ thêm route và `meta.roles` |
 | `frontend/src/views/LibraryView.vue` | T-507 | T-508, T-510, T-523 | Mỗi task gắn thành phần của mình vào đúng vị trí đã chừa |
 | `frontend/src/components/RowMenu.vue` | T-510 | T-518 | T-518 chỉ thêm mục "Tóm tắt" qua slot |

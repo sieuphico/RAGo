@@ -33,8 +33,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/chunker.py`
-- `backend/tests/unit/test_chunker.py`
+- `app/worker/chunker.py`
+- `tests/unit/test_chunker.py`
 
 ## Chữ ký và giao diện
 
@@ -70,7 +70,7 @@ def split(pages: list[PageText], target_chars: int = 1200, overlap: int = 150) -
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_chunker.py -q
+pytest tests/unit/test_chunker.py -q
 make lint type test
 ```
 

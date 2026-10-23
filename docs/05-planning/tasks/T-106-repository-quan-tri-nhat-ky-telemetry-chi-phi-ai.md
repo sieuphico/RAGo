@@ -29,17 +29,17 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-103](T-103-migration-003-quan-tri-nhat-ky-telemetry-hang-doi.md) Migration 003: quản trị, nhật ký, telemetry, hàng đợi: `backend/migrations/versions/003_admin.py`, `backend/tests/integration/test_migration_003.py`
+- [T-103](T-103-migration-003-quan-tri-nhat-ky-telemetry-hang-doi.md) Migration 003: quản trị, nhật ký, telemetry, hàng đợi: `migrations/versions/003_admin.py`, `tests/integration/test_migration_003.py`
 - [T-009](T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md) Kiểu dữ liệu miền và chuyển trạng thái: kiểu ở CONTRACTS mục 2 – `Role`, `assert_transition`, `InvalidTransition`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/models/admin.py`
-- `backend/app/modules/users/repository.py`
-- `backend/app/modules/audit/repository.py`
-- `backend/app/modules/telemetry/repository.py`
-- `backend/app/modules/usage/repository.py`
-- `backend/tests/integration/test_admin_repositories.py`
+- `app/models/admin.py`
+- `app/modules/users/repository.py`
+- `app/modules/audit/repository.py`
+- `app/modules/telemetry/repository.py`
+- `app/modules/usage/repository.py`
+- `tests/integration/test_admin_repositories.py`
 
 ## Chữ ký và giao diện
 
@@ -90,7 +90,7 @@ async def get_cost(session: AsyncSession, month: date) -> float: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_admin_repositories.py -q
+pytest tests/integration/test_admin_repositories.py -q
 make lint type test
 ```
 

@@ -33,9 +33,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/adapters/ai_provider.py`
-- `backend/tests/unit/test_ai_provider_generate.py`
-- `backend/tests/integration/test_ai_provider_live.py`
+- `app/adapters/ai_provider.py`
+- `tests/unit/test_ai_provider_generate.py`
+- `tests/integration/test_ai_provider_live.py`
 
 ## Chữ ký và giao diện
 
@@ -72,8 +72,8 @@ class ProviderAi:  # cùng lớp với T-302
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_ai_provider_generate.py -q
-cd backend && pytest tests/integration/test_ai_provider_live.py -q
+pytest tests/unit/test_ai_provider_generate.py -q
+pytest tests/integration/test_ai_provider_live.py -q
 make lint type test
 ```
 

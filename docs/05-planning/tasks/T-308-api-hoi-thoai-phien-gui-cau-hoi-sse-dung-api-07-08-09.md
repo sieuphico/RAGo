@@ -38,8 +38,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/api/chat.py`
-- `backend/tests/integration/test_chat_api.py`
+- `app/api/chat.py`
+- `tests/integration/test_chat_api.py`
 
 ## Chữ ký và giao diện
 
@@ -87,7 +87,7 @@ def to_sse_frame(event: AnswerEvent) -> bytes: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_chat_api.py -q
+pytest tests/integration/test_chat_api.py -q
 make lint type test
 ```
 

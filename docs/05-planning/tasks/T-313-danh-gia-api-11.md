@@ -37,8 +37,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/api/rating.py`
-- `backend/tests/integration/test_rating.py`
+- `app/api/rating.py`
+- `tests/integration/test_rating.py`
 
 ## Chữ ký và giao diện
 
@@ -75,7 +75,7 @@ async def rate_api(message_id: UUID, body: RatingIn, user: CurrentUser = Depends
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_rating.py -q
+pytest tests/integration/test_rating.py -q
 make lint type test
 ```
 

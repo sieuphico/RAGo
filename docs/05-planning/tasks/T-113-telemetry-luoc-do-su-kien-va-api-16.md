@@ -35,10 +35,10 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/telemetry/schema.py`
-- `backend/app/modules/telemetry/service.py`
-- `backend/app/api/telemetry.py`
-- `backend/tests/unit/test_telemetry_schema.py`
+- `app/modules/telemetry/schema.py`
+- `app/modules/telemetry/service.py`
+- `app/api/telemetry.py`
+- `tests/unit/test_telemetry_schema.py`
 
 ## Chữ ký và giao diện
 
@@ -79,7 +79,7 @@ async def emit(session: AsyncSession, user: CurrentUser, sid: str, event: str, *
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_telemetry_schema.py -q
+pytest tests/unit/test_telemetry_schema.py -q
 make lint type test
 ```
 

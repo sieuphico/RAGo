@@ -34,8 +34,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/api/deps.py`
-- `backend/tests/integration/test_authz.py`
+- `app/api/deps.py`
+- `tests/integration/test_authz.py`
 
 ## Chữ ký và giao diện
 
@@ -72,7 +72,7 @@ class CsrfMiddleware(BaseHTTPMiddleware): ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_authz.py -q
+pytest tests/integration/test_authz.py -q
 make lint type test
 ```
 

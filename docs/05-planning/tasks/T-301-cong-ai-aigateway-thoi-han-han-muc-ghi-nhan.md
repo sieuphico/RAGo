@@ -38,8 +38,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/adapters/ai_gateway.py`
-- `backend/tests/unit/test_ai_gateway.py`
+- `app/adapters/ai_gateway.py`
+- `tests/unit/test_ai_gateway.py`
 
 ## Chữ ký và giao diện
 
@@ -84,7 +84,7 @@ class AiGateway:
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_ai_gateway.py -q
+pytest tests/unit/test_ai_gateway.py -q
 make lint type test
 ```
 

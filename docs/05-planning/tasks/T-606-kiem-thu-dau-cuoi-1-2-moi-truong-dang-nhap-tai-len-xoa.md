@@ -32,7 +32,7 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 - [T-505](T-505-kho-trang-thai-dang-nhap-bao-ve-route-s-01-va-s-02.md) Kho trạng thái đăng nhập, bảo vệ route, S-01 và S-02: `useAuthStore`, `installGuards`
 - [T-523](T-523-tai-len-2-2-hang-doi-tien-do-va-thu-lai-tung-tep.md) Tải lên (2/2): hàng đợi, tiến độ và thử lại từng tệp: `UploadItem`, `useUpload`
-- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `backend/scripts/make_sample_data.py`, `backend/tests/fixtures/README.md`
+- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `scripts/make_sample_data.py`, `tests/fixtures/README.md`
 - [T-108](T-108-dang-nhap-sso-phien-va-get-me-api-01.md) Đăng nhập SSO, phiên và `GET /me` (API-01): `SessionData`, `issue_cookie`, `read_cookie`, `complete_login`
 - [T-109](T-109-kiem-tra-quyen-authz-va-chong-csrf.md) Kiểm tra quyền (AuthZ) và chống CSRF: `current_user`, `require_roles`, `CsrfMiddleware`
 - [T-201](T-201-tai-len-tai-lieu-api-02.md) Tải lên tài liệu (API-02): `upload_documents`

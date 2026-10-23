@@ -35,8 +35,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/migrations/versions/001_documents.py`
-- `backend/tests/integration/test_migration_001.py`
+- `migrations/versions/001_documents.py`
+- `tests/integration/test_migration_001.py`
 
 ## Các bước
 
@@ -68,7 +68,7 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_migration_001.py -q
+pytest tests/integration/test_migration_001.py -q
 make lint type test
 ```
 

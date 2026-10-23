@@ -42,9 +42,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/answer/service.py`
-- `backend/app/modules/answer/lang.py`
-- `backend/tests/integration/test_answer_service.py`
+- `app/modules/answer/service.py`
+- `app/modules/answer/lang.py`
+- `tests/integration/test_answer_service.py`
 
 ## Chữ ký và giao diện
 
@@ -90,7 +90,7 @@ def detect_lang(text: str) -> Literal["vi", "en", "other"]: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_answer_service.py -q
+pytest tests/integration/test_answer_service.py -q
 make lint type test
 ```
 

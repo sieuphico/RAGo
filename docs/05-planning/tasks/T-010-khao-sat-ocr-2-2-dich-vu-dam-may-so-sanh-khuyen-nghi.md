@@ -28,13 +28,13 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-004](T-004-khao-sat-ocr-1-2-bo-mau-va-tesseract.md) Khảo sát OCR (1/2): bộ mẫu và Tesseract: `backend/scripts/ocr_trial.py`, `docs/05-planning/spikes/ocr-samples/README.md`, `docs/05-planning/spikes/ocr-results.csv`
+- [T-004](T-004-khao-sat-ocr-1-2-bo-mau-va-tesseract.md) Khảo sát OCR (1/2): bộ mẫu và Tesseract: `scripts/ocr_trial.py`, `docs/05-planning/spikes/ocr-samples/README.md`, `docs/05-planning/spikes/ocr-results.csv`
 
 ## File cần tạo hoặc sửa
 
 - `docs/05-planning/spikes/OCR-spike.md`
 - `docs/05-planning/spikes/ocr-results.csv`
-- `backend/scripts/ocr_trial.py`
+- `scripts/ocr_trial.py`
 
 ## Các bước
 

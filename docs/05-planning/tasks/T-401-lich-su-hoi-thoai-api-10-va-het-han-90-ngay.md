@@ -38,9 +38,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/api/chat_history.py`
-- `backend/app/worker/expire_history.py`
-- `backend/tests/integration/test_history.py`
+- `app/api/chat_history.py`
+- `app/worker/expire_history.py`
+- `tests/integration/test_history.py`
 
 ## Chữ ký và giao diện
 
@@ -75,7 +75,7 @@ async def expire_history(session: AsyncSession, now: datetime) -> int: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_history.py -q
+pytest tests/integration/test_history.py -q
 make lint type test
 ```
 

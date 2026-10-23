@@ -36,8 +36,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/indexer.py`
-- `backend/tests/integration/test_indexer.py`
+- `app/worker/indexer.py`
+- `tests/integration/test_indexer.py`
 
 ## Chữ ký và giao diện
 
@@ -74,7 +74,7 @@ async def index_document(session: AsyncSession, embed: EmbedFn, doc_id: UUID, ch
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_indexer.py -q
+pytest tests/integration/test_indexer.py -q
 make lint type test
 ```
 

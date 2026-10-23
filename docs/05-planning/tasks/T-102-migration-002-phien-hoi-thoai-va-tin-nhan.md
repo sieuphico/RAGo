@@ -29,13 +29,13 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-101](T-101-migration-001-tai-lieu-chunk-goi-y.md) Migration 001: tài liệu, chunk, gợi ý: `backend/migrations/versions/001_documents.py`, `backend/tests/integration/test_migration_001.py`
+- [T-101](T-101-migration-001-tai-lieu-chunk-goi-y.md) Migration 001: tài liệu, chunk, gợi ý: `migrations/versions/001_documents.py`, `tests/integration/test_migration_001.py`
 - [T-009](T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md) Kiểu dữ liệu miền và chuyển trạng thái: kiểu ở CONTRACTS mục 2 – `MessageStatus`, `assert_transition`, `InvalidTransition`
 
 ## File cần tạo hoặc sửa
 
-- `backend/migrations/versions/002_chat.py`
-- `backend/tests/integration/test_migration_002.py`
+- `migrations/versions/002_chat.py`
+- `tests/integration/test_migration_002.py`
 
 ## Các bước
 
@@ -64,7 +64,7 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_migration_002.py -q
+pytest tests/integration/test_migration_002.py -q
 make lint type test
 ```
 

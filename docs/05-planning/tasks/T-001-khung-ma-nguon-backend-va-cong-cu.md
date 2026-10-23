@@ -16,7 +16,7 @@
 
 ## Mục tiêu
 
-Tạo cây thư mục `backend/` theo PLAN mục 3; lint, kiểm tra kiểu và test chạy được bằng một lệnh.
+Tạo cây thư mục backend (`app/`, `tests/` ở gốc kho) theo PLAN mục 3; lint, kiểm tra kiểu và test chạy được bằng một lệnh.
 
 ## Đọc trước
 
@@ -28,15 +28,15 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 ## File cần tạo hoặc sửa
 
-- `backend/pyproject.toml`
-- `backend/app/__init__.py`
-- `backend/app/main.py`
-- `backend/app/api/__init__.py`
-- `backend/app/api/health.py`
-- `backend/tests/unit/test_health.py`
+- `pyproject.toml`
+- `app/__init__.py`
+- `app/main.py`
+- `app/api/__init__.py`
+- `app/api/health.py`
+- `tests/unit/test_health.py`
 - `Makefile`
 - `.gitignore`
-- `backend/.env.example`
+- `.env.example`
 
 ## Chữ ký và giao diện
 
@@ -66,13 +66,13 @@ def create_app() -> FastAPI: ...
 |---|---|---|
 | `test_health_returns_ok` | Cho ứng dụng từ `create_app()`; khi gọi `GET /healthz` bằng `httpx.AsyncClient` | Mã 200, thân đúng `{"status": "ok"}` |
 | Kiểm tra lệnh | Trên bản sao kho mã sạch, chạy `make install lint type test` | Cả bốn đích trả mã 0 |
-| Kiểm tra bí mật | Mở `backend/.env.example` | Mỗi dòng có dạng `TEN=` với giá trị trống |
-| `test_app_packages_exist` | Liệt kê thư mục con của `backend/app` | Có đủ `core`, `api`, `domain`, `modules`, `ports`, `adapters`, `models`, `worker`, mỗi thư mục có `__init__.py` |
+| Kiểm tra bí mật | Mở `.env.example` | Mỗi dòng có dạng `TEN=` với giá trị trống |
+| `test_app_packages_exist` | Liệt kê thư mục con của `app` | Có đủ `core`, `api`, `domain`, `modules`, `ports`, `adapters`, `models`, `worker`, mỗi thư mục có `__init__.py` |
 
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_health.py -q
+pytest tests/unit/test_health.py -q
 make lint type test
 ```
 

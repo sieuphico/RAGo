@@ -31,8 +31,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 - [T-606](T-606-kiem-thu-dau-cuoi-1-2-moi-truong-dang-nhap-tai-len-xoa.md) Kiểm thử đầu cuối (1/2): môi trường, đăng nhập, tải lên, xóa: `frontend/playwright.config.ts`, `frontend/e2e/fixtures.ts`, `frontend/e2e/login.spec.ts`
 - [T-615](T-615-kiem-thu-dau-cuoi-2-2-hoi-dap-xem-nguon-cac-trang-thai.md) Kiểm thử đầu cuối (2/2): hỏi đáp, xem nguồn, các trạng thái: `frontend/e2e/ask.spec.ts`, `frontend/e2e/source.spec.ts`, `frontend/e2e/answer_states.spec.ts`
-- [T-608](T-608-thu-tai-g4.md) Thử tải (G4): `backend/loadtest/locustfile.py`, `docs/05-planning/evidence/load-test.md`
-- [T-609](T-609-kiem-tra-bao-mat-g6.md) Kiểm tra bảo mật (G6): `backend/tests/security/test_authz_matrix.py`, `backend/tests/security/test_prompt_injection.py`, `docs/05-planning/evidence/security-report.md`
+- [T-608](T-608-thu-tai-g4.md) Thử tải (G4): `loadtest/locustfile.py`, `docs/05-planning/evidence/load-test.md`
+- [T-609](T-609-kiem-tra-bao-mat-g6.md) Kiểm tra bảo mật (G6): `tests/security/test_authz_matrix.py`, `tests/security/test_prompt_injection.py`, `docs/05-planning/evidence/security-report.md`
 - [T-610](T-610-kiem-tra-telemetry-tren-staging-g8.md) Kiểm tra telemetry trên staging (G8): `docs/05-planning/evidence/telemetry-checklist.md`
 
 ## File cần tạo hoặc sửa

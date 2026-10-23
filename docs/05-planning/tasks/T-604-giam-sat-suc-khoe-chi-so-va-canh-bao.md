@@ -35,10 +35,10 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/api/health.py`
-- `backend/app/core/metrics.py`
+- `app/api/health.py`
+- `app/core/metrics.py`
 - `deploy/alerts.yml`
-- `backend/tests/integration/test_health_metrics.py`
+- `tests/integration/test_health_metrics.py`
 
 ## Chữ ký và giao diện
 
@@ -77,7 +77,7 @@ ERRORS: Counter
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_health_metrics.py -q
+pytest tests/integration/test_health_metrics.py -q
 make lint type test
 ```
 

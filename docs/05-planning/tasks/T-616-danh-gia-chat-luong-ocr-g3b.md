@@ -30,11 +30,11 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
 - [T-209](T-209-ingest-duong-ocr-cho-pdf-anh-quet.md) Ingest: đường OCR cho PDF ảnh quét: `ocr_pages`, `TesseractOcr`
-- [T-607](T-607-bo-danh-gia-chat-luong-tra-loi-g3.md) Bộ đánh giá chất lượng trả lời (G3): `backend/scripts/eval_answers.py`, `backend/eval/README.md`, `docs/05-planning/evidence/eval-method.md`
+- [T-607](T-607-bo-danh-gia-chat-luong-tra-loi-g3.md) Bộ đánh giá chất lượng trả lời (G3): `scripts/eval_answers.py`, `eval/README.md`, `docs/05-planning/evidence/eval-method.md`
 
 ## File cần tạo hoặc sửa
 
-- `backend/scripts/eval_ocr.py`
+- `scripts/eval_ocr.py`
 - `docs/05-planning/evidence/eval-ocr.md`
 
 ## Các bước

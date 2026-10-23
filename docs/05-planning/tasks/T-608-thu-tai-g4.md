@@ -35,7 +35,7 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/loadtest/locustfile.py`
+- `loadtest/locustfile.py`
 - `docs/05-planning/evidence/load-test.md`
 
 ## Các bước

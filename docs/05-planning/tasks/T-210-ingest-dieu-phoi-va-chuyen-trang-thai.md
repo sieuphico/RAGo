@@ -41,8 +41,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/ingest.py`
-- `backend/tests/integration/test_ingest_flow.py`
+- `app/worker/ingest.py`
+- `tests/integration/test_ingest_flow.py`
 
 ## Chữ ký và giao diện
 
@@ -81,7 +81,7 @@ async def handle_ingest(job: Job) -> None: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_ingest_flow.py -q
+pytest tests/integration/test_ingest_flow.py -q
 make lint type test
 ```
 

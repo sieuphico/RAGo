@@ -29,14 +29,14 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-101](T-101-migration-001-tai-lieu-chunk-goi-y.md) Migration 001: tài liệu, chunk, gợi ý: `backend/migrations/versions/001_documents.py`, `backend/tests/integration/test_migration_001.py`
+- [T-101](T-101-migration-001-tai-lieu-chunk-goi-y.md) Migration 001: tài liệu, chunk, gợi ý: `migrations/versions/001_documents.py`, `tests/integration/test_migration_001.py`
 - [T-009](T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md) Kiểu dữ liệu miền và chuyển trạng thái: kiểu ở CONTRACTS mục 2 – `DocumentStatus`, `FailureReason`, `ChunkDraft`, `assert_transition`, `InvalidTransition`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/models/document.py`
-- `backend/app/modules/documents/repository.py`
-- `backend/tests/integration/test_document_repository.py`
+- `app/models/document.py`
+- `app/modules/documents/repository.py`
+- `tests/integration/test_document_repository.py`
 
 ## Chữ ký và giao diện
 
@@ -86,7 +86,7 @@ async def ready_doc_ids(session: AsyncSession, scope: set[UUID] | None = None) -
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_document_repository.py -q
+pytest tests/integration/test_document_repository.py -q
 make lint type test
 ```
 

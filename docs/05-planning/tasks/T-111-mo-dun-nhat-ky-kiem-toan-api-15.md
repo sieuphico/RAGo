@@ -34,9 +34,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/audit/service.py`
-- `backend/app/api/admin_audit.py`
-- `backend/tests/integration/test_audit.py`
+- `app/modules/audit/service.py`
+- `app/api/admin_audit.py`
+- `tests/integration/test_audit.py`
 
 ## Chữ ký và giao diện
 
@@ -70,7 +70,7 @@ async def expire(session: AsyncSession, now: datetime) -> int: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_audit.py -q
+pytest tests/integration/test_audit.py -q
 make lint type test
 ```
 

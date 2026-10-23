@@ -37,8 +37,8 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/worker/purge.py`
-- `backend/tests/integration/test_purge.py`
+- `app/worker/purge.py`
+- `tests/integration/test_purge.py`
 
 ## Chữ ký và giao diện
 
@@ -73,7 +73,7 @@ async def purge_sweep(now: datetime) -> int: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_purge.py -q
+pytest tests/integration/test_purge.py -q
 make lint type test
 ```
 

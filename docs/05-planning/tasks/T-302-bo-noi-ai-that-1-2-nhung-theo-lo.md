@@ -30,14 +30,14 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-011](T-011-khao-sat-ai-2-2-sinh-cau-tra-loi-do-tre-chi-phi-khuyen-nghi.md) Khảo sát AI (2/2): sinh câu trả lời, độ trễ, chi phí, khuyến nghị AD-06: `docs/05-planning/spikes/AI-provider.md`, `backend/scripts/ai_trial.py`
+- [T-011](T-011-khao-sat-ai-2-2-sinh-cau-tra-loi-do-tre-chi-phi-khuyen-nghi.md) Khảo sát AI (2/2): sinh câu trả lời, độ trễ, chi phí, khuyến nghị AD-06: `docs/05-planning/spikes/AI-provider.md`, `scripts/ai_trial.py`
 - [T-301](T-301-cong-ai-aigateway-thoi-han-han-muc-ghi-nhan.md) Cổng AI (AiGateway): thời hạn, hạn mức, ghi nhận: `AiGateway`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/adapters/ai_provider.py`
-- `backend/app/core/wiring.py`
-- `backend/tests/unit/test_ai_provider_embed.py`
+- `app/adapters/ai_provider.py`
+- `app/core/wiring.py`
+- `tests/unit/test_ai_provider_embed.py`
 
 ## Chữ ký và giao diện
 
@@ -76,7 +76,7 @@ class ProviderAi:
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/unit/test_ai_provider_embed.py -q
+pytest tests/unit/test_ai_provider_embed.py -q
 make lint type test
 ```
 

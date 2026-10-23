@@ -34,12 +34,12 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 ## File cần tạo hoặc sửa
 
 - `deploy/compose.dev.yml`
-- `backend/app/core/db.py`
-- `backend/migrations/env.py`
-- `backend/migrations/versions/000_extensions.py`
-- `backend/alembic.ini`
-- `backend/tests/conftest.py`
-- `backend/tests/integration/test_db_connect.py`
+- `app/core/db.py`
+- `migrations/env.py`
+- `migrations/versions/000_extensions.py`
+- `alembic.ini`
+- `tests/conftest.py`
+- `tests/integration/test_db_connect.py`
 - `Makefile`
 
 ## Chữ ký và giao diện
@@ -80,8 +80,8 @@ async def get_session() -> AsyncIterator[AsyncSession]: ...
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/conftest.py -q
-cd backend && pytest tests/integration/test_db_connect.py -q
+pytest tests/conftest.py -q
+pytest tests/integration/test_db_connect.py -q
 make lint type test
 ```
 

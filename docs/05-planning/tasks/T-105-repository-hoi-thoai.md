@@ -30,15 +30,15 @@ Chỉ cần các phần dưới đây và file task này; không cần đọc to
 
 Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký của chúng, không viết lại.
 
-- [T-102](T-102-migration-002-phien-hoi-thoai-va-tin-nhan.md) Migration 002: phiên hội thoại và tin nhắn: `backend/migrations/versions/002_chat.py`, `backend/tests/integration/test_migration_002.py`
+- [T-102](T-102-migration-002-phien-hoi-thoai-va-tin-nhan.md) Migration 002: phiên hội thoại và tin nhắn: `migrations/versions/002_chat.py`, `tests/integration/test_migration_002.py`
 - [T-104](T-104-mo-hinh-orm-va-repository-tai-lieu.md) Mô hình ORM và repository tài liệu: `add`, `get`, `list_documents`, `set_status`, `soft_delete`, `add_chunks` …
 - [T-009](T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md) Kiểu dữ liệu miền và chuyển trạng thái: kiểu ở CONTRACTS mục 2 – `MessageStatus`, `CitationOut`, `assert_transition`, `InvalidTransition`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/models/chat.py`
-- `backend/app/modules/chat/repository.py`
-- `backend/tests/integration/test_chat_repository.py`
+- `app/models/chat.py`
+- `app/modules/chat/repository.py`
+- `tests/integration/test_chat_repository.py`
 
 ## Chữ ký và giao diện
 
@@ -83,7 +83,7 @@ async def has_running_message(session: AsyncSession, user_email: str) -> bool: .
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_chat_repository.py -q
+pytest tests/integration/test_chat_repository.py -q
 make lint type test
 ```
 

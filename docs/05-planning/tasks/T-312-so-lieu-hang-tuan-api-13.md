@@ -36,9 +36,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/metrics/service.py`
-- `backend/app/api/metrics.py`
-- `backend/tests/integration/test_metrics.py`
+- `app/modules/metrics/service.py`
+- `app/api/metrics.py`
+- `tests/integration/test_metrics.py`
 
 ## Chữ ký và giao diện
 
@@ -74,7 +74,7 @@ async def weekly(session: AsyncSession, week_start: date, tz: ZoneInfo) -> Weekl
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_metrics.py -q
+pytest tests/integration/test_metrics.py -q
 make lint type test
 ```
 

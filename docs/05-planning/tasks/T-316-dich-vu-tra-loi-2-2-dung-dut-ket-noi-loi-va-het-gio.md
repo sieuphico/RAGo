@@ -35,9 +35,9 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/answer/running.py`
-- `backend/app/modules/answer/service.py`
-- `backend/tests/integration/test_answer_interrupts.py`
+- `app/modules/answer/running.py`
+- `app/modules/answer/service.py`
+- `tests/integration/test_answer_interrupts.py`
 
 ## Chữ ký và giao diện
 
@@ -80,7 +80,7 @@ class RunningAnswers:
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_answer_interrupts.py -q
+pytest tests/integration/test_answer_interrupts.py -q
 make lint type test
 ```
 

@@ -32,14 +32,14 @@ Các task dưới đây phải xong trước. Dùng đúng tên và chữ ký c�
 
 - [T-104](T-104-mo-hinh-orm-va-repository-tai-lieu.md) Mô hình ORM và repository tài liệu: `add`, `get`, `list_documents`, `set_status`, `soft_delete`, `add_chunks` …
 - [T-301](T-301-cong-ai-aigateway-thoi-han-han-muc-ghi-nhan.md) Cổng AI (AiGateway): thời hạn, hạn mức, ghi nhận: `AiGateway`
-- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `backend/scripts/make_sample_data.py`, `backend/tests/fixtures/README.md`
+- [T-605](T-605-du-lieu-mau-va-fixture-kiem-thu.md) Dữ liệu mẫu và fixture kiểm thử: `scripts/make_sample_data.py`, `tests/fixtures/README.md`
 - [T-009](T-009-kieu-du-lieu-mien-va-chuyen-trang-thai.md) Kiểu dữ liệu miền và chuyển trạng thái: kiểu ở CONTRACTS mục 2 – `ScoredChunk`, `assert_transition`, `InvalidTransition`
 
 ## File cần tạo hoặc sửa
 
-- `backend/app/modules/retrieval/service.py`
-- `backend/app/modules/retrieval/queries.py`
-- `backend/tests/integration/test_retrieval.py`
+- `app/modules/retrieval/service.py`
+- `app/modules/retrieval/queries.py`
+- `tests/integration/test_retrieval.py`
 
 ## Chữ ký và giao diện
 
@@ -78,7 +78,7 @@ async def retrieve(session: AsyncSession, embed: EmbedFn, query: str, scope: set
 ## Lệnh kiểm tra
 
 ```bash
-cd backend && pytest tests/integration/test_retrieval.py -q
+pytest tests/integration/test_retrieval.py -q
 make lint type test
 ```
 
