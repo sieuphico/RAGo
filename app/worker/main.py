@@ -12,6 +12,7 @@ from app.modules.audit import service as audit
 from app.modules.jobs import service as jobs
 from app.worker import registry
 from app.worker.ingest import make_handler
+from app.worker.purge import purge_document, purge_sweep
 
 logger = logging.getLogger("app.worker")
 SessionFactory = Callable[[], AsyncSession]
@@ -73,6 +74,11 @@ def register_defaults() -> None:
             await audit.expire(session, _utcnow())
             await session.commit()
 
+    async def sweep() -> None:
+        await purge_sweep(_utcnow())
+
     registry.register("ingest", make_handler())
+    registry.register("purge", purge_document)
+    registry.every("purge_sweep", 3600, sweep)
     registry.every("release_stale_jobs", 60, release_stale)
     registry.daily("audit_expire", "02:00", audit_expire)
