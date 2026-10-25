@@ -15,3 +15,4 @@ tests/fixtures/generated/
 .vscode/
 deploy/certs/
 deploy/.env
+reports/**/.out
