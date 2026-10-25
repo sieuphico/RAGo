@@ -83,6 +83,10 @@ Chỉ AC `[PRD]`/`[BRD]` được tính; AC `[Đề xuất]` và ngưỡng % ch�
 Chưa bắt đầu (⬜): US-001, 002, 013–017, 021, 023–027, 030, 031, 040–042, 050, 051, 060–064. Thêm dòng khi bắt đầu story.
 US-013 ⛔ chờ chọn OCR (T-004, T-010). US-001 ⛔ chờ giao thức SSO (T-006). Bộ nối AI thật ⛔ chờ AD-06.
 
+## Kiểm thử E2E
+
+Hai story xương sống: [test plan](../tests/e2e/TEST_PLAN.md), [ma trận AC↔TC](../tests/e2e/AC_TC_MATRIX.md) (13 AC, 7 TC). Chưa chạy lần nào (Docker tắt khi soạn); kết quả sẽ ở `reports/`.
+
 ## ADR
 
 | ADR | Quyết định |

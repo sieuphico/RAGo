@@ -1,0 +1,268 @@
+{
+  "version": 1,
+  "scope": ["US-010", "US-020", "US-022"],
+  "assertion_kinds": {
+    "text_matches": "regex khớp văn bản lấy bằng `get text <target>`",
+    "count_eq": "số phần tử khớp selector (`get count`) bằng value",
+    "count_gte": "số phần tử khớp selector lớn hơn hoặc bằng value",
+    "state": "`is enabled|visible <target>` trả đúng value (enabled, disabled, visible)",
+    "elapsed_ms_lte": "thời gian từ mốc ghi ở target tới lúc quan sát thấy kết quả không vượt value (ms)",
+    "attr_matches": "regex khớp thuộc tính `get attr <name> <selector>`; target dạng `selector@attr`",
+    "request_count_eq": "số yêu cầu mạng khớp mẫu URL (`network requests --filter`) bằng value"
+  },
+  "env": {
+    "base_url": "http://localhost:5173",
+    "api_url": "http://localhost:8000",
+    "profile_default": "ollama",
+    "profiles": {
+      "ollama": "CWD_AI_PROVIDER=ollama, CWD_EMBEDDING_DIM=1024, CWD_ALLOW_FAKE_IDP=true, Ollama có qwen3:1.7b và qwen3-embedding:0.6b",
+      "fake": "CWD_AI_PROVIDER=fake, CWD_EMBEDDING_DIM=384: chỉ kiểm đường ống, không kiểm nội dung trả lời"
+    },
+    "accounts": {
+      "minh": {"email": "minh@congty.vn", "role": "TEAM_LEAD", "login": "/auth/login?login_hint=minh@congty.vn&next=/library"},
+      "lan": {"email": "lan@congty.vn", "role": "BD_USER", "login": "/auth/login?login_hint=lan@congty.vn&next=/"},
+      "quantri": {"email": "quantri@congty.vn", "role": "ADMIN", "login": "/auth/login?login_hint=quantri@congty.vn&next=/"}
+    }
+  },
+  "data": {
+    "pdf": {
+      "file": "var/sample/text_12p.pdf",
+      "name": "text_12p.pdf",
+      "pages": 12,
+      "sentence": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026.",
+      "sentence_page": 12,
+      "source": "scripts/make_sample_data.py (tất định, sinh bởi `make sample-data` hoặc --out var/sample)"
+    },
+    "question": "Hợp đồng số HD-2026-012 có thời hạn bao lâu?",
+    "expected_fact": "24 tháng"
+  },
+  "acs": [
+    {
+      "id": "US-010/AC1", "story": "US-010", "source": "PRD",
+      "original": "Given Minh đã đăng nhập, When chọn một tệp PDF hợp lệ ≤ 50 MB, Then tệp xuất hiện trong danh sách với trạng thái \"Đang xử lý\" trong ≤ 2 giây sau khi tải lên xong.",
+      "issue": "Tệp với dữ liệu mẫu chuyển sang \"Sẵn sàng\" sau 1–7 giây nên trạng thái \"Đang xử lý\" có thể đã qua trước khi quan sát; \"sau khi tải lên xong\" chưa có mốc đo.",
+      "testable": "Mốc t0 = lúc lệnh `upload` trả về. Trong ≤ 2000 ms sau t0, danh sách có một hàng tên tệp đã chọn và trạng thái là \"Đang xử lý\", \"Đang nhận dạng ký tự (OCR)\" hoặc \"Sẵn sàng\".",
+      "status": "MEASURABLE", "change": "Mở rộng tập trạng thái chấp nhận; ghi rõ mốc t0."
+    },
+    {
+      "id": "US-010/AC2", "story": "US-010", "source": "PRD",
+      "original": "Given tệp đã chuyển sang \"Sẵn sàng\", When bất kỳ người dùng nào hỏi về nội dung trong tệp đó, Then câu trả lời có thể trích dẫn tệp đó.",
+      "issue": "\"Có thể trích dẫn\" không phải kết quả quan sát được; \"bất kỳ người dùng nào\" mâu thuẫn với phân quyền (chỉ TEAM_LEAD tải lên, BD_USER hỏi).",
+      "testable": "Given tệp do minh tải lên đã \"Sẵn sàng\", When lan (BD_USER) hỏi câu có đáp án nằm trong tệp, Then câu trả lời có ≥ 1 thẻ trích dẫn mang tên tệp đó.",
+      "status": "MEASURABLE", "change": "Thay \"có thể\" bằng kết quả đếm được; chỉ định vai trò người hỏi."
+    },
+    {
+      "id": "US-010/AC3", "story": "US-010", "source": "Đề xuất – EC-03",
+      "original": "Given mất mạng khi đang tải, Then tệp hiển thị \"Tải lên bị gián đoạn\" kèm nút [Thử lại].",
+      "testable": "—", "status": "OUT_OF_SCOPE",
+      "reason": "AC [Đề xuất] chưa được PM/PO duyệt (AGENTS.md, BACKBONE_STORIES mục 4)."
+    },
+    {
+      "id": "US-020/AC1", "story": "US-020", "source": "PRD",
+      "original": "Given kho có ≥ 1 tài liệu \"Sẵn sàng\", When Lan hỏi bằng tiếng Việt và câu trả lời nằm trong một tài liệu, Then câu trả lời lấy nội dung từ tài liệu đó và kèm ≥ 1 trích dẫn.",
+      "issue": "\"Lấy nội dung từ tài liệu đó\" không có tiêu chí máy kiểm; mô hình sinh không tất định nên một lần chạy không đủ bằng chứng.",
+      "testable": "Với câu hỏi chuẩn và tệp mẫu, câu trả lời hiển thị chứa chuỗi \"24 tháng\" và có ≥ 1 thẻ trích dẫn. Chạy 3 phiên độc lập; đạt khi cả 3 phiên đạt.",
+      "status": "MEASURABLE", "change": "Đặt dữ kiện chuẩn (oracle) và quy tắc lặp 3/3."
+    },
+    {
+      "id": "US-020/AC2", "story": "US-020", "source": "PRD, BRD AC-013",
+      "original": "Given kho có ≥ 200 tài liệu, When chạy toàn bộ bộ câu hỏi chuẩn, Then ≥ 90% câu hỏi hiển thị đầy đủ trong ≤ 15 giây.",
+      "testable": "—", "status": "NOT_MEASURABLE",
+      "reason": "Cần 200 tài liệu và bộ câu hỏi chuẩn (DEP-003, hạn 2026-11-27); \"hiển thị đầy đủ\" chưa định nghĩa. Đo thủ công trên CPU cho 17–24 s nên dự kiến FAIL. Cần PM/PO sửa AC (tách NFR-001/NFR-003) trước khi có TC.",
+      "owner": "PM/PO + Trưởng đội BD"
+    },
+    {
+      "id": "US-020/AC3", "story": "US-020", "source": "PRD",
+      "original": "Given ô nhập trống hoặc chỉ có khoảng trắng, When Lan nhấn Enter, Then không gửi gì và nút Gửi bị vô hiệu.",
+      "issue": "\"Không gửi gì\" cần định nghĩa: không có tin nhắn người dùng mới và không có yêu cầu POST tới API-08.",
+      "testable": "Với ô nhập chỉ có khoảng trắng: nút Gửi ở trạng thái disabled; sau khi nhấn Enter, số tin nhắn người dùng bằng 0 và số yêu cầu POST tới `/messages` bằng 0.",
+      "status": "MEASURABLE", "change": "Định nghĩa \"không gửi gì\" bằng hai phép đếm."
+    },
+    {
+      "id": "US-020/AC4", "story": "US-020", "source": "Đề xuất – EC-11",
+      "original": "Given câu hỏi dài hơn 2.000 ký tự, Then bộ đếm chuyển màu cảnh báo, nút Gửi bị vô hiệu.",
+      "testable": "—", "status": "OUT_OF_SCOPE", "reason": "AC [Đề xuất] chưa duyệt."
+    },
+    {
+      "id": "US-020/AC5", "story": "US-020", "source": "Đề xuất – EC-07",
+      "original": "Given dịch vụ AI lỗi, Then hiện thông báo gián đoạn, không hiện mã lỗi và câu hỏi được giữ lại.",
+      "testable": "—", "status": "OUT_OF_SCOPE", "reason": "AC [Đề xuất] chưa duyệt."
+    },
+    {
+      "id": "US-020/AC6", "story": "US-020", "source": "Đề xuất – EC-04",
+      "original": "Given mất mạng khi đang nhận câu trả lời, Then giữ phần đã nhận kèm nhãn và nút [Hỏi lại].",
+      "testable": "—", "status": "OUT_OF_SCOPE", "reason": "AC [Đề xuất] chưa duyệt."
+    },
+    {
+      "id": "US-022/AC1", "story": "US-022", "source": "PRD, BRD AC-010",
+      "original": "Given một câu trả lời (không phải \"không tìm thấy\"), When hiển thị xong, Then mỗi ý dựa trên tài liệu có ≥ 1 thẻ trích dẫn dạng [Tên tài liệu – tr. N].",
+      "issue": "\"Mỗi ý\" không đếm được (không có định nghĩa \"ý\").",
+      "testable": "Câu trả lời không phải \"không tìm thấy\" có ≥ 1 thẻ; mọi thẻ khớp `^\\[.+ – tr\\. \\d+\\]$`; văn bản hiển thị không còn nhãn thô `[cN]` hay `[[n]]`.",
+      "status": "MEASURABLE", "change": "Thay \"mỗi ý\" bằng điều kiện đếm được trên toàn câu trả lời và định dạng thẻ."
+    },
+    {
+      "id": "US-022/AC2", "story": "US-022", "source": "PRD",
+      "original": "Given Lan bấm một thẻ trích dẫn, When khung xem PDF mở ra, Then khung mở đúng tài liệu ở đúng trang N trong ≤ 3 giây.",
+      "issue": "Trình xem PDF của trình duyệt nằm trong iframe nên `agent-browser` không đọc được trang đang hiển thị; chỉ kiểm được trạng thái khung và đường dẫn có `#page=N`.",
+      "testable": "Sau khi bấm thẻ có trang N, trong ≤ 3000 ms: khung xem hiển thị, tên tài liệu khớp thẻ, nhãn trang là \"Trang N / <tổng số trang>\" và iframe có src kết thúc bằng `/file#page=N`. Việc trình duyệt cuộn đúng trang bên trong iframe ngoài phạm vi tự động.",
+      "status": "MEASURABLE", "change": "Giới hạn đối tượng kiểm vào trạng thái khung và URL; ghi rõ phần không đo được."
+    },
+    {
+      "id": "US-022/AC3", "story": "US-022", "source": "PRD, BRD AC-010",
+      "original": "Given người chấm mở trang được trích dẫn, When đối chiếu, Then thông tin có ở trang đó với ≥ 90% trích dẫn.",
+      "testable": "—", "status": "NOT_MEASURABLE",
+      "reason": "Ngưỡng 90% cần bộ câu hỏi chuẩn + người chấm (DEP-003). Chỉ có thể lấy mẫu n=1 với dữ kiện đã biết (TC-CITE-03, không đóng AC này).",
+      "owner": "Trưởng đội BD + PM/PO"
+    },
+    {
+      "id": "US-022/AC4", "story": "US-022", "source": "Đề xuất – EC-14",
+      "original": "Given tài liệu được trích dẫn đã bị xóa, When Lan bấm thẻ, Then thẻ hiển thị \"Tài liệu đã bị xóa\" và không mở được.",
+      "testable": "—", "status": "OUT_OF_SCOPE", "reason": "AC [Đề xuất] chưa duyệt."
+    }
+  ],
+  "tcs": [
+    {
+      "id": "TC-UP-01", "ac": "US-010/AC1", "covers": "full", "profile": "any",
+      "title": "Tệp PDF hợp lệ xuất hiện trong kho ≤ 2 giây sau khi tải lên",
+      "preconditions": ["SETUP-1 xong (người dùng, kho không có tệp text_12p.pdf)", "Tệp var/sample/text_12p.pdf tồn tại"],
+      "steps": [
+        "open \"$BASE/auth/login?login_hint=minh@congty.vn&next=/library\"",
+        "wait --text \"Kho tài liệu\"",
+        "snapshot -i",
+        "upload \"[data-testid=file-input]\" \"$PDF\"   # ghi mốc t0 = lúc lệnh trả về",
+        "wait \"[data-testid=doc-row]\"   # ghi thời gian chờ",
+        "get text \"[data-testid=doc-row]\"",
+        "snapshot -i"
+      ],
+      "expected": [
+        {"id": "E1", "kind": "elapsed_ms_lte", "target": "t0→doc-row", "op": "<=", "value": 2000},
+        {"id": "E2", "kind": "text_matches", "target": "[data-testid=doc-row] [data-testid=doc-name]", "op": "matches", "value": "^text_12p\\.pdf$"},
+        {"id": "E3", "kind": "text_matches", "target": "[data-testid=doc-row] [data-testid=status-badge]", "op": "matches", "value": "(Đang xử lý|Đang nhận dạng ký tự|Sẵn sàng)"}
+      ]
+    },
+    {
+      "id": "TC-UP-02", "ac": "US-010/AC2", "covers": "full", "profile": "ollama",
+      "title": "Người dùng khác hỏi về tệp đã Sẵn sàng và nhận trích dẫn đúng tên tệp",
+      "preconditions": ["SETUP-1 xong và text_12p.pdf ở trạng thái Sẵn sàng (nếu chưa Sẵn sàng sau 180 s: INCONCLUSIVE)"],
+      "steps": [
+        "open \"$BASE/auth/login?login_hint=lan@congty.vn&next=/\"",
+        "wait \"[data-testid=composer-input]\"",
+        "snapshot -i",
+        "fill \"[data-testid=composer-input]\" \"$QUESTION\"",
+        "click \"[data-testid=send]\"",
+        "wait \"[data-testid=citation]\"   # tối đa 120000 ms",
+        "wait \"[data-testid=answer-actions]\"",
+        "get text \"[data-testid=citation]\"",
+        "snapshot -i"
+      ],
+      "expected": [
+        {"id": "E1", "kind": "count_gte", "target": "[data-testid=citation]", "op": ">=", "value": 1},
+        {"id": "E2", "kind": "text_matches", "target": "[data-testid=citation]", "op": "matches", "value": "text_12p\\.pdf"}
+      ]
+    },
+    {
+      "id": "TC-QA-01", "ac": "US-020/AC1", "covers": "full", "profile": "ollama",
+      "title": "Câu hỏi tiếng Việt có đáp án trong tài liệu: trả lời đúng dữ kiện và có trích dẫn (3/3 phiên)",
+      "preconditions": ["SETUP-1 xong và text_12p.pdf Sẵn sàng"],
+      "repeat": {"times": 3, "pass_when": "all", "fresh_session_each": true},
+      "steps": [
+        "open \"$BASE/auth/login?login_hint=lan@congty.vn&next=/\"",
+        "wait \"[data-testid=composer-input]\"",
+        "click \"[data-testid=new-session]\"",
+        "fill \"[data-testid=composer-input]\" \"$QUESTION\"",
+        "click \"[data-testid=send]\"",
+        "wait \"[data-testid=answer-actions]\"   # tối đa 120000 ms",
+        "get text \"[data-testid=answer-text]\"",
+        "get count \"[data-testid=citation]\"",
+        "snapshot -i"
+      ],
+      "expected": [
+        {"id": "E1", "kind": "text_matches", "target": "[data-testid=answer-text]", "op": "matches", "value": "24 tháng"},
+        {"id": "E2", "kind": "count_gte", "target": "[data-testid=citation]", "op": ">=", "value": 1}
+      ]
+    },
+    {
+      "id": "TC-QA-02", "ac": "US-020/AC3", "covers": "full", "profile": "any",
+      "title": "Ô nhập chỉ có khoảng trắng: không gửi được",
+      "preconditions": ["SETUP-1 xong"],
+      "steps": [
+        "open \"$BASE/auth/login?login_hint=lan@congty.vn&next=/\"",
+        "wait \"[data-testid=composer-input]\"",
+        "network requests --clear",
+        "fill \"[data-testid=composer-input]\" \"   \"",
+        "is enabled \"[data-testid=send]\"",
+        "press Enter",
+        "get count \"[data-testid=user-message]\"",
+        "network requests --filter /messages"
+      ],
+      "expected": [
+        {"id": "E1", "kind": "state", "target": "[data-testid=send]", "op": "is", "value": "disabled"},
+        {"id": "E2", "kind": "count_eq", "target": "[data-testid=user-message]", "op": "==", "value": 0},
+        {"id": "E3", "kind": "request_count_eq", "target": "POST */chat/sessions/*/messages", "op": "==", "value": 0}
+      ]
+    },
+    {
+      "id": "TC-CITE-01", "ac": "US-022/AC1", "covers": "full", "profile": "ollama",
+      "title": "Thẻ trích dẫn đúng định dạng, không lộ nhãn thô",
+      "preconditions": ["SETUP-1 xong và text_12p.pdf Sẵn sàng"],
+      "steps": [
+        "open \"$BASE/auth/login?login_hint=lan@congty.vn&next=/\"",
+        "wait \"[data-testid=composer-input]\"",
+        "fill \"[data-testid=composer-input]\" \"$QUESTION\"",
+        "click \"[data-testid=send]\"",
+        "wait \"[data-testid=answer-actions]\"   # tối đa 120000 ms",
+        "get text \"[data-testid=answer-text]\"",
+        "get text \"[data-testid=citation]\"",
+        "get count \"[data-testid=citation]\"",
+        "snapshot -i"
+      ],
+      "expected": [
+        {"id": "E1", "kind": "count_gte", "target": "[data-testid=citation]", "op": ">=", "value": 1},
+        {"id": "E2", "kind": "text_matches", "target": "[data-testid=citation]", "op": "matches_each", "value": "^\\[.+ – tr\\. \\d+\\]$"},
+        {"id": "E3", "kind": "text_matches", "target": "[data-testid=answer-text]", "op": "not_matches", "value": "\\[c\\d+\\]|\\[\\[\\d+\\]\\]"}
+      ]
+    },
+    {
+      "id": "TC-CITE-02", "ac": "US-022/AC2", "covers": "full", "profile": "ollama",
+      "title": "Bấm thẻ trích dẫn mở khung xem đúng tài liệu và trang của thẻ trong ≤ 3 giây",
+      "preconditions": ["SETUP-1 xong và text_12p.pdf Sẵn sàng", "Giới hạn: chỉ kiểm trạng thái khung và URL, không kiểm nội dung hiển thị trong iframe"],
+      "steps": [
+        "open \"$BASE/auth/login?login_hint=lan@congty.vn&next=/\"",
+        "wait \"[data-testid=composer-input]\"",
+        "fill \"[data-testid=composer-input]\" \"$QUESTION\"",
+        "click \"[data-testid=send]\"",
+        "wait \"[data-testid=answer-actions]\"   # tối đa 120000 ms",
+        "get text \"[data-testid=citation]\"   # ghi N từ thẻ đầu tiên",
+        "click \"[data-testid=citation]\"   # ghi mốc t0 = lúc bấm",
+        "wait \"[data-testid=source-viewer]\"",
+        "get text \"[data-testid=viewer-name]\"",
+        "get text \"[data-testid=viewer-page]\"",
+        "get attr src \"[data-testid=viewer-iframe]\"",
+        "snapshot -i"
+      ],
+      "expected": [
+        {"id": "E1", "kind": "elapsed_ms_lte", "target": "t0→source-viewer", "op": "<=", "value": 3000},
+        {"id": "E2", "kind": "text_matches", "target": "[data-testid=viewer-name]", "op": "matches", "value": "^text_12p\\.pdf$"},
+        {"id": "E3", "kind": "text_matches", "target": "[data-testid=viewer-page]", "op": "equals_template", "value": "Trang {N} / 12"},
+        {"id": "E4", "kind": "attr_matches", "target": "[data-testid=viewer-iframe]@src", "op": "matches_template", "value": "^/api/v1/documents/[0-9a-f-]{36}/file#page={N}$"}
+      ]
+    },
+    {
+      "id": "TC-CITE-03", "ac": "US-022/AC3", "covers": "partial", "profile": "ollama",
+      "title": "Mẫu n=1: trang được trích dẫn là trang chứa dữ kiện đã biết (không đóng AC)",
+      "preconditions": ["SETUP-1 xong và text_12p.pdf Sẵn sàng", "Kết quả là bằng chứng một mẫu, không phải tỉ lệ ≥ 90%"],
+      "steps": [
+        "open \"$BASE/auth/login?login_hint=lan@congty.vn&next=/\"",
+        "wait \"[data-testid=composer-input]\"",
+        "fill \"[data-testid=composer-input]\" \"$QUESTION\"",
+        "click \"[data-testid=send]\"",
+        "wait \"[data-testid=answer-actions]\"   # tối đa 120000 ms",
+        "get text \"[data-testid=citation]\"",
+        "snapshot -i"
+      ],
+      "expected": [
+        {"id": "E1", "kind": "text_matches", "target": "[data-testid=citation]", "op": "matches_any", "value": "^\\[text_12p\\.pdf – tr\\. 12\\]$"}
+      ]
+    }
+  ]
+}

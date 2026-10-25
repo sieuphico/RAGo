@@ -13,7 +13,11 @@
       "Bash(alembic:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Edit(reports/**)",
+      "Write(reports/**)",
+      "Bash(agent-browser:*)",
+      "Bash(npx agent-browser:*)"
     ],
     "ask": [
       "Bash(git push:*)"
