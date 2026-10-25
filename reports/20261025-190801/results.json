@@ -1,0 +1,281 @@
+{
+  "run_id": "20261025-190801",
+  "commit": "a241cf8",
+  "profile": "ollama",
+  "spec_sha256": "6ccbda85c37d1a42fb089ea861329baaedaecc5722afac20066c761013ad262a",
+  "started": "2026-10-25T19:08:02+07:00",
+  "finished": "2026-10-25T19:09:57+07:00",
+  "tcs": [
+    {
+      "assertions": [
+        {
+          "id": "E1",
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "id": "E2",
+          "actual": [
+            "text_12p.pdf"
+          ],
+          "pass": true
+        },
+        {
+          "id": "E3",
+          "actual": [
+            "Đang xử lý"
+          ],
+          "pass": true
+        }
+      ],
+      "cli_elapsed_ms": 1390,
+      "evidence": [
+        "TC-UP-01/screenshot.png",
+        "TC-UP-01/console.txt"
+      ],
+      "notes": "Đo trong trang: XHR POST /documents kết thúc → hàng xuất hiện. Tham khảo: theo CLI (gồm ~0,5 s khởi chạy mỗi lệnh) = 1390 ms.",
+      "verdict": "PASS",
+      "id": "TC-UP-01",
+      "ac": "US-010/AC1",
+      "covers": "full",
+      "seconds": 12.3
+    },
+    {
+      "assertions": [
+        {
+          "id": "E1",
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "id": "E2",
+          "actual": [
+            "[text_12p.pdf – tr. 12]"
+          ],
+          "pass": true
+        }
+      ],
+      "evidence": [
+        "TC-UP-02/screenshot.png",
+        "TC-UP-02/console.txt"
+      ],
+      "verdict": "PASS",
+      "id": "TC-UP-02",
+      "ac": "US-010/AC2",
+      "covers": "full",
+      "seconds": 22.7
+    },
+    {
+      "assertions": [
+        {
+          "id": "r1-E1",
+          "actual": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026. \n[text_12p.pdf – tr. 12]",
+          "pass": true
+        },
+        {
+          "id": "r1-E2",
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "id": "r2-E1",
+          "actual": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026. \n[text_12p.pdf – tr. 12]",
+          "pass": true
+        },
+        {
+          "id": "r2-E2",
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "id": "r3-E1",
+          "actual": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026. \n[text_12p.pdf – tr. 12]",
+          "pass": true
+        },
+        {
+          "id": "r3-E2",
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "runs": [
+        {
+          "assertions": [
+            {
+              "id": "E1",
+              "actual": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026. \n[text_12p.pdf – tr. 12]",
+              "pass": true
+            },
+            {
+              "id": "E2",
+              "actual": 1,
+              "pass": true
+            }
+          ],
+          "evidence": [
+            "TC-QA-01/screenshot.png",
+            "TC-QA-01/console.txt"
+          ]
+        },
+        {
+          "assertions": [
+            {
+              "id": "E1",
+              "actual": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026. \n[text_12p.pdf – tr. 12]",
+              "pass": true
+            },
+            {
+              "id": "E2",
+              "actual": 1,
+              "pass": true
+            }
+          ],
+          "evidence": [
+            "TC-QA-01/screenshot.png",
+            "TC-QA-01/console.txt"
+          ]
+        },
+        {
+          "assertions": [
+            {
+              "id": "E1",
+              "actual": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026. \n[text_12p.pdf – tr. 12]",
+              "pass": true
+            },
+            {
+              "id": "E2",
+              "actual": 1,
+              "pass": true
+            }
+          ],
+          "evidence": [
+            "TC-QA-01/screenshot.png",
+            "TC-QA-01/console.txt"
+          ]
+        }
+      ],
+      "verdict": "PASS",
+      "id": "TC-QA-01",
+      "ac": "US-020/AC1",
+      "covers": "full",
+      "seconds": 34.2
+    },
+    {
+      "assertions": [
+        {
+          "id": "E1",
+          "actual": "disabled",
+          "pass": true
+        },
+        {
+          "id": "E2",
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "id": "E3",
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "evidence": [
+        "TC-QA-02/screenshot.png",
+        "TC-QA-02/console.txt"
+      ],
+      "verdict": "PASS",
+      "id": "TC-QA-02",
+      "ac": "US-020/AC3",
+      "covers": "full",
+      "seconds": 11.3
+    },
+    {
+      "assertions": [
+        {
+          "id": "E1",
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "id": "E2",
+          "actual": [
+            "[text_12p.pdf – tr. 12]"
+          ],
+          "pass": true
+        },
+        {
+          "id": "E3",
+          "actual": "Hợp đồng số HD-2026-012 có thời hạn 24 tháng kể từ 01/03/2026. \n[text_12p.pdf – tr. 12]",
+          "pass": true
+        }
+      ],
+      "evidence": [
+        "TC-CITE-01/screenshot.png",
+        "TC-CITE-01/console.txt"
+      ],
+      "verdict": "PASS",
+      "id": "TC-CITE-01",
+      "ac": "US-022/AC1",
+      "covers": "full",
+      "seconds": 11.2
+    },
+    {
+      "assertions": [
+        {
+          "id": "E1",
+          "actual": 12,
+          "pass": true
+        },
+        {
+          "id": "E2",
+          "actual": [
+            "text_12p.pdf"
+          ],
+          "pass": true
+        },
+        {
+          "id": "E3",
+          "actual": [
+            "Trang 12 / 12"
+          ],
+          "pass": true
+        },
+        {
+          "id": "E4",
+          "actual": "/api/v1/documents/71c00576-6fba-4831-a836-7e36ace130fd/file#page=12",
+          "pass": true
+        }
+      ],
+      "notes": "N (từ thẻ) = 12. Thời gian đo trong trang (JS click → khung xem xuất hiện); không đọc được nội dung trong iframe.",
+      "evidence": [
+        "TC-CITE-02/screenshot.png",
+        "TC-CITE-02/console.txt"
+      ],
+      "verdict": "PASS",
+      "id": "TC-CITE-02",
+      "ac": "US-022/AC2",
+      "covers": "full",
+      "seconds": 12.7
+    },
+    {
+      "assertions": [
+        {
+          "id": "E1",
+          "actual": [
+            "[text_12p.pdf – tr. 12]"
+          ],
+          "pass": true
+        }
+      ],
+      "notes": "Mẫu n=1, không đóng US-022/AC3.",
+      "evidence": [
+        "TC-CITE-03/screenshot.png",
+        "TC-CITE-03/console.txt"
+      ],
+      "verdict": "PASS",
+      "id": "TC-CITE-03",
+      "ac": "US-022/AC3",
+      "covers": "partial",
+      "seconds": 10.0
+    }
+  ]
+}

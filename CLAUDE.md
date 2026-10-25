@@ -34,6 +34,9 @@ agent-browser close                                  # đóng phiên khi xong TC
 ```
 Dùng selector `[data-testid=...]` đúng như `spec.json`. Cookie phiên có cờ Secure; `localhost` được trình duyệt coi là an toàn nên đăng nhập bình thường.
 
+### Bộ chạy
+`python scripts/e2e/run_e2e.py <RUN_ID> [TC-ID ...]` thực hiện các bước trong `spec.json` (mỗi TC/lượt lặp một phiên agent-browser), chấm bằng chính giá trị kỳ vọng trong spec và ghi `results.json`, `commands.log`, bằng chứng vào `reports/<RUN_ID>/`; `report.md` viết theo mẫu từ `results.json`. Mỗi lệnh CLI tốn ≈ 0,5 s nên thời gian của US-010/AC1 và US-022/AC2 được đo trong trang (`eval`); lệnh `agent-browser` phải ghi đầu ra ra file (daemon giữ ống đầu ra nên `| tail` sẽ treo). Windows: dùng bản gốc `agent-browser-win32-x64.exe` (nhanh gấp đôi shim `.cmd`).
+
 ### Thư mục và mẫu báo cáo
 Mọi kết quả ghi vào `./reports/<RUN_ID>/` (`RUN_ID` = `YYYYMMDD-HHMMSS`): `report.md` theo [mẫu](tests/e2e/report-template.md), `results.json`, và `<TC-ID>/` chứa `snapshot-before.txt`, `snapshot-after.txt`, `screenshot.png`, `console.txt`. Không ghi đè một lần chạy cũ.
 

@@ -85,7 +85,7 @@ US-013 ⛔ chờ chọn OCR (T-004, T-010). US-001 ⛔ chờ giao thức SSO (T-
 
 ## Kiểm thử E2E
 
-Hai story xương sống: [test plan](../tests/e2e/TEST_PLAN.md), [ma trận AC↔TC](../tests/e2e/AC_TC_MATRIX.md) (13 AC, 7 TC). Chưa chạy lần nào (Docker tắt khi soạn); kết quả sẽ ở `reports/`.
+Hai story xương sống: [test plan](../tests/e2e/TEST_PLAN.md), [ma trận AC↔TC](../tests/e2e/AC_TC_MATRIX.md) (13 AC, 7 TC). Lần chạy đầu `20261025-190801` (commit a241cf8, ollama): 7/7 PASS, 6/6 AC đo được có TC full PASS; xem `reports/20261025-190801/report.md`. US-020/AC2 và US-022/AC3 chưa đo được.
 
 ## ADR
 
