@@ -66,8 +66,8 @@ Mỗi giai đoạn bắt đầu bằng khảo sát có mục tiêu (không đọ
 ```text
 Bạn là điều phối viên SDLC. Tài liệu đầu vào: <đường_dẫn_BRD>. Dự án: <tên>, thư mục <đường_dẫn>.
 
-Thực hiện toàn bộ quy trình trong docs/workflow/SDLC_AGENTIC_WORKFLOW.md (đọc file đó và
-docs/workflow/LESSONS_LEARNED.md trước, rồi SDLC-Prompt-Checklist/AI_SDLC-SOP.md mục 5.2–5.7).
+Thực hiện toàn bộ quy trình trong .claude/skills/sdlc-run/references/SDLC_AGENTIC_WORKFLOW.md (đọc file đó và
+LESSONS_LEARNED.md cùng thư mục trước, rồi SDLC-Prompt-Checklist/AI_SDLC-SOP.md mục 5.2–5.7).
 Chạy lần lượt giai đoạn 0→6. Tại mỗi giai đoạn:
 1. Giao việc nặng cho tác tử con; dùng prompt và checklist trong SDLC-Prompt-Checklist/ tương ứng.
 2. Khảo sát có mục tiêu, rồi hỏi tôi MỘT đợt câu hỏi bằng AskUserQuestion (≤ 4 câu, phương án khuyến nghị đứng đầu).

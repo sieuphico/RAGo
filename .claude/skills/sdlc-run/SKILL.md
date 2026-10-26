@@ -8,8 +8,10 @@ description: Chạy toàn bộ SDLC agentic từ một BRD: phân tích, thiết
 Đầu vào: BRD tại đường dẫn người dùng đưa (`$ARGUMENTS`). Nếu thiếu, hỏi một câu.
 
 ## Đọc trước (bắt buộc)
-1. `docs/workflow/SDLC_AGENTIC_WORKFLOW.md` — giai đoạn, cổng, mẫu báo cáo, quyền hạn.
-2. `docs/workflow/LESSONS_LEARNED.md` — các lỗi đã gặp, không lặp lại.
+1. `references/SDLC_AGENTIC_WORKFLOW.md` (cạnh file này) — giai đoạn, cổng, mẫu báo cáo, quyền hạn. Đọc đủ ở giai đoạn 0, sau đó tra lại mục của giai đoạn đang chạy.
+2. `references/LESSONS_LEARNED.md` (cạnh file này) — các lỗi đã gặp, không lặp lại. Đọc ở giai đoạn 0.
+
+`STATE.md` và `DECISIONS.md` là trạng thái của dự án, tạo và giữ trong `docs/workflow/` của repo dự án (không nằm trong skill).
 3. `SDLC-Prompt-Checklist/AI_SDLC-SOP.md` mục 5.2–5.7 và prompt/checklist của từng giai đoạn trong thư mục `analysis/`, `design/`, `verification/`.
 4. `AGENTS.md`, `CLAUDE.md` nếu có (quy ước dự án).
 
