@@ -12,7 +12,7 @@ description: Chạy toàn bộ SDLC agentic từ một BRD: phân tích, thiết
 2. `references/LESSONS_LEARNED.md` (cạnh file này) — các lỗi đã gặp, không lặp lại. Đọc ở giai đoạn 0.
 
 `STATE.md` và `DECISIONS.md` là trạng thái của dự án, tạo và giữ trong `docs/workflow/` của repo dự án (không nằm trong skill).
-3. `SDLC-Prompt-Checklist/AI_SDLC-SOP.md` mục 5.2–5.7 và prompt/checklist của từng giai đoạn trong thư mục `analysis/`, `design/`, `verification/`.
+3. `SDLC-Prompt-Checklist/AI_SDLC-SOP.md` mục 5.2–5.7 và prompt/checklist của từng giai đoạn trong thư mục `intake/` (G0), `analysis/` (G1), `design/` (G2), `planning/` (G3), `implementation/` (G4), `verification/` (G5), `report/` (G6).
 4. `AGENTS.md`, `CLAUDE.md` nếu có (quy ước dự án).
 
 ## Quy tắc cứng
